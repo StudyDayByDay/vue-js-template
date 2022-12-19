@@ -30,7 +30,7 @@
             />
             <!-- 名称 -->
             <span>
-              {{ item.meta.title }}
+              {{ t(item.meta.title) }}
             </span>
           </div>
         </template>
@@ -55,7 +55,7 @@
         @click="handleCommand(item.command)"
       >
         <component class="icon" theme="filled" size="14" :strokeWidth="3" :is="item.icon" />
-        <span class="command-label">{{ item.text }}</span>
+        <span class="command-label">{{ t(item.text) }}</span>
       </div>
     </el-popover>
   </div>
@@ -85,27 +85,27 @@
         commandList: [
           {
             command: 'refreshRoute',
-            text: t('tagsView.refresh'),
+            text: 'tagsView.refresh',
             icon: 'icon-refresh',
           },
           {
             command: 'closeOtherstabs',
-            text: t('tagsView.closeOthers'),
+            text: 'tagsView.closeOthers',
             icon: 'icon-close',
           },
           {
             command: 'closeLefttabs',
-            text: t('tagsView.closeLeft'),
+            text: 'tagsView.closeLeft',
             icon: 'icon-to-left',
           },
           {
             command: 'closeRighttabs',
-            text: t('tagsView.closeRight'),
+            text: 'tagsView.closeRight',
             icon: 'icon-to-right',
           },
           {
             command: 'closeAlltabs',
-            text: t('tagsView.closeAll'),
+            text: 'tagsView.closeAll',
             icon: 'icon-minus',
           },
         ],
@@ -298,6 +298,7 @@
 
       return {
         ...toRefs(state),
+        t,
         visitedRouteList,
         routes,
         mode,

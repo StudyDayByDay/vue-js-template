@@ -155,7 +155,9 @@
   });
 
   const initChart = () => {
+    // 从echarts官网自定义主题，自己取名字
     echarts.registerTheme('wonderland', theme);
+    // 使用自定义的主题
     chart = echarts.init(document.getElementById('echarts' + props.index), theme);
     // 绘制图表
     chart.setOption({

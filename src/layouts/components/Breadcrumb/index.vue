@@ -9,7 +9,7 @@
         strokeWidth="3"
         :is="item.meta.icon"
       />
-      {{ item.meta.title }}
+      {{ t(item.meta.title) }}
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -23,6 +23,9 @@
 <script setup>
   import { computed } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
+
+  const { t } = useI18n();
   const router = useRouter();
   let list = computed(() => {
     const { matched } = router.currentRoute.value;

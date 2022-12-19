@@ -9,7 +9,8 @@ import 'nprogress/nprogress.css';
 import { getPageTitle } from '@/utils/index';
 import { setting } from '@/config/setting';
 const { authentication, loginInterception, progressBar, routesWhiteList, recordRoute } = setting;
-
+import i18n from '@/locales';
+const { t } = i18n.global;
 NProgress.configure({
   easing: 'ease',
   speed: 500,
@@ -71,7 +72,7 @@ router.beforeEach(async (to, from, next) => {
       if (progressBar) NProgress.done();
     }
   }
-  document.title = getPageTitle(to.meta.title);
+  document.title = getPageTitle(t(to.meta.title));
 });
 router.afterEach(() => {
   if (progressBar) NProgress.done();

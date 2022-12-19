@@ -16,7 +16,7 @@
     <!-- 标题 -->
     <template #title>
       <span class="title">
-        {{ item.children ? item.children[0].meta.title : item.meta.title }}
+        {{ item.children ? t(item.children[0].meta.title) : t(item.meta.title) }}
       </span>
     </template>
   </el-menu-item>
@@ -31,7 +31,7 @@
         strokeWidth="3"
         :is="item.meta.icon"
       />
-      <span class="title">{{ item.meta.title }}</span>
+      <span class="title">{{ t(item.meta.title) }}</span>
     </template>
     <!-- 默认插槽 -->
     <template v-for="(option, index) in item.children">
@@ -46,7 +46,7 @@
           :is="option.meta.icon"
         />
         <span class="title">
-          {{ option.meta.title }}
+          {{ t(option.meta.title) }}
         </span>
       </el-menu-item>
     </template>
@@ -60,10 +60,13 @@
 </script>
 
 <script setup>
+  import { useI18n } from 'vue-i18n';
   import { computed } from 'vue';
   import { useStore } from 'vuex';
 
   import { themeConfig } from '@/config/theme';
+
+  const { t } = useI18n();
   const { themeOptions } = themeConfig;
 
   const whiteColors = ['#fff', '#ffffff', '#FFF', '#FFF', 'rgb(255, 255, 255)'];

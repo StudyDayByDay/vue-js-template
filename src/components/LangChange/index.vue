@@ -20,12 +20,17 @@
 <script setup>
   import { reactive, computed } from 'vue';
   import { useStore } from 'vuex';
+  import { useRoute } from 'vue-router';
+  import i18n from '@/locales';
+  import { getPageTitle } from '@/utils/index';
   defineProps({
     color: {
       type: String,
       default: '#666',
     },
   });
+
+  const route = useRoute();
   const languages = reactive([
     {
       name: '简体中文',
@@ -45,7 +50,10 @@
 
   const handleSetLanguage = (lang) => {
     store.dispatch('setting/changeLanguage', lang);
-    location.reload();
+    // location.reload();
+    i18n.global.locale.value = lang;
+    document.title = getPageTitle(i18n.global.t(route.meta.title));
+    console.log(route.meta.title, '123');
   };
 </script>
 

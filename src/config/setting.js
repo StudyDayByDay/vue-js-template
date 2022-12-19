@@ -53,7 +53,7 @@ export const setting = {
   //token存储位置localStorage sessionStorage
   storage: 'localStorage',
   // 标题
-  title: 'vue3-admin-template',
+  title: '项目名称',
   // 版权信息
   copyright: '© hu-snail-2021 vue3-admin-element-template',
   // 是否显示页面底部自定义版权信息

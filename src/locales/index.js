@@ -21,10 +21,12 @@ const messages = {
 };
 
 export const getLocale = () => {
+  // 获取cookie里面的语言，有的话就用
   const cookieLanguage = getLanguage();
   if (cookieLanguage) {
     return cookieLanguage;
   }
+  // 没有，就用浏览器的语言
   const language = navigator.language.toLowerCase();
   const locales = Object.keys(messages);
   for (const locale of locales) {
@@ -37,7 +39,9 @@ export const getLocale = () => {
 };
 
 const i18n = createI18n({
+  // 设置语言
   locale: getLocale(),
+  // 设置信息
   messages: messages,
 });
 

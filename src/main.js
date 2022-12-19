@@ -34,6 +34,7 @@ app.use(store);
 import iconPark from './plugin/icon-park';
 iconPark(app);
 
+// 注册国际化
 import loadI18n from './plugin/i18n';
 loadI18n(app);
 
