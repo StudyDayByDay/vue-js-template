@@ -1,7 +1,7 @@
 <template>
   <el-menu-item
     :key="item.path"
-    :index="item.children ? item.children[0].path : item.path"
+    :index="item.children ? realPath(item.path, item.children[0].path) : item.path"
     v-if="!item.meta || !item.children"
   >
     <!-- 默认插槽 -->
@@ -36,7 +36,7 @@
     <!-- 默认插槽 -->
     <template v-for="(option, index) in item.children">
       <menu-item v-if="option.children" :key="option.path" :item="option" />
-      <el-menu-item v-else :index="option.path" :key="index">
+      <el-menu-item v-else :index="realPath(item.path, option.path)" :key="index">
         <component
           class="menu-icon"
           v-if="option.meta.icon"
@@ -65,6 +65,7 @@
   import { useStore } from 'vuex';
 
   import { themeConfig } from '@/config/theme';
+  import path from "path-browserify";
 
   const { t } = useI18n();
   const { themeOptions } = themeConfig;
@@ -93,6 +94,11 @@
   const isBlack = computed(() => {
     return whiteColors.indexOf(menuBgColor.value) === -1;
   });
+
+  const realPath = (fPath, sPath) => {
+    return path.resolve(fPath, sPath);
+  }
+
 </script>
 <style lang="scss" scoped>
   .menu-icon,

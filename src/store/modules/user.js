@@ -1,7 +1,8 @@
-import { getUserInfo, login } from '@/api/user';
+import { myAccount, getMenuAndPermission, login } from '@/api/user';
 import { getAccessToken, removeAccessToken, setAccessToken } from '@/utils/accessToken';
 
 import { setting } from '@/config/setting';
+// title: 项目名称   ,tokenName: accessToken     Admin-Token
 const { title, tokenName } = setting;
 import { resetRouter } from '@/router';
 
@@ -12,14 +13,18 @@ import { ElMessage, ElNotification } from 'element-plus';
 
 const state = {
   accessToken: getAccessToken(),
-  username: '',
+  accountId: '',
+  userName: '',
+  currentRole: '',
   avatar: '',
   permissions: [],
 };
 
 const getters = {
   accessToken: (state) => state.accessToken,
-  username: (state) => state.username,
+  accountId: (state) => state.accountId,
+  userName: (state) => state.userName,
+  currentRole: (state) => state.currentRole,
   avatar: (state) => state.avatar,
   permissions: (state) => state.permissions,
 };
@@ -28,8 +33,14 @@ const mutations = {
     state.accessToken = accessToken;
     setAccessToken(accessToken);
   },
-  setUsername(state, username) {
-    state.username = username;
+  setAccountId(state, accountId) {
+    state.accountId = accountId;
+  },
+  setUserName(state, userName) {
+    state.userName = userName;
+  },
+  setCurrentRole(state, currentRole) {
+    state.currentRole = currentRole;
   },
   setAvatar(state, avatar) {
     state.avatar = avatar;
@@ -44,7 +55,7 @@ const actions = {
   },
   async login({ commit }, userInfo) {
     const { data } = await login(userInfo);
-    const accessToken = data[tokenName];
+    const accessToken = data;
     if (accessToken) {
       commit('setAccessToken', accessToken);
       const hour = new Date().getHours();
@@ -68,21 +79,29 @@ const actions = {
     }
   },
   async getUserInfo({ commit, state }) {
-    const { data } = await getUserInfo(state.accessToken);
-    if (!data) {
-      ElMessage.error('验证失败，请重新登录...');
-      return false;
-    }
-    let { permissions, username, avatar } = data;
-    if (permissions && username && Array.isArray(permissions)) {
-      commit('setPermissions', permissions);
-      commit('setUsername', username);
-      commit('setAvatar', avatar);
-      return permissions;
-    } else {
-      ElMessage.error('用户信息接口异常');
-      return false;
-    }
+    const { data: {id, userName} } = await myAccount();
+    commit('setAccountId', id);
+    commit('setUserName', userName);
+
+    return new Promise((resolve, reject) => {
+      getMenuAndPermission().then(({data: {currentRole, permissions}, data}) => {
+        commit('setCurrentRole', currentRole);
+        commit('setPermissions', permissions);
+        resolve(data);
+      }).catch((error) => {
+        reject(error)
+      })
+    });
+    // let { permissions, username, avatar } = data;
+    // if (permissions && username && Array.isArray(permissions)) {
+    //   commit('setPermissions', permissions);
+    //   commit('setUsername', username);
+    //   commit('setAvatar', avatar);
+    //   return permissions;
+    // } else {
+    //   ElMessage.error('用户信息接口异常');
+    //   return false;
+    // }
   },
   async logout({ dispatch }) {
     // await logout(state.accessToken);

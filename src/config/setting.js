@@ -43,7 +43,7 @@ export const setting = {
   //是否开启登录拦截
   loginInterception: true,
   //token在localStorage、sessionStorage存储的key的名称
-  tokenTableName: 'vue3-admin-template',
+  tokenTableName: 'Admin-Token',
   // lang storage
   langKey: 'i18nLang',
   // theme storage
@@ -60,8 +60,6 @@ export const setting = {
   footerCopyright: true,
   // 缓存路由的最大数量
   keepAliveMaxNum: 99,
-  // intelligence 前端控制路由 all 后端控制
-  authentication: 'intelligence',
   //token失效回退到登录页时是否记录本次的路由
   recordRoute: true,
   // 路由白名单不经过token校验的路由

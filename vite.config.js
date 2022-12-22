@@ -82,6 +82,7 @@ export default defineConfig({
     Icons({
       autoInstall: true,
     }),
+    // 注释掉这部分，mock就失效
     viteMockServe({
       mockPath: 'mock',
       supportTs: false,
@@ -104,6 +105,18 @@ export default defineConfig({
     fs: {
       strict: false,
     },
+    proxy: {
+      // [import.meta.env.VITE_BASE_API]: {
+      //   target: `http://192.168.0.222:8081`,
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace(new RegExp(`^${import.meta.env.VITE_BASE_API}`), ''),
+      // },
+      '/dev-api': {
+        target: `http://192.168.0.222:8081`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/dev-api/, ""),
+      }
+    }
   },
 
   resolve: {

@@ -1,24 +1,21 @@
 import { asyncRoutes, constantRoutes } from '@/router';
-import { getRouterList } from '@/api/router';
-import { convertRouter, filterAsyncRoutes } from '@/utils/handleRoutes';
+import { filterAsyncRoutes, getRealRoutes, getFirstPath } from '@/utils/handleRoutes';
+import store from '@/store';
+import { cloneDeep } from 'lodash-es';
 
 const state = () => ({
+  homePath: '/',
   routes: [],
-  partialRoutes: [],
 });
 const getters = {
   routes: (state) => state.routes,
-  partialRoutes: (state) => state.partialRoutes,
 };
 const mutations = {
   setRoutes(state, routes) {
     state.routes = constantRoutes.concat(routes);
   },
-  setAllRoutes(state, routes) {
-    state.routes = constantRoutes.concat(routes);
-  },
-  setPartialRoutes(state, routes) {
-    state.partialRoutes = constantRoutes.concat(routes);
+  setHomePath(state, homePath) {
+    state.homePath = homePath;
   },
 };
 const actions = {
@@ -28,16 +25,33 @@ const actions = {
     commit('setRoutes', finallyAsyncRoutes);
     return finallyAsyncRoutes;
   },
-  async setAllRoutes({ commit }) {
-    let { data } = await getRouterList();
-    // data.push({ path: '*', redirect: '/404', hidden: true });
-    let accessRoutes = convertRouter(data);
-    commit('setAllRoutes', accessRoutes);
-    return accessRoutes;
-  },
-  setPartialRoutes({ commit }, accessRoutes) {
-    commit('setPartialRoutes', accessRoutes);
-    return accessRoutes;
+  // 根据权限过滤路由
+  handleRoutes({ commit }) {
+    return new Promise((resolve, reject) => {
+      const permissionKey = store.getters['user/currentRole'];
+      let allowRoutes = [];
+      let homePath = '/';
+
+      // 这里的roleMenu就是取到从后台返回的一个权限数组里面的项类似'menu/sys_role'
+      const roleMenu = store.getters['user/permissions'][permissionKey] || [];
+      // debugger
+      allowRoutes = getRealRoutes(cloneDeep(asyncRoutes), roleMenu);
+      homePath = getFirstPath(allowRoutes) || '/404';
+
+      if (!allowRoutes.length) {
+        reject('未设置页面权限');
+        return;
+      }
+
+      commit('setRoutes', allowRoutes);
+      commit('setHomePath', homePath);
+      // 这里没添加成功，网上查了说可能是路由里面的() => import问题，这里面的component是字符串。不能采用这种方式
+      // 要换一种，用路径过滤，不过滤路由
+      // allowRoutes.forEach((route) => {
+      //   router.addRoute(route);
+      // });
+      resolve(allowRoutes);
+    });
   },
 };
 export default { state, getters, mutations, actions };

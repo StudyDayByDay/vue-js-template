@@ -56,8 +56,8 @@
       const validateForm = ref(null);
       const state = reactive({
         ruleForm: {
-          username: 'admin',
-          password: 'admin',
+          username: 'fc_yaan_admin',
+          password: '123456',
         },
         loading: false,
         checkedPwd: false,
@@ -87,7 +87,7 @@
             state.valid = true;
             state.loading = true;
             store
-              .dispatch('user/login', state.ruleForm)
+              .dispatch('user/login', {...state.ruleForm, UUID: "ignore", captcha: ""})
               .then(() => {
                 const routerPath =
                   state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;

@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Layout from '@/layouts/index.vue';
 // import i18n from '@/locales';
 // const { global } = i18n;
@@ -18,12 +18,12 @@ export const constantRoutes = [
     component: () => import('@/views/errorPage/401.vue'),
     hidden: true,
   },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/errorPage/404.vue'),
-    hidden: true,
-  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   name: '404',
+  //   component: () => import('@/views/errorPage/404.vue'),
+  //   hidden: true,
+  // },
 ];
 
 export const asyncRoutes = [
@@ -48,7 +48,7 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/comp',
+    path: '/manage',
     component: Layout,
     name: 'Comp',
     meta: { 
@@ -58,7 +58,7 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: '/element',
+        path: 'user',
         name: 'ElementComp',
         component: () => import('@/views/element/index.vue'),
         meta: {
@@ -68,7 +68,7 @@ export const asyncRoutes = [
         },
       },
       {
-        path: '/iconPark',
+        path: 'role',
         name: 'IconPark',
         component: () => import('@/views/icon/index.vue'),
         meta: {
@@ -77,45 +77,45 @@ export const asyncRoutes = [
           icon: 'icon-like',
         },
       },
-      {
-        path: '/chart',
-        name: 'Chart',
-        component: () => import('@/views/echarts/index.vue'),
-        meta: {
-          // title: global.t('route.charts'),
-          title: 'route.charts',
-          icon: 'icon-chart-line',
-        },
-        children: [
-          {
-            path: '/line',
-            name: 'Line',
-            component: () => import('@/views/echarts/line.vue'),
-            meta: {
-              // title: global.t('route.lineChart'),
-              title: 'route.lineChart',
-            },
-          },
-          {
-            path: '/bar',
-            name: 'Bar',
-            component: () => import('@/views/echarts/bar.vue'),
-            meta: {
-              // title: global.t('route.barChart'),
-              title: 'route.barChart',
-            },
-          },
-          {
-            path: '/otherChart',
-            name: 'OtherChart',
-            component: () => import('@/views/echarts/other.vue'),
-            meta: {
-              // title: global.t('route.mixedChart'),
-              title: 'route.mixedChart',
-            },
-          },
-        ],
-      },
+      // {
+      //   path: '/chart',
+      //   name: 'Chart',
+      //   component: () => import('@/views/echarts/index.vue'),
+      //   meta: {
+      //     // title: global.t('route.charts'),
+      //     title: 'route.charts',
+      //     icon: 'icon-chart-line',
+      //   },
+      //   children: [
+      //     {
+      //       path: '/line',
+      //       name: 'Line',
+      //       component: () => import('@/views/echarts/line.vue'),
+      //       meta: {
+      //         // title: global.t('route.lineChart'),
+      //         title: 'route.lineChart',
+      //       },
+      //     },
+      //     {
+      //       path: '/bar',
+      //       name: 'Bar',
+      //       component: () => import('@/views/echarts/bar.vue'),
+      //       meta: {
+      //         // title: global.t('route.barChart'),
+      //         title: 'route.barChart',
+      //       },
+      //     },
+      //     {
+      //       path: '/otherChart',
+      //       name: 'OtherChart',
+      //       component: () => import('@/views/echarts/other.vue'),
+      //       meta: {
+      //         // title: global.t('route.mixedChart'),
+      //         title: 'route.mixedChart',
+      //       },
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -127,9 +127,10 @@ export const asyncRoutes = [
       title: 'route.errorPages',
       icon: 'icon-link-cloud-faild',
     },
+    // 这种写法，父path不是/的时候，子path前面不能加/
     children: [
       {
-        path: '/404Page',
+        path: '404Page',
         name: '404Page',
         component: () => import('@/views/errorPage/404.vue'),
         meta: {
@@ -139,7 +140,7 @@ export const asyncRoutes = [
         },
       },
       {
-        path: '/401Page',
+        path: '401Page',
         name: '401Page',
         component: () => import('@/views/errorPage/401.vue'),
         meta: {
@@ -158,8 +159,19 @@ export const asyncRoutes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes: constantRoutes,
+  // history: createWebHashHistory(),
+  history: createWebHistory(),
+  routes: [
+    ...constantRoutes,
+    ...asyncRoutes,
+    {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('@/views/errorPage/404.vue'),
+    hidden: true,
+    }
+  ],
+  scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
 // reset router
