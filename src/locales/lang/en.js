@@ -188,4 +188,7 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
   },
+  carver: {
+    title: 'carver'
+  },
 };

@@ -45,13 +45,12 @@ const actions = {
 
       commit('setRoutes', allowRoutes);
       commit('setHomePath', homePath);
-      // 这里没添加成功，网上查了说可能是路由里面的() => import问题，这里面的component是字符串。不能采用这种方式
-      // 要换一种，用路径过滤，不过滤路由
-      // allowRoutes.forEach((route) => {
-      //   router.addRoute(route);
-      // });
-      resolve(allowRoutes);
+      resolve(constantRoutes.concat(allowRoutes));
     });
   },
+  clearRoutes({commit}) {
+    commit('setRoutes', []);
+    commit('setHomePath', '/');
+  }
 };
 export default { state, getters, mutations, actions };

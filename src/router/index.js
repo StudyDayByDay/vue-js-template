@@ -18,6 +18,26 @@ export const constantRoutes = [
     component: () => import('@/views/errorPage/401.vue'),
     hidden: true,
   },
+  {
+    path: '/plugin',
+    component: Layout,
+    redirect: '/carver',
+    name: 'plugin',
+    children: [
+      {
+        path: '/carver',
+        name: 'carver',
+        component: () => import('../views/carver/index.vue'),
+        meta: {
+          // title: global.t('route.home'),
+          title: 'carver.title',
+          icon: 'icon-home',
+          affix: true,
+          noKeepAlive: true,
+        },
+      },
+    ]
+  },
   // {
   //   path: '/:pathMatch(.*)*',
   //   name: '404',
@@ -41,7 +61,7 @@ export const asyncRoutes = [
           // title: global.t('route.home'),
           title: 'route.home',
           icon: 'icon-home',
-          affix: true,
+          // affix: true,
           noKeepAlive: true,
         },
       },

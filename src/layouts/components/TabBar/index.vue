@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import { reactive, watch, toRefs, computed, nextTick } from 'vue';
+  import { reactive, watch, toRefs, computed, nextTick, onMounted } from 'vue';
   import { useStore } from 'vuex';
   import { useRouter } from 'vue-router';
 
@@ -163,7 +163,7 @@
       };
 
       watch(
-        () => router.currentRoute.value,
+        [routes, () => router.currentRoute.value],
         () => {
           inittabs();
           addtabs();
@@ -177,6 +177,10 @@
         },
         { immediate: true }
       );
+
+      // watch(routes, inittabs(),
+      //   { immediate: true }
+      // );
 
       const isActive = (route) => {
         return route.path === router.currentRoute.value.path;

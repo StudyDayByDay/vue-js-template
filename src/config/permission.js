@@ -1,7 +1,3 @@
-/**
- * @author hujiangjun 1217437592@qq.com
- * @description 路由控制
- */
 import router from '@/router';
 import store from '@/store';
 import NProgress from 'nprogress';
@@ -20,11 +16,11 @@ NProgress.configure({
   showSpinner: false,
 });
 router.beforeEach(async (to, from) => {
-  console.log(to, '登录之后要去哪里');
   if (progressBar) NProgress.start();
 
   const hasToken = store.getters['user/accessToken'];
   const currentRole = store.getters['user/currentRole'];
+  const routes = store.getters['routes/routes'];
 
   if (hasToken) {
     // 跳过登录页面，直接去首页
@@ -34,24 +30,26 @@ router.beforeEach(async (to, from) => {
       // next({ path: '/' });
     } else {
       if (currentRole) {
-        // next();
-        return true;
+        const result = checkPathIsInPermissions(routes, to.path);
+        if (result) {
+          return true;
+        }
+        return false;
       } else {
         // 未获取权限，需要先请求权限
         try {
-          store.dispatch('user/getUserInfo').then(async () => {
-            const routes = await store.dispatch('routes/handleRoutes');
-  
-            const result = checkPathIsInPermissions(routes, to.path);
-            if (result) {
-              // next({ ...to, replace: true });
-              console.log(router, '什么情况啊1111');
-              return {...to, replace: true};
-            } else {
-              const path = store.getters['routes/homePath'];
-              // next({ path, replace: true });
-              return {path, replace: true}
-            }
+          store.dispatch('user/getUserInfo').then(() => {
+            store.dispatch('routes/handleRoutes').then((routes) => {
+              const result = checkPathIsInPermissions(routes, to.path);
+              if (result) {
+                // next({ ...to, replace: true });
+                return {...to, replace: true};
+              } else {
+                const path = store.getters['routes/homePath'];
+                // next({ path, replace: true });
+                return {path, replace: true}
+              }
+            });
           });
         } catch {
           // 登出操作
@@ -75,7 +73,6 @@ router.beforeEach(async (to, from) => {
         // next('/login');
         return {path: '/login'}
       }
-      if (progressBar) NProgress.done();
     }
   }
 });

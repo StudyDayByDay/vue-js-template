@@ -57,3 +57,10 @@ export const getMenuAndPermission = () => {
     method: "get"
   })
 };
+
+export const loginOut = () => {
+  return request({
+    url: "/logout",
+    method: "post"
+  })
+};

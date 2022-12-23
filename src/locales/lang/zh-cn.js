@@ -185,4 +185,7 @@ export default {
     confirm: '确定',
     cancel: '取消',
   },
+  carver: {
+    title: '划词器'
+  }
 };

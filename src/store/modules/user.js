@@ -1,4 +1,4 @@
-import { myAccount, getMenuAndPermission, login } from '@/api/user';
+import { myAccount, getMenuAndPermission, login, loginOut } from '@/api/user';
 import { getAccessToken, removeAccessToken, setAccessToken } from '@/utils/accessToken';
 
 import { setting } from '@/config/setting';
@@ -92,25 +92,20 @@ const actions = {
         reject(error)
       })
     });
-    // let { permissions, username, avatar } = data;
-    // if (permissions && username && Array.isArray(permissions)) {
-    //   commit('setPermissions', permissions);
-    //   commit('setUsername', username);
-    //   commit('setAvatar', avatar);
-    //   return permissions;
-    // } else {
-    //   ElMessage.error('用户信息接口异常');
-    //   return false;
-    // }
   },
-  async logout({ dispatch }) {
-    // await logout(state.accessToken);
-    await dispatch('resetAccessToken');
-    await resetRouter();
+  logout({ state, dispatch }) {
+    return new Promise((resolve, reject) => {
+      // 这里的logout接口没有任何返回，很奇怪
+      loginOut(state.accessToken)
+      dispatch('routes/clearRoutes');
+      dispatch('resetAccessToken');
+      resolve();
+    });
   },
   resetAccessToken({ commit }) {
     commit('setPermissions', []);
     commit('setAccessToken', '');
+    commit('setCurrentRole', '');
     removeAccessToken();
   },
 };
