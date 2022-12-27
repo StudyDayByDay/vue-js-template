@@ -5,7 +5,7 @@
 
 import { themeConfig } from '@/config/theme';
 import { setting } from '@/config/setting';
-import { getLanguage, setLanguage, setSettings, getSettings } from '@/utils/cookies';
+import { getLanguage, setLanguage, setSettings, getSettings } from '@/utils';
 
 const { mode, theme, fixedHead, fullScreen, refresh, collapse, notice, isBreadcrumb, isLogo, tag } =
   themeConfig;

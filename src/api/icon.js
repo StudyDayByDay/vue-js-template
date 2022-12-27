@@ -1,7 +1,6 @@
-import request from '@/utils/request.js';
-export const getIcons = () => {
-  return request({
+export default {
+  getIcons: {
     url: '/icon',
-    method: 'get',
-  });
-};
+    method: 'get'
+  },
+}

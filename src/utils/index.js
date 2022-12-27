@@ -1,14 +1,3 @@
-import { setting } from '@/config/setting';
-const { title } = setting;
-
-export const getPageTitle = (pageTitle) => {
-  if (pageTitle) {
-    return `${pageTitle}-${title}`;
-  }
-  return `${title}`;
-};
-
-
 const labels = Array.from({length: 580}).map((item, index) => {
   return {
       startIndex: index*4,
@@ -29,3 +18,9 @@ const paths = Array.from({length: 580}).map((item, index) => {
 
 export {labels, paths};
 export { Carver } from "./Carver/lib/carver";
+export * from './accessToken.js';
+export * from './api.js';
+export * from './axios.js';
+export * from './cookies.js';
+export * from './function.js';
+export * from './handleRoutes.js';

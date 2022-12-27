@@ -1,5 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router';
-import { filterAsyncRoutes, getRealRoutes, getFirstPath } from '@/utils/handleRoutes';
+import { filterAsyncRoutes, getRealRoutes, getFirstPath } from '@/utils';
 import store from '@/store';
 import { cloneDeep } from 'lodash-es';
 

@@ -113,7 +113,7 @@
 
   import packpage from '../../../package.json';
   import { useI18n } from 'vue-i18n';
-  import { getResouceList } from '@/api/index';
+  import apis from '@/api';
 
   import { useStore } from 'vuex';
   const store = useStore();
@@ -167,7 +167,7 @@
   });
 
   const onGetResouceList = () => {
-    getResouceList().then((res) => {
+    apis.getResouceList().then((res) => {
       const { list, prefix, orderList, skillList } = res.data;
       Object.assign(state, { list, prefix, orderList, skillList });
     });

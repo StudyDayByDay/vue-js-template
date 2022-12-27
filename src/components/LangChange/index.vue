@@ -22,7 +22,7 @@
   import { useStore } from 'vuex';
   import { useRoute } from 'vue-router';
   import i18n from '@/locales';
-  import { getPageTitle } from '@/utils/index';
+  import { getPageTitle } from '@/utils';
   defineProps({
     color: {
       type: String,

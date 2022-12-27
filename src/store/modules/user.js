@@ -1,5 +1,5 @@
-import { myAccount, getMenuAndPermission, login, loginOut } from '@/api/user';
-import { getAccessToken, removeAccessToken, setAccessToken } from '@/utils/accessToken';
+import apis from '@/api';
+import { getAccessToken, removeAccessToken, setAccessToken } from '@/utils';
 
 import { setting } from '@/config/setting';
 // title: 项目名称   ,tokenName: accessToken     Admin-Token
@@ -54,7 +54,7 @@ const actions = {
     commit('setPermissions', permissions);
   },
   async login({ commit }, userInfo) {
-    const { data } = await login(userInfo);
+    const { data } = await apis.login(userInfo);
     const accessToken = data;
     if (accessToken) {
       commit('setAccessToken', accessToken);
@@ -79,12 +79,12 @@ const actions = {
     }
   },
   async getUserInfo({ commit, state }) {
-    const { data: {id, userName} } = await myAccount();
+    const { data: {id, userName} } = await apis.myAccount();
     commit('setAccountId', id);
     commit('setUserName', userName);
 
     return new Promise((resolve, reject) => {
-      getMenuAndPermission().then(({data: {currentRole, permissions}, data}) => {
+      apis.getMenuAndPermission().then(({data: {currentRole, permissions}, data}) => {
         commit('setCurrentRole', currentRole);
         commit('setPermissions', permissions);
         resolve(data);
@@ -96,7 +96,7 @@ const actions = {
   logout({ state, dispatch }) {
     return new Promise((resolve, reject) => {
       // 这里的logout接口没有任何返回，很奇怪
-      loginOut(state.accessToken)
+      apis.loginOut(state.accessToken)
       dispatch('routes/clearRoutes');
       dispatch('resetAccessToken');
       resolve();

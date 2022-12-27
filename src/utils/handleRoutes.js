@@ -1,6 +1,8 @@
 import { asyncRoutes } from '@/router';
 import path from "path-browserify";
-export function convertRouter(routers) {
+
+
+function convertRouter(routers) {
   return routers.map((route) => {
     return setRoutes(route, asyncRoutes);
   });
@@ -40,7 +42,7 @@ function hasPermission(permissions, route) {
 }
 
 // 过滤动态路由
-export function filterAsyncRoutes(routes, permissions) {
+function filterAsyncRoutes(routes, permissions) {
   const finallyRoutes = [];
   routes.forEach((route) => {
     const item = { ...route };
@@ -114,7 +116,7 @@ const permissionToMenus = {
 
 }
 
-export function getRealRoutes(asyncRoutes, userRoutes, baseKey = "") {
+function getRealRoutes(asyncRoutes, userRoutes, baseKey = "") {
   let resultRoutes = [];
   asyncRoutes.forEach(v => {
     let realPath = path.resolve(baseKey, v.path);
@@ -133,7 +135,7 @@ export function getRealRoutes(asyncRoutes, userRoutes, baseKey = "") {
   return resultRoutes;
 }
 
-export function getFirstPath(userRoutes, baseKey = "") {
+function getFirstPath(userRoutes, baseKey = "") {
   for (let i = 0; i < userRoutes.length; i++) {
     let realPath = path.resolve(baseKey, userRoutes[i].path);
     if (userRoutes[i].children && userRoutes[i].children.length) {
@@ -147,7 +149,7 @@ export function getFirstPath(userRoutes, baseKey = "") {
   return "";
 }
 
-export function checkPathIsInPermissions(routes, tarPath) {
+function checkPathIsInPermissions(routes, tarPath) {
   let func = function (routes, baseKey = "") {
     for (let i = 0; i < routes.length; i++) {
       let route = routes[i];
@@ -168,3 +170,5 @@ export function checkPathIsInPermissions(routes, tarPath) {
 
   return func(routes);
 }
+
+export {convertRouter, filterAsyncRoutes, getRealRoutes, getFirstPath, checkPathIsInPermissions};

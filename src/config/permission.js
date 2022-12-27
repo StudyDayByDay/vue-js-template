@@ -2,10 +2,10 @@ import router from '@/router';
 import store from '@/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { getPageTitle } from '@/utils/index';
+import { getPageTitle } from '@/utils';
 import { setting } from '@/config/setting';
 import i18n from '@/locales';
-import { checkPathIsInPermissions } from '@/utils/handleRoutes';
+import { checkPathIsInPermissions } from '@/utils';
 
 const { authentication, progressBar, routesWhiteList, recordRoute } = setting;
 const { t } = i18n.global;

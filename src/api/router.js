@@ -1,8 +1,6 @@
-import request from '@/utils/request.js';
-export const getRouterList = (data) => {
-  return request({
+export default {
+  getRouterList: {
     url: '/menu/navigate',
     method: 'post',
-    data,
-  });
+  }
 };

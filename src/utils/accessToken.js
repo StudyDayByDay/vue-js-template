@@ -2,14 +2,18 @@ import { setting } from '@/config/setting';
 // tokenTableName: vue3-admin-template
 const { tokenTableName } = setting;
 import Cookies from 'js-cookie';
-export function getAccessToken() {
+
+
+function getAccessToken() {
   return Cookies.get(tokenTableName);
 }
 
-export function setAccessToken(accessToken) {
+function setAccessToken(accessToken) {
   return Cookies.set(tokenTableName, accessToken);
 }
 
-export function removeAccessToken() {
+function removeAccessToken() {
   return Cookies.remove(tokenTableName);
 }
+
+export {getAccessToken, setAccessToken, removeAccessToken};

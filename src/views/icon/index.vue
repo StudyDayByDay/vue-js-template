@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-  import { getIcons } from '@/api/icon';
+  import apis from '@/api';
   import { reactive, toRefs, onBeforeMount } from 'vue';
   import Descrition from '@/components/Descrition/index.vue';
   import { useI18n } from 'vue-i18n';
@@ -80,7 +80,7 @@
   });
 
   const handleGetIcons = async () => {
-    getIcons().then((res) => {
+    apis.getIcons().then((res) => {
       state.icon = res.data;
     });
   };

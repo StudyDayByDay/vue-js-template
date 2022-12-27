@@ -2,19 +2,21 @@ import { setting } from '@/config/setting';
 const { langKey, themeKey } = setting;
 import Cookies from 'js-cookie';
 
-export function getLanguage() {
+function getLanguage() {
   return Cookies.get(langKey);
 }
 
-export function setLanguage(lang) {
+function setLanguage(lang) {
   return Cookies.set(langKey, lang);
 }
 
-export function getSettings() {
+function getSettings() {
   const settings = Cookies.get(themeKey);
   return settings ? JSON.parse(settings) : null;
 }
 
-export function setSettings(theme) {
+function setSettings(theme) {
   return Cookies.set(themeKey, JSON.stringify(theme));
 }
+
+export {getLanguage, setLanguage, getSettings, setSettings};
