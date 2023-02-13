@@ -112,7 +112,7 @@ export default defineConfig({
       //   rewrite: (path) => path.replace(new RegExp(`^${import.meta.env.VITE_BASE_API}`), ''),
       // },
       '/dev-api': {
-        target: `http://192.168.0.222:8081`,
+        target: `http://192.168.0.127:8080`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/dev-api/, ""),
       }
