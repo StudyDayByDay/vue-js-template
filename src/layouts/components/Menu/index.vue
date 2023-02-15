@@ -8,8 +8,8 @@
       :class="{ 'is-black': isBlack }"
       :collapse="isCollapse"
       :background-color="menuBgColor"
-      :text-color="textColor"
-      :active-text-color="activeTextColor"
+      text-color="#6a7787"
+      active-text-color="#2879da"
       router
       :mode="mode"
       @open="handleOpen"
@@ -74,7 +74,7 @@
   });
 
   const textColor = computed(() => {
-    return whiteColors.indexOf(menuBgColor.value) !== -1 ? '#333' : '#fff';
+    return whiteColors.indexOf(menuBgColor.value) !== -1 ? '#6a7787' : '#fff';
   });
 
   const activeTextColor = computed(() => {
@@ -116,8 +116,10 @@
     bottom: 0;
     left: 0;
     height: 100vh;
+    width: $base-unfold-width;
     overflow-x: hidden;
     overflow-y: auto;
+    // 指定滑轮样式
     @include base-scrollbar;
     &:not(.el-menu--collapse) {
       width: $base-menu-width;

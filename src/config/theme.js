@@ -20,23 +20,19 @@ export const themeConfig = {
   // 主题 默认配置theme1
   // 注意⚠️ ：修改默认主题时，记得同步修改 element-variables.scss
   // 文件中的 $base-color-primary 默认值，否则不生效！！！
-  theme: 'theme2',
+  theme: 'theme1',
   // 主题配置
   themeOptions,
   // 是否固定头部
   fixedHead: true,
   // 是否显示全屏
   fullScreen: true,
-  // 是否显示刷新
-  refresh: true,
-  // 是否显示通知
-  notice: true,
   // 是否显示面包导航
   isBreadcrumb: true,
   // 是否显示logo
   isLogo: true,
   // 是否显示标签
-  tag: true,
+  tag: false,
   // 是否展开菜单
   collapse: false,
 };

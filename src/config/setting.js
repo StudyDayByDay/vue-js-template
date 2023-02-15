@@ -54,16 +54,12 @@ export const setting = {
   storage: 'localStorage',
   // 标题
   title: '项目名称',
-  // 版权信息
-  copyright: '© hu-snail-2021 vue3-admin-element-template',
-  // 是否显示页面底部自定义版权信息
-  footerCopyright: true,
   // 缓存路由的最大数量
   keepAliveMaxNum: 99,
   //token失效回退到登录页时是否记录本次的路由
   recordRoute: true,
   // 路由白名单不经过token校验的路由
-  routesWhiteList: ['/login', '/register', '/404', '/401'],
+  routesWhiteList: ['/login', '/register', '/404', '/401', '/carver', '/manage'],
   // 需要加loading层的请求，防止重复提交
   debounce: [],
   // 导入时想要省略的扩展名列表

@@ -3,8 +3,8 @@
     <div class="login-form">
       <div class="title">单病种科研平台</div>
       <el-form ref="loginFormRef" :model="loginForm" :rules="rules" status-icon>
-        <el-form-item prop="userName">
-          <el-input v-model="loginForm.userName" placeholder="请输入用户名" clearable size="large">
+        <el-form-item prop="username">
+          <el-input v-model="loginForm.username" placeholder="请输入用户名" clearable size="large">
             <template #prefix>
               <svg-icon name="user" size="20px" color="#000000"/>
             </template>
@@ -15,8 +15,7 @@
             <template #prefix>
               <svg-icon name="params" size="20px" />
             </template>
-            <el-option label="Zone one" value="shanghai" />
-            <el-option label="Zone two" value="beijing" />
+            <el-option v-for="item in departmentOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item prop="password">
@@ -53,18 +52,27 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
+const store = useStore();
+const router = useRouter();
 const loginFormRef = ref();
 const loginForm = reactive({
-  userName: '',
+  username: 'fc_yaan_admin',
   department: '',
-  password: '',
+  password: '123456',
   code: '',
   remember: '',
 })
 
+const departmentOptions = reactive([
+  { label: 'xxx', value: 'xxx' },
+  { label: 'yyy', value: 'yyy' },
+]);
+
 const rules = reactive({
-  userName: [
+  username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
   ],
   department: [
@@ -83,6 +91,14 @@ const submitForm = async (formEl) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log('submit!')
+      // 进行登录操作
+      store.dispatch('user/login', {...loginForm}).then(() => {
+        const routerPath =
+          state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;
+        router.push(routerPath).catch(() => {});
+      })
+      .catch(() => {
+      });
     } else {
       console.log('error submit!', fields)
     }

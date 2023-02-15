@@ -1,12 +1,11 @@
 <template>
   <el-dropdown @command="handleCommand">
-    <span class="avatar-dropdown" :style="{ color }">
-      <!--<el-avatar class="user-avatar" :src="avatar"></el-avatar>-->
-      <img class="user-avatar" :src="avatar" alt="" />
+    <span class="avatar-dropdown">
+      <svg-icon name="user" size="22px"/>
       <div class="user-name">
         {{ userName }}
-        <i class="el-icon-arrow-down el-icon--right"></i>
       </div>
+      <svg-icon name="arrowDown" size="8px"/>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -28,22 +27,12 @@
   import { useStore } from 'vuex';
   import { ElMessageBox } from 'element-plus';
   import { setting } from '@/config/setting';
-  import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
 
   const { title, recordRoute } = setting;
   const { t } = useI18n();
-  const avatar = ref('https://i.gtimg.cn/club/item/face/img/2/15922_100.gif');
   const userName = ref('hu-snail');
   const store = useStore();
-  const router = useRouter();
-
-  defineProps({
-    color: {
-      type: String,
-      default: '#666',
-    },
-  });
 
   const handleCommand = (command) => {
     switch (command) {
@@ -80,20 +69,16 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    height: $base-avatar-dropdown-height;
+    // height: $base-avatar-dropdown-height;
     padding: $base-padding-10;
-    .user-avatar {
-      width: $base-avatar-widht;
-      height: $base-avatar-height;
-      cursor: pointer;
-      border-radius: $base-border-radius-circle;
-    }
 
     .user-name {
       position: relative;
-      margin-left: $base-margin-5;
-      margin-left: $base-margin-5;
+      margin-left: $base-margin-10;
+      margin-right: $base-margin-10;
       cursor: pointer;
+      color: #6A7787;
+      font-weight: bold;
     }
   }
 </style>

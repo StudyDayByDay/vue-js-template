@@ -1,6 +1,6 @@
 <template>
   <div class="right-panel">
-    <icon-theme
+    <!-- <icon-theme
       class="icon-hover theme"
       :title="t('navbar.theme')"
       theme="outline"
@@ -8,41 +8,10 @@
       size="16"
       :fill="color"
       @click="handleChangeTheme"
-    />
-    <el-popover v-if="settings.notice" placement="bottom" :width="320" trigger="hover">
-      <template #reference>
-        <icon-remind
-          class="icon-hover refresh"
-          theme="outline"
-          size="16"
-          :fill="color"
-          :strokeWidth="3"
-        />
-      </template>
-      <div class="message-box">
-        <el-tabs v-model="activeName" stretch>
-          <el-tab-pane :label="`${t('tabs.notice')} (5)`" name="first">
-            <Cell :list="noticeList" />
-          </el-tab-pane>
-          <el-tab-pane :label="`${t('tabs.message')} (0)`" name="second">暂无消息</el-tab-pane>
-          <el-tab-pane :label="`${t('tabs.email')} (0)`" name="third">暂无邮件</el-tab-pane>
-        </el-tabs>
-      </div>
-    </el-popover>
-
-    <FullScreen :color="color" v-if="settings.fullScreen" @refresh="onRefresh" />
+    /> -->
+    <FullScreen :color="color" v-if="settings.fullScreen" />
     <LangChange :color="color" />
-    <icon-refresh
-      v-if="settings.refresh"
-      :title="t('navbar.refresh')"
-      @click="handleRefresh"
-      class="icon-hover refresh"
-      theme="filled"
-      size="16"
-      :fill="color"
-      :strokeWidth="4"
-    />
-    <Avatar :color="color" />
+    <Avatar />
     <ThemeSetting />
   </div>
 </template>
@@ -54,16 +23,14 @@
 </script>
 
 <script setup>
-  import { noticeList } from './data';
 
   import FullScreen from '@/components/FullScreen/index.vue';
-  import Cell from '@/components/Cell/index.vue';
   import LangChange from '@/components/LangChange/index.vue';
 
   import { useI18n } from 'vue-i18n';
   import { useStore } from 'vuex';
 
-  import { computed, nextTick, ref } from 'vue';
+  import { computed} from 'vue';
   defineProps({
     color: {
       type: String,
@@ -74,20 +41,9 @@
   const { t } = useI18n();
   const store = useStore();
 
-  let activeName = ref('first');
-
   const settings = computed(() => {
     return store.getters['setting/settings'];
   });
-
-  const onRefresh = () => {};
-
-  const handleRefresh = () => {
-    store.dispatch('setting/setRouterView', false);
-    nextTick(() => {
-      store.dispatch('setting/setRouterView', true);
-    });
-  };
 
   const handleChangeTheme = () => {
     store.dispatch('setting/setSettingDrawer', true);

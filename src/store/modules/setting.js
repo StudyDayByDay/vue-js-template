@@ -7,7 +7,7 @@ import { themeConfig } from '@/config/theme';
 import { setting } from '@/config/setting';
 import { getLanguage, setLanguage, setSettings, getSettings } from '@/utils';
 
-const { mode, theme, fixedHead, fullScreen, refresh, collapse, notice, isBreadcrumb, isLogo, tag } =
+const { mode, theme, fixedHead, fullScreen, collapse, isBreadcrumb, isLogo, tag } =
   themeConfig;
 
 const { lang } = setting;
@@ -21,11 +21,9 @@ const state = {
   isFullScreen: false, // 是否显示全屏
   collapse,
   fullScreen,
-  refresh,
   mode: getSettings() ? getSettings().mode : mode,
   theme,
   fixedHead,
-  notice,
   isBreadcrumb,
   isLogo,
   tag,
@@ -40,9 +38,7 @@ const getters = {
   theme: (state) => state.theme,
   isDrawerSetting: (state) => state.isDrawerSetting,
   fullScreen: (state) => state.fullScreen,
-  refresh: (state) => state.refresh,
   fixedHead: (state) => state.fixedHead,
-  notice: (state) => state.notice,
   isBreadcrumb: (state) => state.isBreadcrumb,
   isLogo: (state) => state.isLogo,
   tag: (state) => state.tag,

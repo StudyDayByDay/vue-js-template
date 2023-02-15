@@ -1,29 +1,25 @@
 <template>
   <div class="admin-container">
-    <Mobile v-if="isMobile" />
-    <template v-else>
-      <el-container v-if="mode === 'vertical'">
-        <Menu :isCollapse="isCollapse" class="hidden-xs-only" />
-        <el-container class="container" :style="{ left: isCollapse ? '65px' : '240px' }">
-          <el-header
-            class="header"
-            :class="{ fixed: fixedHead, notag: !tag }"
-            height="60px"
-            :style="{ left: isCollapse ? '65px' : '240px' }"
-          >
-            <NavBar @handleCollapse="handleCollapse" />
-            <template v-if="tag">
-              <TabBar />
-            </template>
-          </el-header>
-          <el-main class="main" :class="{ fixed: fixedHead, notag: !tag }">
-            <AppMain />
-          </el-main>
-        </el-container>
+    <el-container>
+      <Menu :isCollapse="isCollapse" />
+      <el-container class="container" :style="{ left: isCollapse ? '58px' : '220px' }">
+        <el-header
+          class="header"
+          :class="{ notag: !tag }"
+          height="50px"
+          :style="{ left: isCollapse ? '65px' : '220px' }"
+        >
+          <NavBar @handleCollapse="handleCollapse" />
+          <template v-if="tag">
+            <TabBar />
+          </template>
+        </el-header>
+        <el-main class="main" :class="{ notag: !tag }">
+          <AppMain />
+        </el-main>
       </el-container>
-      <Horizontal v-if="mode === 'horizontal'" />
-      <el-backtop />
-    </template>
+    </el-container>
+    <el-backtop />
   </div>
 </template>
 
@@ -32,24 +28,12 @@
   import { useStore } from 'vuex';
   const store = useStore();
 
-  const isMobile = computed(() => {
-    return store.getters['setting/isMobile'];
-  });
-
-  const fixedHead = computed(() => {
-    return store.getters['setting/fixedHead'];
-  });
-
   const tag = computed(() => {
     return store.getters['setting/tag'];
   });
 
   const isCollapse = computed(() => {
     return store.getters.collapse;
-  });
-
-  const mode = computed(() => {
-    return store.getters['setting/mode'];
   });
 
   const handleCollapse = () => {
@@ -60,7 +44,7 @@
 <style lang="scss" scoped>
   .admin-container {
     position: relative;
-    background-color: $base-content-bg-color;
+    background-color: $base-frame-bg-color;
     .container {
       position: absolute;
       right: 0;
@@ -80,12 +64,7 @@
       position: relative;
       top: $base-main-vertical-top;
       overflow-y: auto;
-      &.fixed {
-        top: $base-main-fixed-top;
-      }
-      &[class='el-main main fixed notag'] {
-        top: $base-main-vertical-fixed-notag-top;
-      }
+      padding: $base-padding-24;
       &[class='el-main main notag'] {
         top: $base-main-notag-top;
       }

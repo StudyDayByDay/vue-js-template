@@ -1,14 +1,6 @@
 <template>
   <el-breadcrumb class="breadcrumb-container" separator=">">
     <el-breadcrumb-item v-for="item in list" :key="item.path">
-      <component
-        class="menu-icon"
-        v-if="item.meta.icon"
-        theme="outline"
-        size="14"
-        strokeWidth="3"
-        :is="item.meta.icon"
-      />
       {{ t(item.meta.title) }}
     </el-breadcrumb-item>
   </el-breadcrumb>

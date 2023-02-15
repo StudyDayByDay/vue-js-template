@@ -2,10 +2,10 @@
   <div
     @click="handleClick"
     class="logo-wrapper"
-    :class="{ unfold: collapse, horizontal: mode === 'horizontal' }"
+    :class="{ unfold: collapse }"
   >
-    <svg-icon name="vue" size="35px" />
-    <span class="logo-title" :style="{ color: textColor }" v-if="!collapse"> vue3-admin </span>
+    <svg-icon name="logo" size="35px" />
+    <span class="logo-title" :style="{ color: textColor }" v-if="!collapse"> 专科数据平台 </span>
   </div>
 </template>
 
@@ -30,10 +30,6 @@
     return store.getters.collapse;
   });
 
-  const mode = computed(() => {
-    return store.getters['setting/mode'];
-  });
-
   const textColor = computed(() => {
     const whiteColors = ['#fff', '#ffffff', '#FFF', '#FFF', 'rgb(255, 255, 255)'];
     const color = themeOptions[store.getters['setting/theme']].menuBgColor;
@@ -48,15 +44,14 @@
   .logo-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     width: $base-logo-width;
+    padding-left: 11.5px;
     cursor: pointer;
     &.unfold {
       width: $base-unfold-width;
-      padding: $base-padding-10 0;
-    }
-    &.horizontal {
-      justify-content: flex-start;
+      padding: 12.5px 11.5px;
+      line-height: $base-logo-height;
     }
 
     .logo-title {
@@ -64,9 +59,10 @@
       max-width: calc(246px - 60px);
       padding-left: $base-padding-10;
       overflow: hidden;
-      font-size: $base-font-size-max;
+      font-size: $base-font-size-big;
+      font-weight: bold;
       line-height: $base-logo-height;
-      color: #333;
+      color: $base-logo-color;
       text-overflow: ellipsis;
       white-space: nowrap;
       vertical-align: middle;

@@ -2,21 +2,11 @@
   <div class="nav-bar-container">
     <el-row :gutter="15">
       <!-- settings.mode是一个模式布局 -->
-      <el-col :xs="4" :sm="12" :md="12" :lg="12" :xl="12" v-if="settings.mode !== ''">
+      <el-col :xs="4" :sm="12" :md="12" :lg="12" :xl="12">
         <div class="left-panel">
-          <component
-            :title="collapse ? t('navbar.unfold') : t('navbar.fold')"
-            class="icon-hover fold"
-            :is="collapse ? 'icon-menu-fold-one' : 'icon-menu-unfold-one'"
-            theme="filled"
-            size="16"
-            :strokeWidth="4"
-            fill="#666"
-            @click="handleCollapse"
-          />
-          <!-- 手机端，当这个值存在的时候，也会被隐藏起来，直接看不见， 是这个起的作用hidden-xs-only，在elementplus文档里面有讲 -->
+          <svg-icon class="icon" :name="collapse ? 'sideShow' : 'sideHide'" size="16px" @click="handleCollapse"/>
           <template v-if="isBreadcrumb">
-            <Breadcrumb class="hidden-xs-only" />
+            <Breadcrumb/>
           </template>
         </div>
       </el-col>
@@ -65,6 +55,7 @@
   .nav-bar-container {
     position: relative;
     height: $base-nav-bar-height;
+    padding-left: $base-padding-12;
     padding-right: $base-padding;
     overflow: hidden;
     user-select: none;
@@ -75,15 +66,11 @@
       align-items: center;
       justify-items: center;
       height: $base-nav-bar-height;
-      .fold-unfold {
-        color: $base-color-gray;
+      .icon {
         cursor: pointer;
       }
-      .fold {
-        padding: $base-padding-20-10;
-      }
       :deep(.breadcrumb-container) {
-        margin-left: $base-margin-10;
+        margin-left: $base-margin-16;
       }
     }
   }
