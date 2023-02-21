@@ -8,10 +8,9 @@
       size="16"
       :fill="color"
       :strokeWidth="4"
-      :is="isDark ? 'moon' : 'setting-three'"
+      :is="isDark ? 'icon-moon' : 'icon-sun-one'"
       @click="handleClick"
     />
-    <span @click="handleClick">abc</span>
   </span>
 </template>
 
