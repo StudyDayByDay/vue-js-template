@@ -11,6 +11,7 @@
     /> -->
     <FullScreen :color="color" v-if="settings.fullScreen" />
     <LangChange :color="color" />
+    <SkinChange :color="color" />
     <Avatar />
     <ThemeSetting />
   </div>
@@ -26,6 +27,7 @@
 
   import FullScreen from '@/components/FullScreen/index.vue';
   import LangChange from '@/components/LangChange/index.vue';
+  import SkinChange from '@/components/SkinChange/index.vue';
 
   import { useI18n } from 'vue-i18n';
   import { useStore } from 'vuex';

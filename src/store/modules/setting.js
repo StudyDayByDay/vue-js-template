@@ -19,6 +19,7 @@ const state = {
   isMobile: false, // 是否为移动端
   isDrawer: false, // 是否展开移动端菜单
   isFullScreen: false, // 是否显示全屏
+  isDark: false, // 是否暗色主题
   collapse,
   fullScreen,
   mode: getSettings() ? getSettings().mode : mode,
@@ -35,6 +36,7 @@ const getters = {
   isMobile: (state) => state.isMobile,
   isDrawer: (state) => state.isDrawer,
   isFullScreen: (state) => state.isFullScreen,
+  isDark: (state) => state.isDark,
   theme: (state) => state.theme,
   isDrawerSetting: (state) => state.isDrawerSetting,
   fullScreen: (state) => state.fullScreen,
@@ -53,6 +55,11 @@ const mutations = {
   },
   CHANGE_FULL_SCREEN: (state, flag) => {
     state.isFullScreen = flag;
+  },
+  CHANGE_SKIN: (state, flag) => {
+    console.log('没出发吗1？');
+    state.isDark = flag;
+    document.documentElement.className = flag? 'dark' : '';
   },
   SET_ROUTER_VIEW: (state) => {
     state.routerView = !state.routerView;
@@ -101,6 +108,13 @@ const actions = {
    */
   changeFullScreen: ({ commit }, flag) => {
     commit('CHANGE_FULL_SCREEN', flag);
+  },
+  /**
+   * @description 切换皮肤
+   *  @param {boolean} flag true|false
+   */
+  changeSkin: ({ commit }, flag) => {
+    commit('CHANGE_SKIN', flag);
   },
   /**
    * @description 是否刷新路由

@@ -8,8 +8,6 @@
       :class="{ 'is-black': isBlack }"
       :collapse="isCollapse"
       :background-color="menuBgColor"
-      text-color="#6a7787"
-      active-text-color="#2879da"
       router
       :mode="mode"
       @open="handleOpen"

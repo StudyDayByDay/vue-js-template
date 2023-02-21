@@ -1,0 +1,10 @@
+/**
+ * element 暗色主题设置
+ */
+@forward "element-plus/theme-chalk/src/dark/var.scss" with (
+    $colors: (
+        'primary': (
+          'base': pink,
+        )
+    )
+);

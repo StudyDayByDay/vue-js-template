@@ -1,10 +1,56 @@
+/**
+ * element 亮色主题设置
+ */
+
+// we can add this to custom namespace, default is 'el'
+// @forward "element-plus/theme-chalk/src/mixins/config.scss" with (
+//   $namespace: "lk"
+// );
+
+// You should use them in scss, because we calculate it by sass.
+// comment next lines to use default color
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
-      'base': #7e9cff,
-    )
-  )
+      'base': #2879da,
+    ),
+    'success': (
+      'base': #3cc371,
+    ),
+    'warning': (
+      'base': #ffb244,
+    ),
+    'danger': (
+      'base': #ff3e3e,
+    ),
+  ),
+  $text-color: (
+    'primary': #373d45,
+    'regular': #6a7787,
+    // 'secondary': #909399,
+    'placeholder': #c7cedd,
+    // 'disabled': #c0c4cc,
+  ),
+  $border-color: (
+    'lighter': #edf0f4,
+  ),
+  // $fill-color: (
+  //   'light': #eef2f6,
+  // ),
+  $menu: (
+    'sub-item-height': 40px,
+  ),
+  $dialog: (
+    'box-shadow': 0px 0px 10px 0px #707070,
+    'border-radius': 8px,
+  ),
 );
 
-@use "element-plus/theme-chalk/src/message.scss" as *;
-@use "element-plus/theme-chalk/src/message-box.scss" as *;
+// if you want to import all
+// @use "element-plus/theme-chalk/src/index.scss" as *;
+
+// You can comment it to hide debug info.
+// @debug $--colors;
+
+// custom dark variables
+@use "./dark.scss";

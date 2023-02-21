@@ -133,7 +133,11 @@ export default defineConfig({
     preprocessorOptions: {
       // 引入公用的样式
       scss: {
-        additionalData: `@use "@/styles/index.scss" as *; @use "@/styles/element/index.scss" as *;`,
+        additionalData: `
+          @use "@/styles/index.scss" as *;
+          @use "@/styles/element/index.scss" as *;
+          @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
+        `,
         charset: false,
       },
     },

@@ -106,7 +106,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: $base-icon-width-big !important;
+    width: $base-icon-width-default !important;
+    // 这里不影响子菜单的icon显示，效果，不用处理
     height: $base-icon-height-super-max !important;
     margin-right: $base-margin-5;
     visibility: initial !important;

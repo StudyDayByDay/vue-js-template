@@ -4,7 +4,20 @@
 
  // 框架默认主题色
 $base-color-primary: var(--el-color-primary);
+// 导航文字默认颜色
+$base-default-color: #6a7787;
+// 导航文字选中颜色
+$base-menu-active-color: #2879da;
 
+// 反馈颜色
+$base-feedback-default-color: #2879da;
+$base-feedback-default-bg-color: #ebf2fa;
+$base-feedback-success-color: #3cc371;
+$base-feedback-success-bg-color: #eef9f1;
+$base-feedback-warning-color: #ffb244;
+$base-feedback-warning-bg-color: #fef7ed;
+$base-feedback-danger-color: #ff3e3e;
+$base-feedback-danger-bg-color: #fcecec;
 
 // 主题色透明
 $base-color-primary-light1: var(--el-color-primary-light-1);
@@ -26,6 +39,10 @@ $base-hover-color: #f5f5f5;
 $base-frame-bg-color: #ffffff;
 // 中间内容背景
 $base-content-bg-color: #f8f8f8;
+// 表格header背景
+$base-table-header-bg-color: #edf0f4;
+// 禁用颜色
+$base-disabled-border-color: #dcdfe6;
 // 标题颜色
 $base-title-color: #fff;
 // 深色背景
@@ -62,6 +79,8 @@ $base-avatar-height: 40px;
 $footer-copyright-height: 55px;
 // 内容最低高度
 $app-main-min-height: calc(100vh - 90px);
+// 下拉列表高度
+$base-select-height: 36px;
 
 // top
 // 移动端内容距顶部高度
@@ -82,7 +101,7 @@ $base-border-width-mini: 1px;
 $base-border-width-small: 3px;
 $base-border-width-default: 5px;
 $base-border-width-big: 10px;
-$base-border-radius: 2px;
+$base-border-radius: 4px;
 $base-border-radius-circle: 50%;
 $base-border-none: none;
 
@@ -90,7 +109,7 @@ $base-border-none: none;
 $base-font-size-small: 12px;
 $base-font-size-default: 14px;
 $base-font-size-big: 16px;
-$base-font-size-bigger: 18px;
+$base-font-size-bigger: 20px;
 $base-font-size-max: 22px;
 $base-border-color: #dcdfe6;
 
@@ -98,7 +117,7 @@ $base-border-color: #dcdfe6;
 $base-icon-width-default: 14px;
 $base-icon-width-small: 12px;
 $base-icon-width-big: 16px;
-$base-icon-width-bigger: 18px;
+$base-icon-width-bigger: 20px;
 $base-icon-width-max: 22px;
 $base-icon-width-super-max: 34px;
 $base-icon-height-super-max: 50px;
@@ -115,6 +134,19 @@ $base-color-yellow: #fac858;
 $base-color-orange: #ff6700;
 $base-color-red: #ee6666;
 $base-color-gray: rgba(0, 0, 0, 0.65);
+$base-color-text: #373d45;
+
+// 文字颜色
+$base-color-main: #373d45;
+$base-color-routine: #6a7787;
+$base-color-link: #2879da;
+$base-color-placeholder: #c7cedd;
+$base-color-disabled: #c7cedd;
+
+// 边框颜色
+$base-color-form: #dcdfe6;
+$base-color-table: #edf0f4;
+$base-color-timeline: #dee0e7;
 
 // paddiing
 $base-main-padding: 20px 30px;
@@ -154,3 +186,7 @@ $green-color: #11d86c;
 $color-red: red;
 $color-green: green;
 $color-blue: blue;
+
+// 表单背景色
+$base-choose-color: #eef2f6;
+$base-disabled-color: #dcdfe6;

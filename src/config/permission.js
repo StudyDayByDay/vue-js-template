@@ -31,6 +31,7 @@ router.beforeEach(async (to, from) => {
     } else {
       if (currentRole) {
         const result = checkPathIsInPermissions(routes, to.path);
+        // 判断该角色下是否能查看跳转的页面
         if (result) {
           return true;
         }
@@ -62,18 +63,30 @@ router.beforeEach(async (to, from) => {
     }
   } else {
     // 免登录路由
-    if (routesWhiteList.indexOf(to.path) !== -1) {
-      // next();
-      return true;
-    } else {
-      if (recordRoute) {
-        // next(`/login?redirect=${to.path}`);
-        return {path: `/login?redirect=${to.path}`}
+    // if (routesWhiteList.indexOf(to.path) !== -1) {
+    //   // next();
+    //   return true;
+    // } else {
+    //   if (recordRoute) {
+    //     // next(`/login?redirect=${to.path}`);
+    //     return {path: `/login?redirect=${to.path}`}
+    //   } else {
+    //     // next('/login');
+    //     return {path: '/login'}
+    //   }
+    // }
+    // 调试的时候不走登录
+    store.dispatch('routes/handleRoutes').then((routes) => {
+      const result = checkPathIsInPermissions(routes, to.path);
+      if (result) {
+        // next({ ...to, replace: true });
+        return {...to, replace: true};
       } else {
-        // next('/login');
-        return {path: '/login'}
+        const path = store.getters['routes/homePath'];
+        // next({ path, replace: true });
+        return {path, replace: true}
       }
-    }
+    });
   }
 });
 router.afterEach((to, from) => {

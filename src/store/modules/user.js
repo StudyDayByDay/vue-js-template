@@ -15,9 +15,17 @@ const state = {
   accessToken: getAccessToken(),
   accountId: '',
   userName: '',
-  currentRole: '',
+  // 测试用，正式接入登录的时候要清除值
+  currentRole: 'lk',
   avatar: '',
-  permissions: [],
+  // 测试用，正式接入登录的时候要清除值
+  permissions: {
+    lk: [
+      'menu/home.dean',
+      'menu/sys_user',
+      'menu/sys_role',
+    ]
+  },
 };
 
 const getters = {

@@ -5,7 +5,7 @@ import './config/permission';
 
 // 公共样式在vite.config.js中引入的
 // element
-import 'element-plus/theme-chalk/display.css';
+// import 'element-plus/theme-chalk/display.css';
 import App from './App.vue';
 const app = createApp(App);
 

@@ -51,12 +51,13 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
+const route = useRoute();
 const loginFormRef = ref();
 const loginForm = reactive({
   username: 'fc_yaan_admin',
@@ -86,6 +87,10 @@ const rules = reactive({
   ],
 })
 
+const redirect = computed(() => {
+  return route.query?.redirect ?? ''
+});
+
 const submitForm = async (formEl) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
@@ -93,8 +98,10 @@ const submitForm = async (formEl) => {
       console.log('submit!')
       // 进行登录操作
       store.dispatch('user/login', {...loginForm}).then(() => {
-        const routerPath =
-          state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;
+        // 1、调用方法请求login，保存token
+        // 2、根据之前的query判断是否进行跳转
+        // 3、路由守卫进行下一步操作，在
+        const routerPath = (redirect.value === '/404' || redirect.value === '/401' || !redirect.value) ? '/' : redirect.value;
         router.push(routerPath).catch(() => {});
       })
       .catch(() => {

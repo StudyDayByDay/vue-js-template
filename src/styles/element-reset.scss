@@ -1,92 +1,160 @@
+/**
+ * 重置组件样式
+ */
+// 替换elementui css变量值
+:root{
+  // 弹出框
+  --el-overlay-color-lighter: rgba(0, 0, 0, 0.3);
+}
+
+// 到时候要做深浅色的处理，就在这里。
+// 1、要把需要变化的变量整合出来
+// 2、分别在dark和light里面写新的值。
+// .dark {
+//   --el-color-primary: pink;
+// }
+
+// .el-input {
+//     // 表单focus的box-shdow颜色（边框颜色）
+//     --el-input-focus-border-color: #2879da;
+// }
+
+// 修改弹出框样式
 .el-popover.el-popper {
   min-width: 100px !important;
   padding: 5px 0 !important;
 }
+
+// 重置menu组件样式
+.el-menu {
+  border-right: 0;
+}
+
 .el-menu-item {
+  span {
+    font-weight: bold;
+    color: $base-default-color;
+  }
   &.is-active {
     // background-color: $base-color-primary-light9 !important;
     border-right: $base-border-width-small solid $base-color-primary;
     span {
-      color: $base-color-primary;
+      color: $base-menu-active-color;
     }
   }
   &:hover {
-    color: $base-color-primary !important;
+    span {
+      color: $base-color-primary !important;
+    }
     // background-color: $base-color-primary-light9 !important;
   }
 }
-.is-black {
-  .el-menu-item {
-    &.is-active {
-      background-color: $base-color-primary !important;
-      border-right: 0;
-      span {
-        color: $base-color-white;
-      }
-    }
-    &:hover {
-      color: $base-color-white !important;
-      background-color: $base-color-primary !important;
-    }
-  }
+.el-sub-menu__title{
+  font-weight: bold;
+  color: $base-default-color;
 }
+
 .el-sub-menu__title:hover {
   background-color: transparent !important;
 }
-.el-menu--horizontal > .el-menu-item {
-  &.is-active {
-    border-right: none;
-  }
-}
-.el-menu--horizontal {
-  .el-menu-item {
-    &.is-active {
-      background-color: $base-color-primary !important;
-      border-right: 0;
-      span {
-        color: $base-color-white;
-      }
-    }
-    &:hover {
-      color: $base-color-white !important;
-      background-color: $base-color-primary !important;
-    }
-  }
-  .el-sub-menu__title{
-    color: $base-color-3 !important;
-  }
- 
-}
-.el-menu--horizontal.is-black{
-  .el-sub-menu__title{
-    color: $base-color-white !important;
-  }
-}
-.el-sub-menu.is-black{
-  .el-sub-menu__title{
-    color: $base-color-white !important;
-  }
-}
+
 .el-menu--collapse .el-menu-item{
   text-align: center;
-}
-
-.el-menu--horizontal .el-menu .el-menu-item,
-.el-menu--horizontal .el-menu .el-sub-menu__title {
-  height: $sub-menu__title-height !important;
-  line-height: $sub-menu__title-height !important;
 }
 
 .el-header {
   --el-header-padding: 0;
 }
 
-.el-button--primary:active {
-  background-color: $base-color-primary !important;
-  border-color: $base-color-primary !important;
-}
-
 .el-menu--collapse .menu-icon{
   display: flex !important;
   justify-content: center;
+}
+
+// 重置size是large的input高度
+.el-input--large .el-input__inner {
+  --el-input-inner-height: 36px;
+}
+
+// 重置表单输入文本权重
+// .el-button, .el-input__inner, .el-range-input, .el-radio-button__inner, .el-checkbox-button__inner, .el-radio__label, .el-form-item__label, .el-select-dropdown__item {
+//   font-weight: bold;
+// }
+.el-radio__label, .el-form-item__label {
+  font-weight: bold;
+}
+
+// 重置级联选择器样式
+.el-cascader-node__prefix {
+  position: absolute !important;
+}
+
+// 重置单选框选中时的文本
+.el-radio__input.is-checked + .el-radio__label {
+  color: $base-color-text;
+}
+.el-radio__input.is-disabled .el-radio__inner {
+  border-color: $base-disabled-border-color;
+}
+
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: $base-color-text;
+}
+
+.el-checkbox__input.is-disabled .el-checkbox__inner {
+  border-color: $base-disabled-border-color;
+}
+
+// 表单样式
+.el-table {
+  --el-table-header-text-color: $base-color-text;
+  --el-table-header-bg-color: $base-table-header-bg-color;
+}
+
+.el-table__expand-icon {
+  color: $base-color-text;
+}
+
+.el-pager li.is-active {
+  font-weight: bold;
+}
+
+// .el-pagination button:hover {
+//   color: $base-color-text;
+// }
+
+.el-pagination {
+  --el-pagination-button-disabled-color: $base-disabled-border-color;
+  --el-pagination-button-color: $base-default-color;
+}
+
+.el-dialog__header {
+  padding: 24px;
+  padding-right: 8px;
+}
+
+.el-dialog__body {
+  padding: 16px 24px;
+}
+
+.el-dialog__footer {
+  padding: 24px;
+  padding-top: 8px;
+}
+
+.el-tabs__item {
+  color: $base-default-color;
+}
+
+.el-tabs__item.is-active {
+  font-weight: bold;
+}
+
+.el-timeline {
+  --el-timeline-node-color: $base-color-timeline;
+}
+
+.el-timeline-item__tail {
+  // border-left: 1px;
+  border-width: 1px;
 }
