@@ -107,8 +107,8 @@
 
 // 表单样式
 .el-table {
-  --el-table-header-text-color: $base-color-text;
-  --el-table-header-bg-color: $base-table-header-bg-color;
+  --el-table-header-text-color: #373d45;
+  --el-table-header-bg-color: #edf0f4;
 }
 
 .el-table__expand-icon {
@@ -124,8 +124,8 @@
 // }
 
 .el-pagination {
-  --el-pagination-button-disabled-color: $base-disabled-border-color;
-  --el-pagination-button-color: $base-default-color;
+  --el-pagination-button-disabled-color: #dcdfe6;
+  --el-pagination-button-color: #6a7787;
 }
 
 .el-dialog__header {
@@ -151,10 +151,14 @@
 }
 
 .el-timeline {
-  --el-timeline-node-color: $base-color-timeline;
+  --el-timeline-node-color: #dee0e7;
 }
 
 .el-timeline-item__tail {
   // border-left: 1px;
   border-width: 1px;
+}
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+  background-color: #eef2f6;
 }

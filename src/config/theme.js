@@ -32,7 +32,7 @@ export const themeConfig = {
   // 是否显示logo
   isLogo: true,
   // 是否显示标签
-  tag: false,
+  tag: true,
   // 是否展开菜单
   collapse: false,
 };

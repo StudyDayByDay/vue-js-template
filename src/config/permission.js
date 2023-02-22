@@ -10,9 +10,6 @@ import { checkPathIsInPermissions } from '@/utils';
 const { authentication, progressBar, routesWhiteList, recordRoute } = setting;
 const { t } = i18n.global;
 NProgress.configure({
-  easing: 'ease',
-  speed: 500,
-  trickleSpeed: 200,
   showSpinner: false,
 });
 router.beforeEach(async (to, from) => {

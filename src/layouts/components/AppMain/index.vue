@@ -1,6 +1,10 @@
 <template>
   <div v-if="store.getters['setting/routerView']" class="app-main-container">
-    <router-view class="app-main-height" />
+    <router-view v-slot="{ Component }" class="app-main-height">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
