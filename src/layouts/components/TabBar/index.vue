@@ -336,6 +336,7 @@
     user-select: none;
     background: $base-color-white;
     border-top: 1px solid #f6f6f6;
+    box-shadow: 0 4px 4px rgb(0 21 41 / 8%);
     &.horizontal {
       padding: 0 40px;
     }
