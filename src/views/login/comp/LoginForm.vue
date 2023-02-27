@@ -45,13 +45,13 @@
 
 <script>
   import { reactive, toRefs, ref, unref, watch } from 'vue';
-  import { useStore } from 'vuex';
+  import { useUserStore } from '@/store/modules/user';
   import { useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
   export default {
     setup() {
       const { t } = useI18n();
-      const store = useStore();
+      const userStore = useUserStore();
       const router = useRouter();
       const validateForm = ref(null);
       const state = reactive({
@@ -86,8 +86,7 @@
           if (valid) {
             state.valid = true;
             state.loading = true;
-            store
-              .dispatch('user/login', {...state.ruleForm, UUID: "ignore", captcha: ""})
+            userStore.login({...state.ruleForm, UUID: "ignore", captcha: ""})
               .then(() => {
                 const routerPath =
                   state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;

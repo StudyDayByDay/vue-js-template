@@ -32,7 +32,8 @@
 <script setup>
   import { computed, ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { useStore } from 'vuex';
+  import { useRouteStore } from '@/store/modules/route';
+  import { useSettingStore } from '@/store/modules/setting';
 
   import { setting } from '@/config/setting';
   import { themeConfig } from '@/config/theme';
@@ -56,11 +57,12 @@
 
   const uniqueOpenedFlag = ref(uniqueOpened);
 
-  const store = useStore();
+  const routeStore = useRouteStore();
+  const settingStore = useSettingStore();
   const router = useRouter();
   // theme2
   const theme = computed(() => {
-    return store.getters['setting/theme'];
+    return settingStore.getTheme;
   });
 
   const menuBgColor = computed(() => {
@@ -82,11 +84,11 @@
   });
 
   const routes = computed(() => {
-    return store.getters['routes/routes'];
+    return routeStore.getRoutes;
   });
 
   const isLogo = computed(() => {
-    return store.getters['setting/isLogo'];
+    return settingStore.getIsLogo;
   });
 
   const defaultOpened = computed(() => {

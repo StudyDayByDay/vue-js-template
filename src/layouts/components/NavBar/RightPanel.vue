@@ -30,7 +30,7 @@
   import SkinChange from '@/components/SkinChange/index.vue';
 
   import { useI18n } from 'vue-i18n';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
 
   import { computed} from 'vue';
   defineProps({
@@ -41,14 +41,14 @@
   });
 
   const { t } = useI18n();
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   const settings = computed(() => {
-    return store.getters['setting/settings'];
+    return settingStore.getSettings;
   });
 
   const handleChangeTheme = () => {
-    store.dispatch('setting/setSettingDrawer', true);
+    settingStore.setSettingDrawer(true);
   };
 </script>
 

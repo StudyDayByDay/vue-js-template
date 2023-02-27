@@ -1,5 +1,5 @@
 <template>
-  <div v-if="store.getters['setting/routerView']" class="app-main-container">
+  <div v-if="settingStore.getRouterView" class="app-main-container">
     <router-view v-slot="{ Component }" class="app-main-height">
       <keep-alive>
         <component :is="Component" />
@@ -15,9 +15,9 @@
 </script>
 
 <script setup>
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 </script>
 
 <style lang="scss" scoped>

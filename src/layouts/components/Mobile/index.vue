@@ -25,28 +25,28 @@
 
 <script setup>
   import { computed } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   const isDrawer = computed(() => {
-    return store.getters['setting/isDrawer'];
+    return settingStore.getIsDrawer;
   });
 
   const tag = computed(() => {
-    return store.getters['setting/tag'];
+    return settingStore.getTag;
   });
 
   const fixedHead = computed(() => {
-    return store.getters['setting/fixedHead'];
+    return settingStore.getFixedHead;
   });
 
   const handleCollapse = () => {
-    store.dispatch('setting/changeDrawer', true);
+    settingStore.changeDrawer(true);
   };
 
   const closeDrawer = () => {
-    store.dispatch('setting/changeDrawer', false);
+    settingStore.changeDrawer(false);
   };
 </script>
 

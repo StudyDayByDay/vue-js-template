@@ -5,7 +5,7 @@ import './config/permission';
 
 // 公共样式在vite.config.js中引入的
 // element
-// import 'element-plus/theme-chalk/display.css';
+import 'element-plus/theme-chalk/display.css';
 import App from './App.vue';
 const app = createApp(App);
 
@@ -20,8 +20,8 @@ layoutComp(app);
 import router from './router/index';
 app.use(router);
 
-// vuex
-import store from '@/store';
+// pinia
+import store from './store';
 app.use(store);
 
 // 按需注册方式

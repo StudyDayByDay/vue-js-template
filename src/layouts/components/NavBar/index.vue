@@ -25,23 +25,19 @@
 
 <script setup>
   import { computed } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
 
   import { useI18n } from 'vue-i18n';
   const { t } = useI18n();
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   const collapse = computed(() => {
-    return store.getters.collapse;
+    return settingStore.getCollapse;
   });
 
   const isBreadcrumb = computed(() => {
-    return store.getters['setting/isBreadcrumb'];
-  });
-
-  const settings = computed(() => {
-    return store.getters['setting/settings'];
+    return settingStore.getIsBreadcrumb;
   });
 
   const emit = defineEmits(['handleCollapse']);

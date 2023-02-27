@@ -18,21 +18,21 @@
 <script setup>
   import { computed } from 'vue';
   import { useRouter } from 'vue-router';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
 
   import { themeConfig } from '@/config/theme';
   const { themeOptions } = themeConfig;
 
-  const store = useStore();
+  const settingStore = useSettingStore();
   const router = useRouter();
 
   const collapse = computed(() => {
-    return store.getters.collapse;
+    return settingStore.getCollapse;
   });
 
   const textColor = computed(() => {
     const whiteColors = ['#fff', '#ffffff', '#FFF', '#FFF', 'rgb(255, 255, 255)'];
-    const color = themeOptions[store.getters['setting/theme']].menuBgColor;
+    const color = themeOptions[settingStore.getTheme].menuBgColor;
     return whiteColors.indexOf(color) !== -1 ? '#333' : '#fff';
   });
 

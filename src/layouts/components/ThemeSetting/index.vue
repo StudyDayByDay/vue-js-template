@@ -93,14 +93,14 @@
 
 <script setup>
   import { ref, reactive, computed, watch } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
   import { useI18n } from 'vue-i18n';
   import { themeConfig } from '@/config/theme';
   const { t } = useI18n();
 
   const { themeOptions } = themeConfig;
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   const setting = reactive({
     tag: true,
@@ -153,37 +153,37 @@
   const direction = ref('rtl');
 
   const settings = computed(() => {
-    return store.getters['setting/settings'];
+    return settingStore.getSettings;
   });
 
   const isMobile = computed(() => {
-    return store.getters['setting/isMobile'];
+    return settingStore.getIsMobile;
   });
 
   const handleToSave = () => {
-    store.dispatch('setting/setSettingOptions', settings);
-    store.dispatch('setting/setSettingDrawer', false);
+    settingStore.setSettingOptions(settings);
+    settingStore.setSettingDrawer(false);
   };
 
   const handleChangeTag = (val) => {
-    store.dispatch('setting/setTag', val);
+    settingStore.setTag(val);
   };
 
   const handleChangeBread = (val) => {
-    store.dispatch('setting/setBreadcrumb', val);
+    settingStore.setBreadcrumb(val);
   };
 
   const handleChangeMode = (val) => {
-    store.dispatch('setting/setSettingOptions', settings);
-    store.dispatch('setting/setMode', val);
+    settingStore.setSettingOptions(settings);
+    settingStore.setMode(val);
   };
 
   const handleChangeTheme = (val) => {
-    store.dispatch('setting/setTheme', val);
+    settingStore.setTheme(val);
   };
 
   const handleClose = () => {
-    store.dispatch('setting/setSettingDrawer', false);
+    settingStore.setSettingDrawer(false);
   };
 </script>
 

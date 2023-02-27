@@ -25,7 +25,7 @@
 <script setup>
   import debounce from 'lodash/debounce';
   import { onMounted, ref, reactive, computed, watch, onBeforeUnmount } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
   // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
   import * as echarts from 'echarts/core';
   // 引入柱状图图表，图表后缀都为 Chart
@@ -116,12 +116,10 @@
     },
   });
 
-  const store = useStore();
-
+  const settingStore = useSettingStore();
   const isCollapse = computed(() => {
-    return store.getters.collapse;
+    return settingStore.getCollapse;
   });
-
   let chart = reactive({});
   let timer = ref(null);
 

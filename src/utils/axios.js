@@ -2,12 +2,13 @@ import axios from 'axios';
 import { netConfig } from '@/config/net.config';
 const { baseURL, contentType, invalidCode, noPermissionCode, requestTimeout, successCode } =
   netConfig;
-import store from '@/store/index.js';
-import router from '@/router/index.js';
+// import { useUserStore } from '@/store/modules/user';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import qs from 'qs';
 import { setting } from '@/config/setting';
 const { tokenName } = setting;
+
+import { getAccessToken, removeAccessToken } from '@/utils';
 
 // eslint-disable-next-line no-unused-vars
 let tokenLose = true;
@@ -20,10 +21,11 @@ const instance = axios.create({
   },
 });
 
+
 instance.interceptors.request.use(
   (config) => {
-    if (store.getters['user/accessToken']) {
-      config.headers['Authorization'] = store.getters['user/accessToken'];
+    if (getAccessToken()) {
+      config.headers['Authorization'] = getAccessToken();
     }
     if (
       config.data &&
@@ -57,11 +59,8 @@ instance.interceptors.response.use(
           type: 'warning',
         }
       ).then(() => {
-        // 先调用登出操作
-        // 再去到登录界面
-        store.dispatch('user/logout').then(() => {
-          location.reload();
-        });
+        removeAccessToken();
+        location.reload();
       })
     } else {
       ElMessage.error(error.message);

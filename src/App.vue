@@ -7,14 +7,11 @@
 </template>
 
 <script setup>
-  import { onMounted, computed, ref, watch } from 'vue';
-  import { useStore } from 'vuex';
+  import { computed, ref, watch } from 'vue';
 
   import i18n from '@/locales';
   import { useRouter } from 'vue-router';
   const locale = i18n.global.locale;
-
-  const store = useStore();
 
   const localLanguage = computed(() => {
     const isDev = process.env.NODE_ENV === 'development';
@@ -25,10 +22,6 @@
   const scroll = ref(null);
 
   const router = useRouter();
-  onMounted(() => {
-    changeBodyWidth();
-    window.addEventListener('resize', changeResize);
-  });
 
   watch(
     () => router.currentRoute.value,
@@ -36,15 +29,6 @@
       scroll.value.setScrollTop(0);
     }
   );
-
-  const changeBodyWidth = () => {
-    const flag = document.body.getBoundingClientRect().width - 1 < 992;
-    store.dispatch('setting/changeMobile', flag);
-  };
-
-  const changeResize = () => {
-    changeBodyWidth();
-  };
 </script>
 
 <style lang="scss">

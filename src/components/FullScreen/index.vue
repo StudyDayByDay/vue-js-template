@@ -17,11 +17,11 @@
 <script setup>
   import { computed } from 'vue';
   import screenfull from 'screenfull';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
   import { ElMessage } from 'element-plus';
   import { useI18n } from 'vue-i18n';
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   defineProps({
     color: {
@@ -33,7 +33,7 @@
   const { t } = useI18n();
 
   const isFullScreen = computed(() => {
-    return store.getters['setting/isFullScreen'];
+    return settingStore.getIsFullScreen;
   });
 
   const emit = defineEmits(['refresh']);
@@ -42,7 +42,7 @@
       ElMessage.warning('进入全屏失败');
       return false;
     }
-    store.dispatch('setting/changeFullScreen', !isFullScreen.value);
+    settingStore.changeFullScreen(!isFullScreen.value);
     screenfull.toggle();
     emit('refresh', screenfull.isFullscreen);
   };

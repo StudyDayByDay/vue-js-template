@@ -62,7 +62,7 @@
 <script setup>
   import { useI18n } from 'vue-i18n';
   import { computed } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
 
   import { themeConfig } from '@/config/theme';
   import path from "path-browserify";
@@ -81,10 +81,10 @@
     },
   });
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   const theme = computed(() => {
-    return store.getters['setting/theme'];
+    return settingStore.getTheme;
   });
 
   const menuBgColor = computed(() => {

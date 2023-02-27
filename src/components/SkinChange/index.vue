@@ -15,11 +15,11 @@
 </template>
 
 <script setup>
-  import { computed } from 'vue';
-  import { useStore } from 'vuex';
   import { useI18n } from 'vue-i18n';
+  import { useSettingStore } from '@/store/modules/setting';
+  import { computed } from 'vue';
 
-  const store = useStore();
+  const settingStore = useSettingStore();
 
   defineProps({
     color: {
@@ -31,10 +31,10 @@
   const { t } = useI18n();
 
   const isDark = computed(() => {
-    return store.getters['setting/isDark'];
+    return settingStore.getIsDark;
   });
   const handleClick = () => {
-    store.dispatch('setting/changeSkin', !isDark.value);
+    settingStore.changeSkin(!isDark.value);
   };
 </script>
 

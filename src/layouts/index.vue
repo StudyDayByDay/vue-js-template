@@ -25,19 +25,19 @@
 
 <script setup>
   import { computed } from 'vue';
-  import { useStore } from 'vuex';
-  const store = useStore();
+  import { useSettingStore } from '@/store/modules/setting';
+  const settingStore = useSettingStore();
 
   const tag = computed(() => {
-    return store.getters['setting/tag'];
+    return settingStore.getTag;
   });
 
   const isCollapse = computed(() => {
-    return store.getters.collapse;
+    return settingStore.getCollapse;
   });
 
   const handleCollapse = () => {
-    store.dispatch('setting/changeCollapse');
+    settingStore.changeCollapse();
   };
 </script>
 

@@ -1,5 +1,4 @@
-import {axios} from '@/utils';
-import {assignApis, genApis} from '@/utils';
+import {axios, assignApis, genApis} from '@/utils';
 import icon from './icon.js';
 import router from './router.js';
 import user from './user.js';
@@ -21,6 +20,5 @@ assignApis(
 );
 
 // 把apis运算并散发出去
-console.log(genApis(apis, axios), '3333444');
 export default genApis(apis, axios);
 

@@ -24,7 +24,7 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { useStore } from 'vuex';
+  import { useUserStore } from '@/store/modules/user';
   import { ElMessageBox } from 'element-plus';
   import { setting } from '@/config/setting';
   import { useI18n } from 'vue-i18n';
@@ -32,7 +32,7 @@
   const { title, recordRoute } = setting;
   const { t } = useI18n();
   const userName = ref('hu-snail');
-  const store = useStore();
+  const userStore = useUserStore();
 
   const handleCommand = (command) => {
     switch (command) {
@@ -55,7 +55,7 @@
       type: 'warning',
     })
       .then(async () => {
-        await store.dispatch('user/logout');
+        await userStore.logout();
         location.reload();
       })
       .catch(() => {});

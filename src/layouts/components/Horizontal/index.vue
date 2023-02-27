@@ -43,34 +43,35 @@
 <script setup>
   import { computed, ref } from 'vue';
   import { setting } from '@/config/setting';
-  const { uniqueOpened } = setting;
-
-  import { useStore } from 'vuex';
+  import { useRouteStore } from '@/store/modules/route';
+  import { useSettingStore } from '@/store/modules/setting';
   import { useRouter } from 'vue-router';
-
+  
   import { themeConfig } from '@/config/theme';
+  const { uniqueOpened } = setting;
   const { themeOptions } = themeConfig;
 
   const whiteColors = ['#fff', '#ffffff', '#FFF', '#FFF', 'rgb(255, 255, 255)'];
 
   const uniqueOpenedFlag = ref(uniqueOpened);
-  const store = useStore();
+  const routeStore = useRouteStore();
+  const settingStore = useSettingStore();
   const router = useRouter();
 
   const routes = computed(() => {
-    return store.getters['routes/routes'];
+    return routeStore.getRoutes;
   });
 
   const settings = computed(() => {
-    return store.getters['setting/settings'];
+    return settingStore.getSettings;
   });
 
   const tag = computed(() => {
-    return store.getters['setting/tag'];
+    return settingStore.getTag;
   });
 
   const theme = computed(() => {
-    return store.getters['setting/theme'];
+    return settingStore.getTheme;
   });
 
   const menuBgColor = computed(() => {

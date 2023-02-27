@@ -19,7 +19,7 @@
 
 <script setup>
   import { reactive, computed } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
   import { useRoute } from 'vue-router';
   import i18n from '@/locales';
   import { getPageTitle } from '@/utils';
@@ -42,18 +42,14 @@
     },
   ]);
 
+  const settingStore = useSettingStore();
   const language = computed(() => {
-    return store.getters['setting/lang'];
+    return settingStore.lang;
   });
-
-  const store = useStore();
-
   const handleSetLanguage = (lang) => {
-    store.dispatch('setting/changeLanguage', lang);
-    // location.reload();
+    settingStore.changeLanguage(lang);
     i18n.global.locale.value = lang;
     document.title = getPageTitle(i18n.global.t(route.meta.title));
-    console.log(route.meta.title, '123');
   };
 </script>
 

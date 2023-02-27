@@ -52,10 +52,10 @@
 
 <script setup>
 import { reactive, ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import { useUserStore } from '@/store/modules/user';
 import { useRouter, useRoute } from 'vue-router';
 
-const store = useStore();
+const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
 const loginFormRef = ref();
@@ -97,7 +97,7 @@ const submitForm = async (formEl) => {
     if (valid) {
       console.log('submit!')
       // 进行登录操作
-      store.dispatch('user/login', {...loginForm}).then(() => {
+      userStore.login({username: loginForm.username, password: loginForm.password, UUID: 'ignore'}).then(() => {
         // 1、调用方法请求login，保存token
         // 2、根据之前的query判断是否进行跳转
         // 3、路由守卫进行下一步操作，在

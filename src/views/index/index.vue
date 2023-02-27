@@ -7,7 +7,7 @@
       <div class="head-card-content">
         <h2 class="title">{{ sayHi }}! Vue3-Admin, {{ t('indexPage.descTitle') }}</h2>
         <p class="desc">
-          vue3-admin 是基于 vue3 + vite2 + Element-Plus + Vue-Router4.x + Vuex4.x +
+          vue3-admin 是基于 vue3 + vite2 + Element-Plus + Vue-Router4.x + Pinia +
           Javascript开发的中后台管理平台，开箱即用！赶快试试吧...
         </p>
       </div>
@@ -115,8 +115,8 @@
   import { useI18n } from 'vue-i18n';
   import apis from '@/api';
 
-  import { useStore } from 'vuex';
-  const store = useStore();
+  import { useSettingStore } from '@/store/modules/setting';
+  const settingStore = useSettingStore();
 
   const { t } = useI18n();
 
@@ -163,7 +163,7 @@
   });
 
   const isMobile = computed(() => {
-    return store.getters['setting/isMobile'];
+    return settingStore.getIsMobile;
   });
 
   const onGetResouceList = () => {

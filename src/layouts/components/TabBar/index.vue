@@ -63,7 +63,9 @@
 
 <script>
   import { reactive, watch, toRefs, computed, nextTick, onMounted } from 'vue';
-  import { useStore } from 'vuex';
+  import { useSettingStore } from '@/store/modules/setting';
+  import { useRouteStore } from '@/store/modules/route';
+  import { useTabsBarStore } from '@/store/modules/tabsBar';
   import { useRouter } from 'vue-router';
 
   import { useI18n } from 'vue-i18n';
@@ -71,7 +73,9 @@
   export default {
     name: 'TabBar',
     setup() {
-      const store = useStore();
+      const settingStore = useSettingStore();
+      const routeStore = useRouteStore();
+      const tabsBarStore = useTabsBarStore();
       const router = useRouter();
       const { t } = useI18n();
 
@@ -112,16 +116,15 @@
       });
 
       const visitedRouteList = computed(() => {
-        // vue3里面的vuex的geeter是这样取吗
-        return store.getters['tabsBar/visitedRoutes'];
+        return tabsBarStore.getVisitedRoutes;
       });
 
       const routes = computed(() => {
-        return store.getters['routes/routes'];
+        return routeStore.getRoutes;
       });
 
       const mode = computed(() => {
-        return store.getters['setting/mode'];
+        return settingStore.getMode;
       });
       
       // 找出路由里面存在固钉的路由，并把它拍平放到一个数组
@@ -150,14 +153,14 @@
         let affixtabs = (state.affixtabs = filterAffixtabs(routes.value));
         for (const tag of affixtabs) {
           if (tag.name) {
-            store.dispatch('tabsBar/addVisitedRoute', tag);
+            tabsBarStore.addVisitedRoute(tag);
           }
         }
       };
       const addtabs = () => {
         const { name } = router.currentRoute.value;
         if (name) {
-          store.dispatch('tabsBar/addVisitedRoute', router.currentRoute.value);
+          tabsBarStore.addVisitedRoute(router.currentRoute.value);
         }
         return false;
       };
@@ -209,7 +212,7 @@
         //     view = item;
         //   }
         // });
-        const { visitedRoutes } = await store.dispatch('tabsBar/delRoute', view);
+        const { visitedRoutes } = await tabsBarStore.delRoute(view);
         if (isActive(view)) {
           toLastTag(visitedRoutes, view);
         }
@@ -231,27 +234,27 @@
       };
 
       const refreshRoute = async () => {
-        store.dispatch('setting/setRouterView', false);
+        settingStore.setRouterView(false);
         nextTick(() => {
-          store.dispatch('setting/setRouterView', true);
+          settingStore.setRouterView(false);
         });
       };
 
       const closeOtherstabs = async () => {
         const view = await toThisTag();
-        await store.dispatch('tabsBar/delOthersRoutes', view);
+        await tabsBarStore.delOthersRoutes(view);
       };
       const closeLefttabs = async () => {
         const view = await toThisTag();
-        await store.dispatch('tabsBar/delLeftRoutes', view);
+        await tabsBarStore.delLeftRoutes(view);
       };
       const closeRighttabs = async () => {
         const view = await toThisTag();
-        await store.dispatch('tabsBar/delRightRoutes', view);
+        await tabsBarStore.delRightRoutes(view);
       };
       const closeAlltabs = async () => {
         const view = await toThisTag();
-        const { visitedRoutes } = await store.dispatch('tabsBar/delAllRoutes');
+        const { visitedRoutes } = await tabsBarStore.delAllRoutes();
         if (state.affixtabs.some((tag) => tag.path === view.path)) {
           return;
         }
