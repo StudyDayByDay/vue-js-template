@@ -1,10 +1,10 @@
 {
-  "name": "my-vue-app",
+  "name": "zk-app",
   "version": "1.0.0",
   "author": {
-    "name": "hu-snail",
-    "email": "1217437592@qq.com",
-    "url": "https://github.com/hu-snail"
+    "name": "likun",
+    "email": "2995201114@qq.com",
+    "url": "https://github.com/StudyDayByDay"
   },
   "scripts": {
     "lint": "eslint \"src/**/*.{js,vue}\"",
