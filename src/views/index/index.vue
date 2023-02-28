@@ -166,20 +166,20 @@
     return settingStore.getIsMobile;
   });
 
-  const onGetResouceList = () => {
-    apis.getResouceList().then((res) => {
-      const { list, prefix, orderList, skillList } = res.data;
-      Object.assign(state, { list, prefix, orderList, skillList });
-    });
-  };
+  // const onGetResouceList = () => {
+  //   apis.getResouceList().then((res) => {
+  //     const { list, prefix, orderList, skillList } = res.data;
+  //     Object.assign(state, { list, prefix, orderList, skillList });
+  //   });
+  // };
 
   const handleToDetail = (url) => {
     window.open(url);
   };
 
-  onBeforeMount(() => {
-    onGetResouceList();
-  });
+  // onBeforeMount(() => {
+  //   onGetResouceList();
+  // });
 </script>
 
 <style lang="scss" scoped>

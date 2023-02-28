@@ -76,14 +76,14 @@
 
   onBeforeMount(async () => {
     state.list = icons.slice(state.currentPage - 1, state.currTotal);
-    await handleGetIcons();
+    // await handleGetIcons();
   });
 
-  const handleGetIcons = async () => {
-    apis.getIcons().then((res) => {
-      state.icon = res.data;
-    });
-  };
+  // const handleGetIcons = async () => {
+  //   apis.getIcons().then((res) => {
+  //     state.icon = res.data;
+  //   });
+  // };
 
   const handleClickChip = (icon) => {
     console.log(icon)

@@ -71,6 +71,10 @@
   justify-content: center;
 }
 
+.el-menu--collapse > .el-sub-menu > .el-sub-menu__title > span {
+  overflow: initial;
+}
+
 // 重置size是large的input高度
 .el-input--large .el-input__inner {
   --el-input-inner-height: 36px;

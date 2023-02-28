@@ -12,9 +12,7 @@
     "build": "cross-env NODE_ENV=production vite build",
     "preview": "cross-env vite preview",
     "build:preview": "vite build --mode production && vite preview",
-    "dev:mock": "cross-env USE_MOCK=true vite",
-    "build:mock": "cross-env USE_CHUNK_MOCK=true vite build && vite preview",
-    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:style": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
@@ -31,7 +29,6 @@
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
-    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
     "pinia": "^2.0.32",
@@ -70,7 +67,6 @@
     "vite": "^2.5.10",
     "vite-plugin-babel-import": "^2.0.5",
     "vite-plugin-element-plus": "^0.0.12",
-    "vite-plugin-mock": "^2.9.4",
     "vite-plugin-optimize-persist": "^0.1.2",
     "vite-plugin-package-config": "^0.1.1",
     "vite-plugin-style-import": "^1.2.1"
@@ -214,8 +210,7 @@
         "vue",
         "vue-i18n",
         "vue-router",
-        "vue3-count-to",
-        "vuex"
+        "vue3-count-to"
       ]
     }
   }
