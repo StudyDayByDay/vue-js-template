@@ -13,7 +13,6 @@
     <LangChange :color="color" />
     <SkinChange :color="color" />
     <Avatar />
-    <ThemeSetting />
   </div>
 </template>
 

@@ -37,7 +37,6 @@ const {
   port,
   strictPort,
   open,
-  cors,
   brotliSize,
   logLevel,
   clearScreen,
@@ -68,10 +67,18 @@ export default defineConfig({
       // 设置为一个字符串列表，以明确控制要包括哪些polyfills
       modernPolyfills: ['es.promise.finally'],
     }),
-    // TODO：更新一下这个设置，让vue系列的都不用导入
     AutoImport({
-      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-      imports: ['vue'],
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/, /\.vue\?vue/, // .vue
+        /\.md$/, // .md
+      ],
+      // 自动导入 Vue， vue-router 相关函数（就是自动导入hooks）
+      imports: [
+        'vue',
+        'vue-router',
+      ],
+      // 解析器
       resolvers: [
         ElementPlusResolver(),
         // 自动导入图标组件
@@ -80,8 +87,9 @@ export default defineConfig({
         }),
       ],
     }),
-    // TODO：这个也要进行一下设置，这样很多组件都不用进行导入了
     Components({
+      // 默认是这个文件夹自动导入
+      // dirs: ['src/components'],
       resolvers: [
         ElementPlusResolver({
           importStyle: 'sass',
@@ -90,6 +98,7 @@ export default defineConfig({
         }),
         // 自动注册图标组件
         IconsResolver({
+          // 注册elementplus的图标，ep是缩写
           enabledCollections: ['ep'],
         }),
       ],
@@ -103,7 +112,6 @@ export default defineConfig({
   server: {
     host,
     port,
-    cors,
     strictPort,
     open,
     fs: {
