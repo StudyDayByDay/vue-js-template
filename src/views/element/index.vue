@@ -224,7 +224,9 @@
         {{ activity.content }}
       </el-timeline-item>
     </el-timeline>
-
+    <Descrition :showDesc="false" title="jsx" />
+    <Bar/>
+    <Lk/>
   </div>
 </template>
 
@@ -233,6 +235,7 @@
   import Descrition from '@/components/Descrition/index.vue';
   import { ref, reactive } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import { Bar, Lk } from './jsx/title';
   const { t } = useI18n();
   const cityOptions = ['上海', '北京', '广州', '深圳'];
   const radio = ref(3);

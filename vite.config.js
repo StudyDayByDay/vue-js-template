@@ -1,17 +1,28 @@
 import { defineConfig } from 'vite';
 const path = require('path');
+// 为vue单文件进行支持
 import vue from '@vitejs/plugin-vue';
+// 为jsx、tsx语法进行支持
+import vueJsx from '@vitejs/plugin-vue-jsx';
+// 为打包后的文件提供传统浏览器兼容性支持
 import legacy from '@vitejs/plugin-legacy';
+// 系统设置
 import { setting } from './src/config/setting';
+// 处理svg的方法
 import { svgBuilder } from './src/plugin/svgBuilder';
-
+// 坚持动态分析的依赖关系优化，输出为package.json的optimizeDeps
 import OptimizationPersist from 'vite-plugin-optimize-persist';
+// 从你的package.json vite领域扩展Vite配置
 import PkgConfig from 'vite-plugin-package-config';
+// vue国际化插件
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
-
+// 为Vite、Webpack、Rollup和esbuild按需自动导入API。有TypeScript支持。由unplugin提供
 import AutoImport from 'unplugin-auto-import/vite';
+// Vue的按需组件自动导入，默认以src/component
 import Components from 'unplugin-vue-components/vite';
+// 内置的解析器，用于解析流行的UI库，配合上面Components使用
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+// 普遍地按需访问数以千计的图标作为组件
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 
@@ -47,13 +58,17 @@ export default defineConfig({
   clearScreen,
   plugins: [
     vue(),
+    vueJsx(),
     PkgConfig(),
     OptimizationPersist(),
     loadI18n,
     legacy({
+      // 设置为一个字符串的列表，以明确控制包括哪些polyfills。设置为false以避免生成polyfills并自己处理它。默认值是true
       polyfills: ['es.promise.finally', 'es/map', 'es/set'],
+      // 设置为一个字符串列表，以明确控制要包括哪些polyfills
       modernPolyfills: ['es.promise.finally'],
     }),
+    // TODO：更新一下这个设置，让vue系列的都不用导入
     AutoImport({
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
       imports: ['vue'],
@@ -65,6 +80,7 @@ export default defineConfig({
         }),
       ],
     }),
+    // TODO：这个也要进行一下设置，这样很多组件都不用进行导入了
     Components({
       resolvers: [
         ElementPlusResolver({
