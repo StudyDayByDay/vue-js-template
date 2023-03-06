@@ -16,12 +16,8 @@ import OptimizationPersist from 'vite-plugin-optimize-persist';
 import PkgConfig from 'vite-plugin-package-config';
 // vue国际化插件
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
-// 为Vite、Webpack、Rollup和esbuild按需自动导入API。有TypeScript支持。由unplugin提供
-import AutoImport from 'unplugin-auto-import/vite';
 // Vue的按需组件自动导入，默认以src/component
 import Components from 'unplugin-vue-components/vite';
-// 内置的解析器，用于解析流行的UI库，配合上面Components使用
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 // 普遍地按需访问数以千计的图标作为组件
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
@@ -67,35 +63,10 @@ export default defineConfig({
       // 设置为一个字符串列表，以明确控制要包括哪些polyfills
       modernPolyfills: ['es.promise.finally'],
     }),
-    AutoImport({
-      include: [
-        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-        /\.vue$/, /\.vue\?vue/, // .vue
-        /\.md$/, // .md
-      ],
-      // 自动导入 Vue， vue-router 相关函数（就是自动导入hooks）
-      imports: [
-        'vue',
-        'vue-router',
-      ],
-      // 解析器
-      resolvers: [
-        ElementPlusResolver(),
-        // 自动导入图标组件
-        IconsResolver({
-          prefix: 'Icon',
-        }),
-      ],
-    }),
     Components({
       // 默认是这个文件夹自动导入
       // dirs: ['src/components'],
       resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass',
-          // directives: true,
-          // version: "2.1.5",
-        }),
         // 自动注册图标组件
         IconsResolver({
           // 注册elementplus的图标，ep是缩写
@@ -147,11 +118,7 @@ export default defineConfig({
     preprocessorOptions: {
       // 引入公用的样式
       scss: {
-        additionalData: `
-          @use "@/styles/index.scss" as *;
-          @use "@/styles/element/index.scss" as *;
-          @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
-        `,
+        additionalData: `@use "@/styles/index.scss" as *;`,
         charset: false,
       },
     },
@@ -175,6 +142,7 @@ export default defineConfig({
     //     // assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
     //   },
     // },
+    minify: 'terser',
     terserOptions: {
       compress: {
         keep_infinity: true,

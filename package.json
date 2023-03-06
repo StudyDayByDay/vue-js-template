@@ -62,7 +62,6 @@
     "stylelint-config-recess-order": "^2.4.0",
     "stylelint-config-standard": "^22.0.0",
     "svg-sprite-loader": "^6.0.9",
-    "unplugin-auto-import": "^0.7.2",
     "unplugin-icons": "^0.14.3",
     "unplugin-vue-components": "^0.19.5",
     "vite": "^2.5.10",

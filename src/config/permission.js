@@ -19,7 +19,6 @@ router.beforeEach(async (to, from) => {
   const userStore = useUserStoreWithOut();
   const routeStore = useRouteStore();
   if (progressBar) NProgress.start();
-
   if (userStore.accessToken) {
     // 跳过登录页面，直接去首页
     if (to.path === '/login') {

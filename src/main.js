@@ -1,13 +1,17 @@
 import { createApp } from 'vue';
-
+// 引入主题设置scss文件
+import './styles/element/index.scss';
 // permission 权限文件
 import './config/permission';
 
 // 公共样式在vite.config.js中引入的
 // element
-import 'element-plus/theme-chalk/display.css';
 import App from './App.vue';
 const app = createApp(App);
+
+import ElementPlus from 'element-plus';
+// import 'element-plus/dist/index.css';
+app.use(ElementPlus);
 
 import { VueClipboard } from '@soerenmartius/vue3-clipboard';
 app.use(VueClipboard);
