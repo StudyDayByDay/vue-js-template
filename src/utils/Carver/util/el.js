@@ -3,11 +3,11 @@
  * @returns {number}
  */
 export function getScrollbarWidth() {
-  const odiv = document.createElement("div");
+  const odiv = document.createElement('div');
   const styles = {
-    width: "100px",
-    height: "100px",
-    overflowY: "scroll",
+    width: '100px',
+    height: '100px',
+    overflowY: 'scroll',
   };
   let scrollbarWidth;
   for (let i in styles) odiv.style[i] = styles[i];
@@ -24,9 +24,9 @@ export function getScrollbarWidth() {
  * @returns {{width:number,height:number}}
  */
 export function getCharPix(text, fontSize = 16) {
-  let dom = document.createElement("span");
-  dom.style.display = "inline-block";
-  dom.style.whiteSpace = "pre";
+  let dom = document.createElement('span');
+  dom.style.display = 'inline-block';
+  dom.style.whiteSpace = 'pre';
   dom.style.fontSize = fontSize;
   dom.textContent = text;
   document.body.appendChild(dom);
@@ -62,10 +62,8 @@ export function getArrowPoint(x1, y1, x2, y2) {
     if (angle >= 70) {
       pointPosition.x1 = x1 + 12 * Math.cos(((angle - 20) * Math.PI) / 180);
       pointPosition.y1 = y1 - 12 * Math.sin(((angle - 20) * Math.PI) / 180);
-      pointPosition.x2 =
-        x1 - 12 * Math.cos(((180 - (angle + 20)) * Math.PI) / 180);
-      pointPosition.y2 =
-        y1 - 12 * Math.sin(((180 - (angle + 20)) * Math.PI) / 180);
+      pointPosition.x2 = x1 - 12 * Math.cos(((180 - (angle + 20)) * Math.PI) / 180);
+      pointPosition.y2 = y1 - 12 * Math.sin(((180 - (angle + 20)) * Math.PI) / 180);
     }
   }
   if (x1 > x2) {
@@ -78,10 +76,8 @@ export function getArrowPoint(x1, y1, x2, y2) {
     if (angle >= 70) {
       pointPosition.x1 = x1 - 12 * Math.cos(((angle - 20) * Math.PI) / 180);
       pointPosition.y1 = y1 - 12 * Math.sin(((angle - 20) * Math.PI) / 180);
-      pointPosition.x2 =
-        x1 + 12 * Math.cos(((180 - (angle + 20)) * Math.PI) / 180);
-      pointPosition.y2 =
-        y1 - 12 * Math.sin(((180 - (angle + 20)) * Math.PI) / 180);
+      pointPosition.x2 = x1 + 12 * Math.cos(((180 - (angle + 20)) * Math.PI) / 180);
+      pointPosition.y2 = y1 - 12 * Math.sin(((180 - (angle + 20)) * Math.PI) / 180);
     }
   }
   return pointPosition;

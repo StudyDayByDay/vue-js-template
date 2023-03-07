@@ -20,12 +20,12 @@ export function deepMerge(target, source) {
       const temp = Object.prototype.toString.call(o2[k]);
       const type = temp.slice(8, temp.length - 1).toLowerCase();
 
-      if (type === "object") {
+      if (type === 'object') {
         res[k] = deep(res[k], o2[k]);
         return;
       }
 
-      if (type === "array") {
+      if (type === 'array') {
         if (!Array.isArray(res[k])) {
           res[k] = o2[k];
           return;

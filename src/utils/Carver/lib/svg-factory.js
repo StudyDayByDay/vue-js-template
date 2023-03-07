@@ -4,7 +4,7 @@ export class SVGFactory {
    * @returns {SVGSVGElement}
    */
   static createSVG() {
-    return SVGFactory.createSVGElement("svg");
+    return SVGFactory.createSVGElement('svg');
   }
 
   /**
@@ -12,7 +12,7 @@ export class SVGFactory {
    * @returns {SVGGElement}
    */
   static createG() {
-    return SVGFactory.createSVGElement("g");
+    return SVGFactory.createSVGElement('g');
   }
 
   /**
@@ -20,7 +20,7 @@ export class SVGFactory {
    * @returns {SVGRectElement}
    */
   static createRect() {
-    return SVGFactory.createSVGElement("rect");
+    return SVGFactory.createSVGElement('rect');
   }
 
   /**
@@ -28,7 +28,7 @@ export class SVGFactory {
    * @returns {SVGTextElement}
    */
   static createText() {
-    return SVGFactory.createSVGElement("text");
+    return SVGFactory.createSVGElement('text');
   }
 
   /**
@@ -36,7 +36,7 @@ export class SVGFactory {
    * @returns {SVGPolylineElement}
    */
   static createPolyline() {
-    return SVGFactory.createSVGElement("polyline");
+    return SVGFactory.createSVGElement('polyline');
   }
 
   /**
@@ -44,7 +44,7 @@ export class SVGFactory {
    * @returns {SVGPolygonElement}
    */
   static createPolygon() {
-    return SVGFactory.createSVGElement("polygon");
+    return SVGFactory.createSVGElement('polygon');
   }
 
   /**
@@ -53,6 +53,6 @@ export class SVGFactory {
    * @returns {SVGElement}
    */
   static createSVGElement(name) {
-    return document.createElementNS("http://www.w3.org/2000/svg", name);
+    return document.createElementNS('http://www.w3.org/2000/svg', name);
   }
 }

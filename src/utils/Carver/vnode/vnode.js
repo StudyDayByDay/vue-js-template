@@ -53,7 +53,7 @@ export class VNode {
     if (!this.$el) {
       return;
     }
-    this.$el.setAttribute("id", this.id);
+    this.$el.setAttribute('id', this.id);
     Object.keys(this.position).forEach((key) => {
       this.$el.setAttribute(key, this.position[key]);
     });

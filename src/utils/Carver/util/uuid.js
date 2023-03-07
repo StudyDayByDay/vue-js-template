@@ -6,10 +6,7 @@ export const UUID = {
    * @returns
    */
   generate(len, radix) {
-    const chars =
-      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(
-        ""
-      );
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
     let uuid = [];
     radix = radix || chars.length;
 
@@ -20,8 +17,8 @@ export const UUID = {
     }
 
     if (!len) {
-      uuid[8] = uuid[13] = uuid[18] = uuid[23] = "-";
-      uuid[14] = "4";
+      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+      uuid[14] = '4';
       let r;
 
       for (let i = 0; i < 36; i++) {
@@ -32,6 +29,6 @@ export const UUID = {
       }
     }
 
-    return uuid.join("");
+    return uuid.join('');
   },
 };

@@ -1,5 +1,5 @@
-import { VNode } from "./vnode";
-import { SVGFactory } from "../lib/svg-factory.js";
+import { VNode } from './vnode';
+import { SVGFactory } from '../lib/svg-factory.js';
 
 /**
  * 虚拟高亮标记节点类
@@ -56,7 +56,7 @@ export class VMark extends VNode {
         console.log(e);
       };
     }
-    this.$el.setAttribute("fill", `${style.backgroundColor}`);
+    this.$el.setAttribute('fill', `${style.backgroundColor}`);
     this.$el.style.opacity = style.opacity;
     this.setAttributes();
   }
@@ -66,11 +66,11 @@ export class VMark extends VNode {
    * @private
    */
   __onTextPositionChange() {
-    this.$bus.addEventListener("textPositionChange", (e) => {
+    this.$bus.addEventListener('textPositionChange', (e) => {
       this.nodeRectList.forEach((rectItem) => {
         if (rectItem.index === e.data.index) {
-          rectItem.setAttribute("x", e.data.position.x);
-          rectItem.setAttribute("y", e.data.position.y);
+          rectItem.setAttribute('x', e.data.position.x);
+          rectItem.setAttribute('y', e.data.position.y);
           rectItem.rowIndex = e.data.position.rowIndex;
         }
       });
@@ -81,11 +81,11 @@ export class VMark extends VNode {
    * 监听标签样式变化
    */
   __onLabelStyleChange() {
-    this.$bus.addEventListener("labelStyleChange", ({ target, data }) => {
+    this.$bus.addEventListener('labelStyleChange', ({ target, data }) => {
       if (target.id !== this.labelId) {
         return;
       }
-      this.$el.setAttribute("fill", `${data.backgroundColor}`);
+      this.$el.setAttribute('fill', `${data.backgroundColor}`);
     });
   }
 

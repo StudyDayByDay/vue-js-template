@@ -1,8 +1,8 @@
-import { VText } from "./vtext.js";
-import { UUID } from "../util/index.js";
-import { VLabel } from "./vlabel.js";
-import { VMark } from "./vmark.js";
-import { VPath } from "./vpath.js";
+import { VText } from './vtext.js';
+import { UUID } from '../util/index.js';
+import { VLabel } from './vlabel.js';
+import { VMark } from './vmark.js';
+import { VPath } from './vpath.js';
 
 /**
  * 虚拟节点工厂类
@@ -28,7 +28,7 @@ export class VNodeFactory {
    *
    */
   createNode(type, options, exData) {
-    options["id"] = UUID.generate(32); // 生成UUID作为节点唯一标识
+    options['id'] = UUID.generate(32); // 生成UUID作为节点唯一标识
     return this[`__${type}`](options, exData);
   }
 

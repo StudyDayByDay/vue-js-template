@@ -1,6 +1,6 @@
-import { VNode } from "./vnode.js";
-import { SVGFactory } from "../lib/svg-factory.js";
-import { getCharPix, getArrowPoint } from "../util/index.js";
+import { VNode } from './vnode.js';
+import { SVGFactory } from '../lib/svg-factory.js';
+import { getCharPix, getArrowPoint } from '../util/index.js';
 
 export class VPath extends VNode {
   /**
@@ -21,7 +21,7 @@ export class VPath extends VNode {
    */
   constructor(options, exData) {
     super({ position: options.position, id: options.id }, exData);
-    this.textContent = options.textContent || "";
+    this.textContent = options.textContent || '';
     this.startLabel = options.startLabel;
     this.endLabel = options.endLabel;
     this.pathPosition = {
@@ -42,7 +42,7 @@ export class VPath extends VNode {
     this.pathTextMouseover = null; // 鼠标移动到上方执行回调
     this.pathTextMouseleave = null; // 鼠标移除上方时执行回调
     this.__watcher(); // pathPosition 变化设置监听
-    this.type = "path";
+    this.type = 'path';
   }
 
   /**
@@ -55,21 +55,21 @@ export class VPath extends VNode {
       const svgGroup = SVGFactory.createG();
       const svgPolyline = SVGFactory.createPolyline();
 
-      svgPolyline.style.fill = "none";
-      svgPolyline.style.stroke = "black";
-      svgPolyline.style.strokeWidth = "1.5";
+      svgPolyline.style.fill = 'none';
+      svgPolyline.style.stroke = 'black';
+      svgPolyline.style.strokeWidth = '1.5';
       svgGroup.appendChild(svgPolyline);
       // 创建路径文本
       if (!this.connect) {
         const svgRect = SVGFactory.createRect();
         const svgText = SVGFactory.createText();
-        svgText.style.fontSize = "12px";
-        svgText.style.cursor = "pointer";
-        svgText.setAttribute("dominant-baseline", "text-before-edge"); // 让text与rect位置可以重叠在一起
+        svgText.style.fontSize = '12px';
+        svgText.style.cursor = 'pointer';
+        svgText.setAttribute('dominant-baseline', 'text-before-edge'); // 让text与rect位置可以重叠在一起
         svgGroup.appendChild(svgRect);
         svgGroup.appendChild(svgText);
         svgText.onclick = (e) => {
-          this.$bus.emit("pathClick", this, e);
+          this.$bus.emit('pathClick', this, e);
         };
       }
 
@@ -91,7 +91,7 @@ export class VPath extends VNode {
    * @param {Object} pathPosition
    */
   __setOptions(pathPosition) {
-    const pathTextSize = getCharPix(this.textContent, "12px"); // 根据path路径标签内容获取路径宽
+    const pathTextSize = getCharPix(this.textContent, '12px'); // 根据path路径标签内容获取路径宽
     // 标签的路径坐标点
     const pathPolylineOptions = {
       points: `${pathPosition.x1},${pathPosition.y1} ${pathPosition.x2},${pathPosition.y2} ${pathPosition.x3},${pathPosition.y3} ${pathPosition.x4},${pathPosition.y4}`,
@@ -113,7 +113,7 @@ export class VPath extends VNode {
       const pathTextOptions = {
         x: (pathPosition.x2 + pathPosition.x3 - pathTextSize.width) / 2,
         y: pathPosition.y3 - pathTextSize.height / 2,
-        fill: "black",
+        fill: 'black',
       };
       this.__setAttributes(pathRectOptions, this.$el.children[1]);
       this.__setAttributes(pathTextOptions, this.$el.children[2]);

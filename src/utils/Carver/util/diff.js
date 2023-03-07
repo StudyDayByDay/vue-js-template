@@ -157,9 +157,9 @@ export function pathDiff(vnodeList, pathInfo) {
   const updatedList = []; // 被更新的对象
   const newList = []; // 新添加的对象
   const pathInfoLength = pathInfo.length;
-  
+
   // 遍历新标签的位置
-  for(let i = 0; i < pathInfoLength; i++) {
+  for (let i = 0; i < pathInfoLength; i++) {
     const pathItem = pathInfo[i];
     const vnode = vnodeList.find(
       // 当单行变多行时；会生成两个pathInfo信息；当这条多行变单行时，会生成一个新的pathInfo信息；而另两个换行的pathInfo生成的vnode 则会被删除

@@ -12,7 +12,7 @@ export class EBus {
    * @returns
    */
   register(eventName) {
-    if (typeof eventName == "string") {
+    if (typeof eventName == 'string') {
       this.__add(eventName);
       return;
     }
@@ -27,7 +27,7 @@ export class EBus {
    * @returns
    */
   unregister(eventName) {
-    if (typeof eventName == "string") {
+    if (typeof eventName == 'string') {
       this.__del(eventName);
       return;
     }
@@ -48,9 +48,7 @@ export class EBus {
       return;
     }
     if (callBack) {
-      const i = this.events[index].callBacks.findIndex(
-        (item) => item === callBack
-      );
+      const i = this.events[index].callBacks.findIndex((item) => item === callBack);
       if (i < 0) {
         return;
       }

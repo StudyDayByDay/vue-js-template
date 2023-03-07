@@ -86,7 +86,8 @@
           if (valid) {
             state.valid = true;
             state.loading = true;
-            userStore.login({...state.ruleForm, UUID: "ignore", captcha: ""})
+            userStore
+              .login({ ...state.ruleForm, UUID: 'ignore', captcha: '' })
               .then(() => {
                 const routerPath =
                   state.redirect === '/404' || state.redirect === '/401' ? '/' : state.redirect;

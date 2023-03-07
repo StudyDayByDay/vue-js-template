@@ -1,5 +1,4 @@
-import { PSCalculator } from "./pscalculator";
-import { config } from "../options/config";
+import { config } from '../options/config';
 export class TextSelection {
   /**
    * 构造函数
@@ -62,23 +61,23 @@ export class TextSelection {
     let x = null;
     let y = null;
     if (
-      this.start["x"] !== undefined &&
-      this.start["y"] !== undefined &&
-      this.start["rowIndex"] !== undefined
+      this.start['x'] !== undefined &&
+      this.start['y'] !== undefined &&
+      this.start['rowIndex'] !== undefined
     ) {
       x = e.offsetX;
       y = e.offsetY;
     }
     if (
-      this.start["x"] === undefined ||
-      this.start["y"] === undefined ||
-      this.start["rowIndex"] === undefined
+      this.start['x'] === undefined ||
+      this.start['y'] === undefined ||
+      this.start['rowIndex'] === undefined
     ) {
-      this.start["x"] = e.offsetX;
-      this.start["y"] = e.offsetY;
+      this.start['x'] = e.offsetX;
+      this.start['y'] = e.offsetY;
       const row = this.__getRowInfoBy(e.offsetX, e.offsetY);
-      this.start["rowIndex"] = row.rowIndex;
-      this.start["outLine"] = row.outLine;
+      this.start['rowIndex'] = row.rowIndex;
+      this.start['outLine'] = row.outLine;
     }
     if (x == null || y == null) {
       return;
@@ -89,11 +88,11 @@ export class TextSelection {
 
     let realRes = {};
     if (res.min > res.max) {
-      realRes["max"] = res.min;
-      realRes["min"] = res.max;
+      realRes['max'] = res.min;
+      realRes['min'] = res.max;
     } else {
-      realRes["max"] = res.max;
-      realRes["min"] = res.min;
+      realRes['max'] = res.max;
+      realRes['min'] = res.min;
     }
 
     if (this.onchange) {
@@ -178,16 +177,12 @@ export class TextSelection {
 
     // 若p0为空数组 表示此时鼠标反选文本并溢出文本区域 取其下一行作为新的p0
     if (!p0Rows.length) {
-      p0Rows = this.$pscalculator.textInfo.filter(
-        (item) => item.rowIndex === p0.rowIndex + 1
-      );
+      p0Rows = this.$pscalculator.textInfo.filter((item) => item.rowIndex === p0.rowIndex + 1);
     }
 
     // 若p1为空数组 表示此时鼠标反选文本并溢出文本区域 取其上一行作为新的p1
     if (!p1Rows.length) {
-      p1Rows = this.$pscalculator.textInfo.filter(
-        (item) => item.rowIndex === p1.rowIndex - 1
-      );
+      p1Rows = this.$pscalculator.textInfo.filter((item) => item.rowIndex === p1.rowIndex - 1);
     }
 
     // 取值同上
@@ -206,9 +201,7 @@ export class TextSelection {
    */
   __getRowInfoBy(x, y) {
     // 最大行号
-    const maxRow =
-      this.$pscalculator.textInfo[this.$pscalculator.textInfo.length - 1]
-        .rowIndex;
+    const maxRow = this.$pscalculator.textInfo[this.$pscalculator.textInfo.length - 1].rowIndex;
     // 结果行号
     let rowIndex = 0;
     // 坐标是否超出当前行的文本区域（不包含边距的文本区域）
@@ -249,7 +242,7 @@ export class TextSelection {
    */
   __init() {
     this.start = {};
-    this.$root.addEventListener("mousedown", msdown, true); // 添加鼠标按下事件
+    this.$root.addEventListener('mousedown', msdown, true); // 添加鼠标按下事件
     const _this = this;
     /**
      * 鼠标按下事件
@@ -257,10 +250,10 @@ export class TextSelection {
      */
     function msdown(e) {
       _this.__msdown(e);
-      _this.$root.removeEventListener("mousedown", msdown, true); // 移除鼠标按下事件
-      _this.$root.addEventListener("mouseup", msup, true); // 添加鼠标抬起事件
-      _this.$root.addEventListener("mousemove", msmove, true); // 添加鼠标经过事件
-      window.addEventListener("mousemove", local_msmove, true); // 添加全局鼠标经过事件
+      _this.$root.removeEventListener('mousedown', msdown, true); // 移除鼠标按下事件
+      _this.$root.addEventListener('mouseup', msup, true); // 添加鼠标抬起事件
+      _this.$root.addEventListener('mousemove', msmove, true); // 添加鼠标经过事件
+      window.addEventListener('mousemove', local_msmove, true); // 添加全局鼠标经过事件
     }
 
     /**
@@ -269,9 +262,9 @@ export class TextSelection {
      */
     function msup(e) {
       _this.__msup(e);
-      _this.$root.removeEventListener("mouseup", msup, true); // 移除鼠标抬起事件
-      _this.$root.removeEventListener("mousemove", msmove, true); // 移除鼠标经过事件
-      window.removeEventListener("mousemove", local_msmove, true); // 移除全局鼠标经过事件
+      _this.$root.removeEventListener('mouseup', msup, true); // 移除鼠标抬起事件
+      _this.$root.removeEventListener('mousemove', msmove, true); // 移除鼠标经过事件
+      window.removeEventListener('mousemove', local_msmove, true); // 移除全局鼠标经过事件
     }
 
     /**
@@ -302,10 +295,10 @@ export class TextSelection {
      * 销毁事件
      */
     function destroy() {
-      _this.$root.removeEventListener("mousedown", msdown, true); // 移除鼠标按下事件
-      _this.$root.removeEventListener("mouseup", msup, true); // 移除鼠标抬起事件
-      _this.$root.removeEventListener("mousemove", msmove, true); // 移除鼠标经过事件
-      window.removeEventListener("mousemove", local_msmove, true); // 移除全局鼠标经过事件
+      _this.$root.removeEventListener('mousedown', msdown, true); // 移除鼠标按下事件
+      _this.$root.removeEventListener('mouseup', msup, true); // 移除鼠标抬起事件
+      _this.$root.removeEventListener('mousemove', msmove, true); // 移除鼠标经过事件
+      window.removeEventListener('mousemove', local_msmove, true); // 移除全局鼠标经过事件
     }
 
     return destroy;

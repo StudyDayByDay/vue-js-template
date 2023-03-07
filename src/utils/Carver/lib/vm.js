@@ -1,21 +1,11 @@
-import { VNodeFactory } from "../vnode/index.js";
-import {
-  config as defaultConfig,
-  style as defaultStyle,
-} from "../options/index.js";
-import { PSCalculator } from "./pscalculator.js";
-import { SVGFactory } from "./svg-factory.js";
-import { VText } from "../vnode/vtext.js";
-import {
-  textDiff,
-  labelDiff,
-  pathDiff,
-  compare,
-  deepMerge,
-} from "../util/index.js";
-import { EBus } from "./ebus.js";
-import { TextSelection } from "./text-selection.js";
-import { VLabel } from "../vnode/vlabel.js";
+import { VNodeFactory } from '../vnode/index.js';
+import { config as defaultConfig, style as defaultStyle } from '../options/index.js';
+import { PSCalculator } from './pscalculator.js';
+import { SVGFactory } from './svg-factory.js';
+import { VText } from '../vnode/vtext.js';
+import { textDiff, labelDiff, pathDiff, compare, deepMerge } from '../util/index.js';
+import { EBus } from './ebus.js';
+import { TextSelection } from './text-selection.js';
 
 export class VM {
   /**
@@ -41,13 +31,10 @@ export class VM {
     this.config = {}; // 布局配置信息
     this.style = deepMerge({}, defaultStyle, options.style); // 样式配置信息
     // 是否自动监听容器大小
-    this.autoResize =
-      typeof options.autoResize === "undefined" ? true : !!options.autoResize;
+    this.autoResize = typeof options.autoResize === 'undefined' ? true : !!options.autoResize;
     // 容器自动监听频率
     this.onResizeinterval =
-      typeof options.onResizeinterval === "number"
-        ? options.onResizeinterval
-        : 200;
+      typeof options.onResizeinterval === 'number' ? options.onResizeinterval : 200;
     // 虚拟节点
     this.nodeList = {
       textNodeList: [],
@@ -107,7 +94,7 @@ export class VM {
     });
     this.currentSelectList = []; // 当前选中的文本
     this.$bus.events.forEach((eventItem) => {
-      if (eventItem.name !== "labelClick" && eventItem.name !== "pathClick") {
+      if (eventItem.name !== 'labelClick' && eventItem.name !== 'pathClick') {
         eventItem.callBacks = [];
       }
     });
@@ -122,7 +109,7 @@ export class VM {
    * @returns {Promise<{fromIndex:number;toIndex:number;text:string;fromNode:VText;toNode:VText;}>}
    */
   select(multiple, multipleListener = null) {
-    this.$bus.register("selectCancel"); // 在事件总线上注册selectCancel取消划词事件
+    this.$bus.register('selectCancel'); // 在事件总线上注册selectCancel取消划词事件
 
     if (!multiple) {
       this.__setSelectStatus(1); // 设置划词状态为单个划词
@@ -147,9 +134,9 @@ export class VM {
     // 通过promise在划词行为结束时返回划中的词及其索引
     return new Promise((resolve, reject) => {
       // 添加划词取消事件监听
-      this.$bus.addEventListener("selectCancel", () => {
+      this.$bus.addEventListener('selectCancel', () => {
         // 移除selectCancel事件
-        this.$bus.unregister("selectCancel");
+        this.$bus.unregister('selectCancel');
         // 销毁文本选择对象
         textSelection.destroy();
 
@@ -168,7 +155,7 @@ export class VM {
         // 监听划词变化并触发textSelect事件 通知文本添加或取消选中的高亮标记
         textSelection.onchange = (min, max) => {
           this.$emit({
-            eventName: "textSelect",
+            eventName: 'textSelect',
             data: { start: min, end: max },
           });
         };
@@ -179,7 +166,7 @@ export class VM {
         // 点击所在行 不存在文本 的情况
         if (min === -1 && max === -1) {
           if (!multiple) {
-            reject("请选择正确的位置开始划词");
+            reject('请选择正确的位置开始划词');
             this.cancelSelect();
           }
           return;
@@ -195,7 +182,7 @@ export class VM {
           currentTextList[0].textContent === this.config.linebreaks
         ) {
           if (!multiple) {
-            reject("请选择正确的位置开始划词");
+            reject('请选择正确的位置开始划词');
             this.cancelSelect();
           }
           return;
@@ -203,9 +190,7 @@ export class VM {
 
         // 记录下当前的划中内容
         this.__setCurrentSelectList(
-          this.currentSelectList
-            .slice()
-            .concat([this.__getTextInfoBy(min, max)])
+          this.currentSelectList.slice().concat([this.__getTextInfoBy(min, max)])
         );
 
         if (!multiple) {
@@ -216,7 +201,7 @@ export class VM {
         }
 
         // 触发取消划词状态事件
-        this.$emit({ eventName: "textCancel" });
+        this.$emit({ eventName: 'textCancel' });
 
         // 多选回调如果存在则执行 通过函数返回当前的多选的次数索引和当前次划中的内容
         if (multipleListener) {
@@ -234,7 +219,7 @@ export class VM {
    */
   cancelSelect() {
     this.__setSelectStatus(0);
-    this.$emit({ eventName: "selectCancel" });
+    this.$emit({ eventName: 'selectCancel' });
     this.__setCurrentSelectList([]);
   }
 
@@ -275,9 +260,7 @@ export class VM {
     // 移除的选中项
     const desArr = this.currentSelectList.filter(
       ({ fromIndex, toIndex }) =>
-        !list.find(
-          (item) => item.fromIndex === fromIndex && item.toIndex === toIndex
-        )
+        !list.find((item) => item.fromIndex === fromIndex && item.toIndex === toIndex)
     );
     desArr.forEach((item) => {
       this.__cancelSelectMark(item);
@@ -303,7 +286,7 @@ export class VM {
       ({ index }) => index >= mark.fromIndex && index <= mark.toIndex
     );
     const style = deepMerge({}, this.style.mark, mark.style);
-    const vmark = this.$vnodeFactory.createNode("vmark", { textList });
+    const vmark = this.$vnodeFactory.createNode('vmark', { textList });
     vmark.$bus = this.$bus;
     vmark.fromIndex = mark.fromIndex;
     vmark.toIndex = mark.toIndex;
@@ -325,10 +308,10 @@ export class VM {
       ({ index }) => index >= mark.fromIndex && index <= mark.toIndex
     );
     if (!textList.length) {
-      throw new Error("传递的索引有误");
+      throw new Error('传递的索引有误');
     }
     const style = deepMerge({}, this.style.mark, mark.style);
-    const vmark = this.$vnodeFactory.createNode("vmark", { textList });
+    const vmark = this.$vnodeFactory.createNode('vmark', { textList });
     vmark.$bus = this.$bus;
     vmark.fromIndex = mark.fromIndex;
     vmark.toIndex = mark.toIndex;
@@ -344,9 +327,7 @@ export class VM {
    * @returns
    */
   __cancelLabelMark(labelId) {
-    const index = this.nodeList.labelMarkNodeList.findIndex(
-      (item) => labelId === item.labelId
-    );
+    const index = this.nodeList.labelMarkNodeList.findIndex((item) => labelId === item.labelId);
     if (index < 0) {
       return;
     }
@@ -363,7 +344,7 @@ export class VM {
       ({ index }) => index >= mark.fromIndex && index <= mark.toIndex
     );
     const style = deepMerge({}, this.style.mark, mark.style);
-    const vmark = this.$vnodeFactory.createNode("vmark", { textList });
+    const vmark = this.$vnodeFactory.createNode('vmark', { textList });
     vmark.$bus = this.$bus;
     vmark.fromIndex = mark.fromIndex;
     vmark.toIndex = mark.toIndex;
@@ -377,11 +358,10 @@ export class VM {
    * @param {{fromIndex:number;toIndex:number;text:string;fromNode:VText;toNode:VText;}} mark
    */
   __cancelSelectMark(mark) {
-    const index = this.nodeList.selectMarkNodeList.findIndex(
-      ({ labelId, fromIndex, toIndex }) =>
-        mark.labelId
-          ? labelId === mark.labelId
-          : fromIndex === mark.fromIndex && toIndex === mark.toIndex
+    const index = this.nodeList.selectMarkNodeList.findIndex(({ labelId, fromIndex, toIndex }) =>
+      mark.labelId
+        ? labelId === mark.labelId
+        : fromIndex === mark.fromIndex && toIndex === mark.toIndex
     );
     if (index < 0) {
       return;
@@ -397,26 +377,26 @@ export class VM {
    */
   __setSelectStatus(status) {
     if (status === 0) {
-      this.$textLayer.style.cursor = "default";
-      this.$textLayer.style.pointerEvents = "none";
-      this.$labelLayer.style.pointerEvents = "all";
-      this.$markLayer.style.pointerEvents = "all";
-      this.$relationLayer.style.pointerEvents = "all";
+      this.$textLayer.style.cursor = 'default';
+      this.$textLayer.style.pointerEvents = 'none';
+      this.$labelLayer.style.pointerEvents = 'all';
+      this.$markLayer.style.pointerEvents = 'all';
+      this.$relationLayer.style.pointerEvents = 'all';
     }
 
     if (status !== 0) {
-      this.$textLayer.style.cursor = "text";
-      this.$textLayer.style.pointerEvents = "all";
-      this.$labelLayer.style.pointerEvents = "none";
-      this.$markLayer.style.pointerEvents = "none";
-      this.$relationLayer.style.pointerEvents = "none";
+      this.$textLayer.style.cursor = 'text';
+      this.$textLayer.style.pointerEvents = 'all';
+      this.$labelLayer.style.pointerEvents = 'none';
+      this.$markLayer.style.pointerEvents = 'none';
+      this.$relationLayer.style.pointerEvents = 'none';
     }
 
     const lastStatus = this.selectStatus;
     this.selectStatus = status;
 
     if (lastStatus === 1 && status === 0) {
-      this.$emit({ eventName: "textCancel" });
+      this.$emit({ eventName: 'textCancel' });
     }
   }
 
@@ -455,7 +435,7 @@ export class VM {
    */
   addLabel(data) {
     data.forEach((item) => {
-      item["style"] = deepMerge({}, this.style.label, item.style);
+      item['style'] = deepMerge({}, this.style.label, item.style);
     });
     this.$pscalculator.addLabel(data);
     return this.nodeList.labelNodeList.filter(
@@ -476,16 +456,16 @@ export class VM {
    */
   removeLabel(vlabel) {
     const targets = this.nodeList.labelNodeList.filter((el) => {
-      if (typeof vlabel.id !== "undefined") {
+      if (typeof vlabel.id !== 'undefined') {
         return el.id === vlabel.id;
       }
       return compare(vlabel, el);
     });
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
 
     this.__deleteLabelPath(targets[0]); // 删除路径虚拟节点
@@ -501,14 +481,12 @@ export class VM {
    * @param {*} exData
    */
   removeLabelByExData(exData) {
-    const targets = this.nodeList.labelNodeList.filter(
-      (el) => el.exData === exData
-    );
+    const targets = this.nodeList.labelNodeList.filter((el) => el.exData === exData);
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
     return this.removeLabel(targets[0]);
   }
@@ -536,9 +514,7 @@ export class VM {
    * @returns
    */
   __deleteLabel(vlabel) {
-    const index = this.nodeList.labelNodeList.findIndex(
-      (item) => item === vlabel
-    );
+    const index = this.nodeList.labelNodeList.findIndex((item) => item === vlabel);
     if (index < 0) {
       return;
     }
@@ -561,16 +537,16 @@ export class VM {
    */
   editLabel(vlabel, textContent, style) {
     const targets = this.nodeList.labelNodeList.filter((el) => {
-      if (typeof vlabel.id !== "undefined") {
+      if (typeof vlabel.id !== 'undefined') {
         return el.id === vlabel.id;
       }
       return compare(vlabel, el);
     });
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
     this.$pscalculator.editLabel(targets[0], textContent, style);
     return targets[0];
@@ -585,14 +561,12 @@ export class VM {
    * @param {string} [style.backgroundColor]
    */
   editLabelByExData(exData, textContent, style) {
-    const targets = this.nodeList.labelNodeList.filter(
-      (el) => el.exData === exData
-    );
+    const targets = this.nodeList.labelNodeList.filter((el) => el.exData === exData);
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
     return this.editLabel(targets[0], textContent, style);
   }
@@ -616,20 +590,18 @@ export class VM {
     if (data.startLabel.id === data.endLabel.id) {
       return;
     }
-    data["style"] = deepMerge({}, this.style.path, data.style);
+    data['style'] = deepMerge({}, this.style.path, data.style);
     data.style.backgroundColor = this.style.backgroundColor;
     this.$pscalculator.addLabelPath(data);
     // 返回最新添加的 path
-    return this.nodeList.pathNodeList.filter(
-      ({ startLabel, endLabel, textContent, exData }) => {
-        return (
-          data.startLabel.id === startLabel.id &&
-          data.endLabel.id === endLabel.id &&
-          data.textContent === textContent &&
-          data.exData === exData
-        );
-      }
-    );
+    return this.nodeList.pathNodeList.filter(({ startLabel, endLabel, textContent, exData }) => {
+      return (
+        data.startLabel.id === startLabel.id &&
+        data.endLabel.id === endLabel.id &&
+        data.textContent === textContent &&
+        data.exData === exData
+      );
+    });
   }
 
   /**
@@ -655,14 +627,14 @@ export class VM {
     for (let i = 0; i < data.length; i++) {
       let dataItem = data[i]; // 单个path信息 描述
       const startLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof dataItem.startLabel.id !== "undefined") {
+        if (typeof dataItem.startLabel.id !== 'undefined') {
           return el.id === dataItem.startLabel.id;
         }
         return compare(dataItem.startLabel, el);
       });
 
       const endLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof dataItem.endLabel.id !== "undefined") {
+        if (typeof dataItem.endLabel.id !== 'undefined') {
           return el.id === dataItem.endLabel.id;
         }
         return compare(dataItem.endLabel, el);
@@ -708,12 +680,8 @@ export class VM {
     let pathArr = []; // 新生成的path 数组;
     for (let i = 0; i < data.length; i++) {
       let dataItem = data[i];
-      const startLabelList = this._findLabelByLabelExdata(
-        dataItem.startLabelExData
-      );
-      const endLabelList = this._findLabelByLabelExdata(
-        dataItem.endLabelExData
-      );
+      const startLabelList = this._findLabelByLabelExdata(dataItem.startLabelExData);
+      const endLabelList = this._findLabelByLabelExdata(dataItem.endLabelExData);
 
       if (!startLabelList.length || startLabelList.length > 1) {
         throw new Error(`无效的标签描述。`);
@@ -755,8 +723,7 @@ export class VM {
    */
   __addDottedLine(startLabel) {
     const svgGroupLine = SVGFactory.createPolyline();
-    svgGroupLine.style =
-      "fill:none;stroke:black;stroke-width:1.5;stroke-dasharray: 6 6 ";
+    svgGroupLine.style = 'fill:none;stroke:black;stroke-width:1.5;stroke-dasharray: 6 6 ';
     // 存放虚线连接
     this.$dottedLineLayer.appendChild(svgGroupLine);
 
@@ -788,10 +755,10 @@ export class VM {
         points = `${x1},${y1} ${x4},${y4}`;
       }
 
-      svgGroupLine.setAttribute("points", points);
+      svgGroupLine.setAttribute('points', points);
     };
 
-    this.$root.addEventListener("mousemove", this.svgMousemove, true);
+    this.$root.addEventListener('mousemove', this.svgMousemove, true);
   }
 
   /**
@@ -806,51 +773,47 @@ export class VM {
   connect(startLabel) {
     return new Promise((resolve, reject) => {
       const startLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof startLabel.id !== "undefined") {
+        if (typeof startLabel.id !== 'undefined') {
           return el.id === startLabel.id;
         }
         return compare(startLabel, el);
       });
 
       if (!startLabelList.length || startLabelList.length > 1) {
-        reject("标签的描述有误。");
+        reject('标签的描述有误。');
         return;
       }
 
       this.__addDottedLine(startLabelList[0]); // 点击连线的虚线
-      this.lineData["startLabel"] = startLabelList[0];
+      this.lineData['startLabel'] = startLabelList[0];
 
       // 右键事件函数
       let contextmenuHandler = (e) => {
         e.preventDefault(); //阻止右键弹窗
-        this.$root.removeEventListener("mousemove", this.svgMousemove, true); // 移除事件监听
-        document.removeEventListener("contextmenu", contextmenuHandler, true);
-        this.$bus.remove("labelClick", handler); // 移除监听事件
+        this.$root.removeEventListener('mousemove', this.svgMousemove, true); // 移除事件监听
+        document.removeEventListener('contextmenu', contextmenuHandler, true);
+        this.$bus.remove('labelClick', handler); // 移除监听事件
         this.lineData = {};
         if (this.$dottedLineLayer.childNodes.length) {
-          this.$dottedLineLayer.removeChild(
-            this.$dottedLineLayer.childNodes[0]
-          ); // 虚线节点移除
+          this.$dottedLineLayer.removeChild(this.$dottedLineLayer.childNodes[0]); // 虚线节点移除
         }
-        reject("连线取消。");
+        reject('连线取消。');
       };
 
-      let handler = (target, data) => {
-        document.removeEventListener("contextmenu", contextmenuHandler, true);
-        this.$root.removeEventListener("mousemove", this.svgMousemove, true); // 移除事件监听
-        this.$bus.remove("labelClick", handler); // 移除监听事件
-        this.lineData["endLabel"] = target.target; // 结束标签
+      let handler = (target) => {
+        document.removeEventListener('contextmenu', contextmenuHandler, true);
+        this.$root.removeEventListener('mousemove', this.svgMousemove, true); // 移除事件监听
+        this.$bus.remove('labelClick', handler); // 移除监听事件
+        this.lineData['endLabel'] = target.target; // 结束标签
         resolve(this.lineData);
         this.lineData = {}; // 在第二次点击之后 将this.lineData 重置为空
         if (this.$dottedLineLayer.childNodes.length) {
-          this.$dottedLineLayer.removeChild(
-            this.$dottedLineLayer.childNodes[0]
-          ); // 虚线节点移除
+          this.$dottedLineLayer.removeChild(this.$dottedLineLayer.childNodes[0]); // 虚线节点移除
         }
       };
 
-      document.addEventListener("contextmenu", contextmenuHandler, true);
-      this.$bus.addEventListener("labelClick", handler);
+      document.addEventListener('contextmenu', contextmenuHandler, true);
+      this.$bus.addEventListener('labelClick', handler);
     });
 
     // 事件处理函数
@@ -867,44 +830,40 @@ export class VM {
       );
 
       if (!startLabelList.length || startLabelList.length > 1) {
-        reject("标签的描述有误。");
+        reject('标签的描述有误。');
         return;
       }
 
       this.__addDottedLine(startLabelList[0]); // 点击连线的虚线
-      this.lineData["startLabel"] = startLabelList[0];
+      this.lineData['startLabel'] = startLabelList[0];
 
       // 右键事件函数
       let contextmenuHandler = (e) => {
         e.preventDefault(); //阻止右键弹窗
-        this.$root.removeEventListener("mousemove", this.svgMousemove, true); // 移除事件监听
-        document.removeEventListener("contextmenu", contextmenuHandler, true);
-        this.$bus.remove("labelClick", handler); // 移除监听事件
+        this.$root.removeEventListener('mousemove', this.svgMousemove, true); // 移除事件监听
+        document.removeEventListener('contextmenu', contextmenuHandler, true);
+        this.$bus.remove('labelClick', handler); // 移除监听事件
         this.lineData = {};
         if (this.$dottedLineLayer.childNodes.length) {
-          this.$dottedLineLayer.removeChild(
-            this.$dottedLineLayer.childNodes[0]
-          ); // 虚线节点移除
+          this.$dottedLineLayer.removeChild(this.$dottedLineLayer.childNodes[0]); // 虚线节点移除
         }
-        reject("连线取消。");
+        reject('连线取消。');
       };
 
-      let handler = (target, data) => {
-        document.removeEventListener("contextmenu", contextmenuHandler, true);
-        this.$root.removeEventListener("mousemove", this.svgMousemove, true); // 移除事件监听
-        this.$bus.remove("labelClick", handler); // 移除监听事件
-        this.lineData["endLabel"] = target.target; // 结束标签
+      let handler = (target) => {
+        document.removeEventListener('contextmenu', contextmenuHandler, true);
+        this.$root.removeEventListener('mousemove', this.svgMousemove, true); // 移除事件监听
+        this.$bus.remove('labelClick', handler); // 移除监听事件
+        this.lineData['endLabel'] = target.target; // 结束标签
         resolve(this.lineData);
         this.lineData = {}; // 在第二次点击之后 将this.lineData 重置为空
         if (this.$dottedLineLayer.childNodes.length) {
-          this.$dottedLineLayer.removeChild(
-            this.$dottedLineLayer.childNodes[0]
-          ); // 虚线节点移除
+          this.$dottedLineLayer.removeChild(this.$dottedLineLayer.childNodes[0]); // 虚线节点移除
         }
       };
 
-      document.addEventListener("contextmenu", contextmenuHandler, true);
-      this.$bus.addEventListener("labelClick", handler);
+      document.addEventListener('contextmenu', contextmenuHandler, true);
+      this.$bus.addEventListener('labelClick', handler);
     });
   }
 
@@ -927,14 +886,12 @@ export class VM {
    */
   removePath(path) {
     // 删除相关联的虚拟节点
-    if (typeof path.id !== "undefined") {
+    if (typeof path.id !== 'undefined') {
       // 根据path的id 找到相应的虚拟节点
-      let pathList = this.nodeList.pathNodeList.filter(
-        (el) => el.id === path.id
-      );
+      let pathList = this.nodeList.pathNodeList.filter((el) => el.id === path.id);
 
       if (!pathList.length || pathList.length > 1) {
-        throw new Error("路径信息id 有误");
+        throw new Error('路径信息id 有误');
       }
       // 如果唯一id 的path 存在 则删除这个 vpath 即可
       if (pathList.length === 1) {
@@ -971,7 +928,7 @@ export class VM {
     let endLabelList;
     if (path.startLabel) {
       startLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof path.startLabel.id !== "undefined") {
+        if (typeof path.startLabel.id !== 'undefined') {
           return el.id === path.startLabel.id;
         }
         return compare(path.startLabel, el);
@@ -983,7 +940,7 @@ export class VM {
 
     if (path.endLabel) {
       endLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof path.endLabel.id !== "undefined") {
+        if (typeof path.endLabel.id !== 'undefined') {
           return el.id === path.endLabel.id;
         }
         return compare(path.endLabel, el);
@@ -1036,7 +993,7 @@ export class VM {
     }
 
     if (!pathList.length || pathList.length !== 3) {
-      throw new Error("找不到该路径或该路径存在多个");
+      throw new Error('找不到该路径或该路径存在多个');
     }
   }
 
@@ -1046,9 +1003,7 @@ export class VM {
    * @returns vpath - 被删除的虚拟节点
    */
   removePathByExData(pathExData) {
-    let pathList = this.nodeList.pathNodeList.filter(
-      (el) => el.exData === pathExData
-    );
+    let pathList = this.nodeList.pathNodeList.filter((el) => el.exData === pathExData);
 
     if (pathList.length === 1 || pathList.length === 3) {
       let vpath = pathList[0]; // 取第一条路径
@@ -1064,7 +1019,7 @@ export class VM {
     }
 
     if (!pathList.length || pathList.length !== 3) {
-      throw new Error("找不到该路径或该路径存在多个");
+      throw new Error('找不到该路径或该路径存在多个');
     }
   }
   /**
@@ -1137,13 +1092,11 @@ export class VM {
       style
     );
 
-    if (typeof path.id !== "undefined") {
+    if (typeof path.id !== 'undefined') {
       // 根据path的id 找到相应的虚拟节点
-      let pathList = this.nodeList.pathNodeList.filter(
-        (el) => el.id === path.id
-      );
+      let pathList = this.nodeList.pathNodeList.filter((el) => el.id === path.id);
       if (!pathList.length || pathList.length > 1) {
-        throw new Error("路径信息id 有误");
+        throw new Error('路径信息id 有误');
       }
       // 如果唯一id 的path 存在 则删除这个 vpath 即可
       if (pathList.length === 1) {
@@ -1158,7 +1111,7 @@ export class VM {
     let endLabelList;
     if (path.startLabel) {
       startLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof path.startLabel.id !== "undefined") {
+        if (typeof path.startLabel.id !== 'undefined') {
           return el.id === path.startLabel.id;
         }
         return compare(path.startLabel, el);
@@ -1170,7 +1123,7 @@ export class VM {
 
     if (path.endLabel) {
       endLabelList = this.nodeList.labelNodeList.filter((el) => {
-        if (typeof path.endLabel.id !== "undefined") {
+        if (typeof path.endLabel.id !== 'undefined') {
           return el.id === path.endLabel.id;
         }
         return compare(path.endLabel, el);
@@ -1208,7 +1161,7 @@ export class VM {
       return newVpath;
     }
     if (!pathList.length || pathList.length !== 3) {
-      throw new Error("找不到该路径或该路径存在多个");
+      throw new Error('找不到该路径或该路径存在多个');
     }
   }
 
@@ -1222,22 +1175,16 @@ export class VM {
    * @returns {object} - newVpath 修改后的vpath
    */
   editPathByExData(pathExData, textContent, style) {
-    style = deepMerge(
-      { backgroundColor: this.style.backgroundColor },
-      this.style.path,
-      style
-    ); // 如果没传 就使用默认的；传了就使用穿得style
+    style = deepMerge({ backgroundColor: this.style.backgroundColor }, this.style.path, style); // 如果没传 就使用默认的；传了就使用穿得style
     // 如果是换行的路径 ；则会有 3 个 vpath;
-    let pathList = this.nodeList.pathNodeList.filter(
-      (el) => el.exData === pathExData
-    );
+    let pathList = this.nodeList.pathNodeList.filter((el) => el.exData === pathExData);
     if (pathList.length === 1 || pathList.length === 3) {
       let vpath = pathList[0];
       const newVpath = this.__editPathByInfo(vpath, textContent, style);
       return newVpath;
     }
     if (!pathList.length || pathList.length !== 3) {
-      throw new Error("找不到该路径或该路径存在多个");
+      throw new Error('找不到该路径或该路径存在多个');
     }
   }
 
@@ -1253,7 +1200,7 @@ export class VM {
       return {
         start: -1,
         end: -1,
-        text: "",
+        text: '',
       };
     }
     if (start < 0) {
@@ -1278,16 +1225,16 @@ export class VM {
    */
   highlightLabel(vlabel, scrollTo) {
     const targets = this.nodeList.labelNodeList.filter((el) => {
-      if (typeof vlabel.id !== "undefined") {
+      if (typeof vlabel.id !== 'undefined') {
         return el.id === vlabel.id;
       }
       return compare(vlabel, el);
     });
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
 
     this.__addHeightLight(targets[0], this.style.label.highlightColor);
@@ -1302,14 +1249,12 @@ export class VM {
    * @param {boolean} scrollTo - 是否自动滚动至可视区域
    */
   highlightLabelByExData(exData, scrollTo) {
-    const targets = this.nodeList.labelNodeList.filter(
-      (el) => el.exData === exData
-    );
+    const targets = this.nodeList.labelNodeList.filter((el) => el.exData === exData);
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
 
     this.__addHeightLight(targets[0], this.style.label.highlightColor);
@@ -1324,16 +1269,16 @@ export class VM {
    */
   cancelHighlightLabel(vlabel) {
     const targets = this.nodeList.labelNodeList.filter((el) => {
-      if (typeof vlabel.id !== "undefined") {
+      if (typeof vlabel.id !== 'undefined') {
         return el.id === vlabel.id;
       }
       return compare(vlabel, el);
     });
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
 
     this.__removeHeightLight(targets[0]);
@@ -1344,14 +1289,12 @@ export class VM {
    * @param {*} exData
    */
   cancelHighlightLabelByExData(exData) {
-    const targets = this.nodeList.labelNodeList.filter(
-      (el) => el.exData === exData
-    );
+    const targets = this.nodeList.labelNodeList.filter((el) => el.exData === exData);
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
 
     this.__removeHeightLight(targets[0]);
@@ -1363,16 +1306,16 @@ export class VM {
    */
   scrollToLabel(vlabel) {
     const targets = this.nodeList.labelNodeList.filter((el) => {
-      if (typeof vlabel.id !== "undefined") {
+      if (typeof vlabel.id !== 'undefined') {
         return el.id === vlabel.id;
       }
       return compare(vlabel, el);
     });
     if (targets.length === 0) {
-      throw new Error("未找到对应标签。");
+      throw new Error('未找到对应标签。');
     }
     if (targets.length > 1) {
-      throw new Error("未找到唯一标签。");
+      throw new Error('未找到唯一标签。');
     }
     this.$root.scrollTop = targets[0].y;
   }
@@ -1386,7 +1329,7 @@ export class VM {
         startLabel: null,
         endLabel: [],
       };
-      let collectLabelHandler = (target, data) => {
+      let collectLabelHandler = (target) => {
         target.target.mouseoverListener = null; // 悬停高亮事件效果移除
         target.target.mouseleaveListener = null; // 离开 事件移除
         this.__addHeightLight(target.target, this.style.label.highlightColor);
@@ -1397,15 +1340,13 @@ export class VM {
           collectedLabel.startLabel = target.target;
         }
       };
-      this.$bus.addEventListener("labelClick", collectLabelHandler);
+      this.$bus.addEventListener('labelClick', collectLabelHandler);
 
       // 收集标签行为 改变 事件处理函数
       let collectLabelStatusHandler = (data) => {
-        this.$bus.remove("labelClick", collectLabelHandler); // 移除监听事件
-        this.$bus.remove("CollectLabelStatus", collectLabelStatusHandler);
-        let totalCollectedLabel = collectedLabel.endLabel.concat(
-          collectedLabel.startLabel
-        );
+        this.$bus.remove('labelClick', collectLabelHandler); // 移除监听事件
+        this.$bus.remove('CollectLabelStatus', collectLabelStatusHandler);
+        let totalCollectedLabel = collectedLabel.endLabel.concat(collectedLabel.startLabel);
         if (collectedLabel.startLabel) {
           totalCollectedLabel.forEach((item) => {
             this.__removeHeightLight(item);
@@ -1426,10 +1367,7 @@ export class VM {
         reject(collectedLabel); // 取消收集标签；返回空数据
       };
       // 监听的事件;
-      this.$bus.addEventListener(
-        "CollectLabelStatus",
-        collectLabelStatusHandler
-      );
+      this.$bus.addEventListener('CollectLabelStatus', collectLabelStatusHandler);
     });
   }
 
@@ -1437,14 +1375,14 @@ export class VM {
    * 结束收集标签;并返回已收集的标签
    */
   endCollectLabel() {
-    this.$bus.emit("CollectLabelStatus", true);
+    this.$bus.emit('CollectLabelStatus', true);
   }
 
   /**
    * 取消收集标签;不返回收集的标签
    */
   cancelCollectLabel() {
-    this.$bus.emit("CollectLabelStatus", false);
+    this.$bus.emit('CollectLabelStatus', false);
   }
 
   /**
@@ -1459,10 +1397,10 @@ export class VM {
     );
     // console.log(currentMark);
     currentMark.textList.forEach((item) => {
-      item.$el.setAttribute("fill", style);
+      item.$el.setAttribute('fill', style);
     });
-    vlabel.$el.children[0].setAttribute("stroke", style);
-    vlabel.$el.children[0].setAttribute("stroke-width", "1.5");
+    vlabel.$el.children[0].setAttribute('stroke', style);
+    vlabel.$el.children[0].setAttribute('stroke-width', '1.5');
   }
 
   /**
@@ -1474,11 +1412,11 @@ export class VM {
       return markItem.labelId === vlabel.id;
     });
     currentMark.textList.forEach((item) => {
-      item.$el.removeAttribute("fill");
+      item.$el.removeAttribute('fill');
     });
     // 移出标签高亮效果
-    vlabel.$el.children[0].removeAttribute("stroke");
-    vlabel.$el.children[0].removeAttribute("stroke-width");
+    vlabel.$el.children[0].removeAttribute('stroke');
+    vlabel.$el.children[0].removeAttribute('stroke-width');
   }
 
   /**
@@ -1497,8 +1435,8 @@ export class VM {
   __create() {
     // 创建并挂载容器节点
     this.$svg = SVGFactory.createSVG();
-    this.$svg.setAttribute("type", "carver__svg");
-    this.$svg.setAttribute("width", this.$root.offsetWidth);
+    this.$svg.setAttribute('type', 'carver__svg');
+    this.$svg.setAttribute('width', this.$root.offsetWidth);
     this.$svg.style.backgroundColor = this.style.backgroundColor;
     this.$markLayer = SVGFactory.createG();
     this.$textLayer = SVGFactory.createG();
@@ -1506,7 +1444,7 @@ export class VM {
     this.$relationLayer = SVGFactory.createG();
     this.$topLayer = SVGFactory.createG();
     this.$dottedLineLayer = SVGFactory.createG();
-    this.$topLayer.style.pointerEvents = "none"; // 鼠标事件自动添加到下一层
+    this.$topLayer.style.pointerEvents = 'none'; // 鼠标事件自动添加到下一层
     this.$svg.appendChild(this.$markLayer);
     this.$svg.appendChild(this.$textLayer);
 
@@ -1515,20 +1453,20 @@ export class VM {
     this.$svg.appendChild(this.$topLayer);
     this.$svg.appendChild(this.$dottedLineLayer);
     this.$root.append(this.$svg);
-    this.$root.style.overflowY = "auto";
-    this.$root.style.overflowX = "hidden";
+    this.$root.style.overflowY = 'auto';
+    this.$root.style.overflowX = 'hidden';
 
     this.__setSelectStatus(0); // 设置划词选中状态
     // 注册事件
     this.$bus.register([
-      "textSelect",
-      "textCancel",
-      "rowOffsetY",
-      "textPositionChange",
-      "labelClick",
-      "labelStyleChange",
-      "pathClick",
-      "CollectLabelStatus",
+      'textSelect',
+      'textCancel',
+      'rowOffsetY',
+      'textPositionChange',
+      'labelClick',
+      'labelStyleChange',
+      'pathClick',
+      'CollectLabelStatus',
     ]);
 
     this.$pscalculator.$bus = this.$bus; // 为位置计算工具设置事件总线
@@ -1537,18 +1475,18 @@ export class VM {
     this.$pscalculator.onTextCalc = ({ textInfo, box }, refresh) => {
       // 如果文本发生更新
       this.__onTextCalc(textInfo, refresh);
-      this.$svg.setAttribute("height", box.height);
+      this.$svg.setAttribute('height', box.height);
     };
     // 添加标签信息监听
     this.$pscalculator.onLabelCalc = ({ labelInfo, box }) => {
       const { newLabel } = labelDiff(this.nodeList.labelNodeList, labelInfo);
-      this.$svg.setAttribute("height", box.height);
+      this.$svg.setAttribute('height', box.height);
       if (!newLabel) {
         return;
       }
       newLabel.forEach((item) => {
         const vlabel = this.$vnodeFactory.createNode(
-          "vlabel",
+          'vlabel',
           {
             position: {
               x: item.x,
@@ -1583,9 +1521,9 @@ export class VM {
     };
 
     // 监听标签点击事件
-    this.$bus.addEventListener("labelClick", ({ target, data }) => {
+    this.$bus.addEventListener('labelClick', ({ target, data }) => {
       if (this.onLabelClick) {
-        if (JSON.stringify(this.lineData) != "{}") {
+        if (JSON.stringify(this.lineData) != '{}') {
           return;
         }
         this.onLabelClick(target, data);
@@ -1595,10 +1533,7 @@ export class VM {
     // 监听pathInfo变化
     this.$pscalculator.onPathCalc = ({ pathInfo }) => {
       this.__deleteRepeatedPath(pathInfo); // 在 pathNodelist中找到与新添加的路径信息的 singleLine 相反的节点； 并删除
-      const { updated, newPath } = pathDiff(
-        this.nodeList.pathNodeList,
-        pathInfo
-      );
+      const { newPath } = pathDiff(this.nodeList.pathNodeList, pathInfo);
 
       if (!newPath) {
         this.__sortsPathNode(); //  diff算法运行后；对 $relationLayer 的子节点进行排序
@@ -1606,14 +1541,14 @@ export class VM {
       }
       for (let i = 0; i < newPath.length; i++) {
         const vpath = this.$vnodeFactory.createNode(
-          "vpath",
+          'vpath',
           {
             position: {
               x: 0,
               y: 0,
               width: newPath[i].width,
               height: newPath[i].height,
-              rowIndex: newPath[i].rowIndex ? newPath[i].rowIndex : "",
+              rowIndex: newPath[i].rowIndex ? newPath[i].rowIndex : '',
             },
             textContent: newPath[i].textContent,
             startLabel: newPath[i].startLabel,
@@ -1643,14 +1578,8 @@ export class VM {
               pathItem.exData === el.exData &&
               pathItem.textContent === el.textContent
             ) {
-              this.__addHeightLight(
-                pathItem.startLabel,
-                pathItem.style.highlightColor
-              );
-              this.__addHeightLight(
-                pathItem.endLabel,
-                pathItem.style.highlightColor
-              );
+              this.__addHeightLight(pathItem.startLabel, pathItem.style.highlightColor);
+              this.__addHeightLight(pathItem.endLabel, pathItem.style.highlightColor);
               this.$topLayer.appendChild(pathItem.svgGroupClone);
             }
           });
@@ -1674,7 +1603,7 @@ export class VM {
       this.__sortsPathNode(); // 添加完路径；对所有路径重新排序
     };
     // 监听路径标签点击事件
-    this.$bus.addEventListener("pathClick", ({ target, data }) => {
+    this.$bus.addEventListener('pathClick', ({ target, data }) => {
       if (this.onPathClick) {
         this.onPathClick(target, data);
       }
@@ -1685,7 +1614,7 @@ export class VM {
       if (!this.$svg) {
         return;
       }
-      this.$svg.setAttribute("width", width);
+      this.$svg.setAttribute('width', width);
     };
   }
 
@@ -1694,7 +1623,7 @@ export class VM {
    */
   __sortsPathNode() {
     if (this.nodeList.pathNodeList.length) {
-      this.nodeList.pathNodeList.sort(this.__sortByValue("y2")); // 对于父节点中已经存在的节点；再次添加节点不会重复添加；只是会改变顺序
+      this.nodeList.pathNodeList.sort(this.__sortByValue('y2')); // 对于父节点中已经存在的节点；再次添加节点不会重复添加；只是会改变顺序
       this.nodeList.pathNodeList.forEach((item) => {
         this.$relationLayer.appendChild(item.$el);
       });
@@ -1734,7 +1663,6 @@ export class VM {
           break;
         }
       }
-
     }
   }
 
@@ -1756,7 +1684,7 @@ export class VM {
     if (refresh) {
       const temp = [];
       textInfo.forEach((item) => {
-        const vtext = this.$vnodeFactory.createNode("vtext", {
+        const vtext = this.$vnodeFactory.createNode('vtext', {
           position: {
             x: item.x,
             y: item.y,

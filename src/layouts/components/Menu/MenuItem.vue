@@ -65,6 +65,7 @@
   import { useSettingStore } from '@/store/modules/setting';
 
   import { themeConfig } from '@/config/theme';
+  import path from 'path-browserify';
 
   const { t } = useI18n();
   const { themeOptions } = themeConfig;

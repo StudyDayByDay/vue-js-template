@@ -1,4 +1,4 @@
-import { getScrollbarWidth } from "../util/index.js";
+import { getScrollbarWidth } from '../util/index.js';
 
 // 默认样式配置
 export const config = {
@@ -9,7 +9,7 @@ export const config = {
   lineHeight: 25, // 行高
   letterSpacing: 0, // 字间距
   fontSize: 16, // 字体大小
-  linebreaks: "\n", // 换行符
+  linebreaks: '\n', // 换行符
   segmentSpacing: 5, // 段间距
   beforeParagraph: 32, // 段前
 };

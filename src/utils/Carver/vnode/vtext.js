@@ -1,5 +1,5 @@
-import { VNode } from "./vnode.js";
-import { SVGFactory } from "../lib/svg-factory.js";
+import { VNode } from './vnode.js';
+import { SVGFactory } from '../lib/svg-factory.js';
 
 /**
  * 虚拟文本节点类
@@ -23,7 +23,7 @@ export class VText extends VNode {
   constructor(options, exData) {
     super({ position: options.position, id: options.id }, exData);
     this.index = options.index;
-    this.textContent = options.textContent || "";
+    this.textContent = options.textContent || '';
     this.selectedMark = null;
   }
 
@@ -37,9 +37,9 @@ export class VText extends VNode {
       this.__onOffsetY();
       this.__onselect();
       this.$el = SVGFactory.createText();
-      this.$el.style.userSelect = "none";
-      this.$el.setAttribute("dominant-baseline", "text-before-edge");
-      this.$el.setAttribute("type", "carver__text");
+      this.$el.style.userSelect = 'none';
+      this.$el.setAttribute('dominant-baseline', 'text-before-edge');
+      this.$el.setAttribute('type', 'carver__text');
       if (styles) {
         Object.keys(styles).forEach((key) => {
           this.$el.style[key] = styles[key];
@@ -47,7 +47,7 @@ export class VText extends VNode {
       }
     }
     this.$el.textContent = this.textContent;
-    this.$el.setAttribute("index", this.index);
+    this.$el.setAttribute('index', this.index);
     this.setAttributes();
   }
 
@@ -59,10 +59,10 @@ export class VText extends VNode {
     let handleRowOffsetY = (e) => {
       if (e.data.rowIndex <= this.position.rowIndex) {
         this.y += e.data.offsetHeight;
-        this.selectedMark && this.selectedMark.setAttribute("y", this.y);
+        this.selectedMark && this.selectedMark.setAttribute('y', this.y);
       }
     };
-    this.$bus.addEventListener("rowOffsetY", handleRowOffsetY);
+    this.$bus.addEventListener('rowOffsetY', handleRowOffsetY);
   }
 
   /**
@@ -71,7 +71,7 @@ export class VText extends VNode {
    */
   __onselect() {
     // 添加文本选中事件监听
-    this.$bus.addEventListener("textSelect", (e) => {
+    this.$bus.addEventListener('textSelect', (e) => {
       // console.log(e);
       let start = e.data.start;
       let end = e.data.end;
@@ -90,7 +90,7 @@ export class VText extends VNode {
     });
 
     // 添加文本取消事件监听
-    this.$bus.addEventListener("textCancel", () => {
+    this.$bus.addEventListener('textCancel', () => {
       this.__unselected();
     });
   }
@@ -108,8 +108,8 @@ export class VText extends VNode {
       this.selectedMark = SVGFactory.createRect();
       this.__createSelectMark();
     }
-    this.selectedMark.setAttribute("fill", "#1786FF");
-    this.$el.setAttribute("fill", "white");
+    this.selectedMark.setAttribute('fill', '#1786FF');
+    this.$el.setAttribute('fill', 'white');
   }
 
   /**
@@ -123,8 +123,8 @@ export class VText extends VNode {
     if (!this.selectedMark) {
       return;
     }
-    this.selectedMark.setAttribute("fill", "transparent");
-    this.$el.setAttribute("fill", "black");
+    this.selectedMark.setAttribute('fill', 'transparent');
+    this.$el.setAttribute('fill', 'black');
   }
 
   /**
@@ -136,11 +136,11 @@ export class VText extends VNode {
       return;
     }
     const box = this.$el.getBBox();
-    this.selectedMark.style.pointerEvents = "none";
-    this.selectedMark.setAttribute("x", box.x);
-    this.selectedMark.setAttribute("y", box.y);
-    this.selectedMark.setAttribute("width", box.width);
-    this.selectedMark.setAttribute("height", box.height);
+    this.selectedMark.style.pointerEvents = 'none';
+    this.selectedMark.setAttribute('x', box.x);
+    this.selectedMark.setAttribute('y', box.y);
+    this.selectedMark.setAttribute('width', box.width);
+    this.selectedMark.setAttribute('height', box.height);
     this.$el.parentElement.insertBefore(this.selectedMark, this.$el);
   }
 
@@ -160,7 +160,7 @@ export class VText extends VNode {
             this.$el.setAttribute(key, this.position[key]);
           }
           // 当文本位置信息发生改变；将文本信息传输出去
-          this.$bus.emit("textPositionChange", null, {
+          this.$bus.emit('textPositionChange', null, {
             index: this.index,
             position: this.position,
           });

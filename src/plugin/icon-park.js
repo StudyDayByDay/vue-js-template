@@ -120,6 +120,6 @@ export const components = [
 import SvgIcon from '@/components/SvgIcon/index.vue';
 // 注册
 export default (app) => {
-  app.component('svg-icon', SvgIcon);
+  app.component('SvgIcon', SvgIcon);
   install(app);
 };

@@ -186,6 +186,6 @@ export default {
     cancel: '取消',
   },
   carver: {
-    title: '划词器'
-  }
+    title: '划词器',
+  },
 };

@@ -9,7 +9,7 @@
           height="50px"
           :style="{ left: isCollapse ? '65px' : '220px' }"
         >
-          <NavBar @handleCollapse="handleCollapse" />
+          <NavBar @handle-collapse="handleCollapse" />
           <template v-if="tag">
             <TabBar />
           </template>

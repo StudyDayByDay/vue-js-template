@@ -1,4 +1,4 @@
-import { VM } from "./vm.js";
+import { VM } from './vm.js';
 export class Carver {
   /**
    * 构造函数
@@ -13,7 +13,7 @@ export class Carver {
     try {
       this.$VM = new VM(options);
       this.$data = {
-        text: "",
+        text: '',
       };
       this.__setWatcher();
       this.onLabelClick = null; // 标签点击事件 (target:VLabel;e:MouseEvent;) => viod
@@ -30,17 +30,13 @@ export class Carver {
       };
 
       console.log(
-        "%c%s",
-        "color:#18C59A;font-size:24px;font-family:STHupo",
-        "Hello Carver",
-        `v${require("../../package.json").version}`
+        '%c%s',
+        'color:#18C59A;font-size:24px;font-family:STHupo',
+        'Hello Carver',
+        `v${require('../../package.json').version}`
       );
     } catch (e) {
-      console.log(
-        "%c%s",
-        "color:#C21B1F;font-size:24px;font-family:STHupo",
-        "Carver failed"
-      );
+      console.log('%c%s', 'color:#C21B1F;font-size:24px;font-family:STHupo', 'Carver failed');
       console.error(e);
     }
   }
@@ -362,7 +358,7 @@ export class Carver {
     this.$VM.__removeToplayerChildren(); // 移出高亮显示效果
     return new Promise((resolve, reject) => {
       try {
-        if (Object.prototype.toString.call(path) === "[object Object]") {
+        if (Object.prototype.toString.call(path) === '[object Object]') {
           const temp = this.$VM.removePath(path); // 被删除的虚拟节点
           resolve(temp);
         }
@@ -436,11 +432,7 @@ export class Carver {
     return new Promise((resolve, reject) => {
       try {
         if (pathExData && textContent) {
-          const temp = this.$VM.editPathByExData(
-            pathExData,
-            textContent,
-            style
-          );
+          const temp = this.$VM.editPathByExData(pathExData, textContent, style);
           resolve(temp);
         }
       } catch (err) {
@@ -499,7 +491,7 @@ export class Carver {
    * @private
    */
   __setWatcher() {
-    Object.defineProperty(this, "text", {
+    Object.defineProperty(this, 'text', {
       set: (val) => {
         if (this.$data.text === val) {
           return;

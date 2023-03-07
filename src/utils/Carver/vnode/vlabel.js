@@ -1,5 +1,5 @@
-import { VNode } from "./vnode.js";
-import { SVGFactory } from "../lib/svg-factory.js";
+import { VNode } from './vnode.js';
+import { SVGFactory } from '../lib/svg-factory.js';
 
 /**
  * 虚拟文本节点类
@@ -23,10 +23,10 @@ export class VLabel extends VNode {
    */
   constructor(options, exData) {
     super({ position: options.position, id: options.id }, exData);
-    this.textContent = options.textContent || "";
+    this.textContent = options.textContent || '';
     this.startIndex = options.startIndex;
     this.endIndex = options.endIndex;
-    this.type = "label";
+    this.type = 'label';
     this.mouseoverListener = null; // 鼠标移动到标签上的回调
     this.mouseleaveListener = null; // 鼠标移出标签时的回调
   }
@@ -41,26 +41,26 @@ export class VLabel extends VNode {
       const svgGroup = SVGFactory.createG();
       const svgRect = SVGFactory.createRect();
       const svgText = SVGFactory.createText();
-      svgText.setAttribute("dominant-baseline", "text-before-edge");
-      svgText.style.fontSize = "12px";
-      svgText.style.pointerEvents = "none";
+      svgText.setAttribute('dominant-baseline', 'text-before-edge');
+      svgText.style.fontSize = '12px';
+      svgText.style.pointerEvents = 'none';
       svgGroup.appendChild(svgText);
       svgGroup.insertBefore(svgRect, svgText);
       this.$el = svgGroup;
-      this.$el.style.userSelect = "none";
-      this.$el.style.cursor = "pointer";
-      this.$el.onmouseover = (e) => {
+      this.$el.style.userSelect = 'none';
+      this.$el.style.cursor = 'pointer';
+      this.$el.onmouseover = () => {
         if (this.mouseoverListener) {
           this.mouseoverListener();
         }
       };
-      this.$el.onmouseleave = (e) => {
+      this.$el.onmouseleave = () => {
         if (this.mouseoverListener) {
           this.mouseleaveListener();
         }
       };
       this.$el.onclick = (e) => {
-        this.$bus.emit("labelClick", this, e);
+        this.$bus.emit('labelClick', this, e);
       };
     }
     // 标签rect属性
@@ -80,10 +80,7 @@ export class VLabel extends VNode {
       height: this.position.height,
     };
     // 设置标签的位置
-    this.$el.setAttribute(
-      "transform",
-      `translate(${this.position.x}, ${this.position.y})`
-    );
+    this.$el.setAttribute('transform', `translate(${this.position.x}, ${this.position.y})`);
     // 给rect  text 标签添加属性
     this.__setAttributes(labelRectOptions, this.$el.children[0]);
     this.__setAttributes(labelTextOptions, this.$el.children[1]);
@@ -108,9 +105,9 @@ export class VLabel extends VNode {
    * @param {string} styles.color
    */
   setStyle(styles) {
-    this.$el.children[0].setAttribute("fill", styles.backgroundColor);
-    this.$el.children[1].setAttribute("fill", styles.color);
-    this.$bus.emit("labelStyleChange", this, styles);
+    this.$el.children[0].setAttribute('fill', styles.backgroundColor);
+    this.$el.children[1].setAttribute('fill', styles.color);
+    this.$bus.emit('labelStyleChange', this, styles);
   }
 
   /**
@@ -138,19 +135,16 @@ export class VLabel extends VNode {
           }
           this.position[key] = val;
 
-          if ((this.$el && key === "x") || key === "y") {
-            this.$el.setAttribute(
-              "transform",
-              `translate(${this.position.x},${this.position.y})`
-            );
+          if ((this.$el && key === 'x') || key === 'y') {
+            this.$el.setAttribute('transform', `translate(${this.position.x},${this.position.y})`);
           }
-          if (this.$el && key === "width") {
-            this.$el.children[0].setAttribute("width", this.position[key]);
-            this.$el.children[1].setAttribute("width", this.position[key]);
+          if (this.$el && key === 'width') {
+            this.$el.children[0].setAttribute('width', this.position[key]);
+            this.$el.children[1].setAttribute('width', this.position[key]);
           }
-          if (this.$el && key === "height") {
-            this.$el.children[0].setAttribute("height", this.position[key]);
-            this.$el.children[1].setAttribute("height", this.position[key]);
+          if (this.$el && key === 'height') {
+            this.$el.children[0].setAttribute('height', this.position[key]);
+            this.$el.children[1].setAttribute('height', this.position[key]);
           }
           if (this.$el) {
             this.$el.setAttribute(key, this.position[key]);

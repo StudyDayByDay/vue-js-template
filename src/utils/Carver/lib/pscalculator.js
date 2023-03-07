@@ -1,5 +1,4 @@
-import { getCharPix, rectIsOverlap } from "../util/index.js";
-import { VLabel } from "../vnode/vlabel.js";
+import { getCharPix, rectIsOverlap } from '../util/index.js';
 
 export class PSCalculator {
   /**
@@ -25,7 +24,7 @@ export class PSCalculator {
     this.left = 0; // 左侧坐标即计算位置时的最小x坐标
     this.right = 0; // 右侧坐标即计算位置时的最大右侧坐标
     this.options = {
-      text: "", // 文本
+      text: '', // 文本
       width: 0, // 容器宽度
       paddingTop: 0, // 上边距
       paddingRight: 0, // 右边距
@@ -34,7 +33,7 @@ export class PSCalculator {
       lineHeight: 0, // 行高
       letterSpacing: 0, // 字间距
       fontSize: 0, // 字体大小
-      linebreaks: "", // 换行符
+      linebreaks: '', // 换行符
       segmentSpacing: 0, // 段间距
       beforeParagraph: 0, // 段前
     };
@@ -69,24 +68,21 @@ export class PSCalculator {
     }
 
     // 宽度或右侧边距发生变化时重新计算右侧坐标
-    if (
-      typeof map.width !== "undefined" ||
-      typeof map.paddingRight !== "undefined"
-    ) {
+    if (typeof map.width !== 'undefined' || typeof map.paddingRight !== 'undefined') {
       this.right = this.options.width - this.options.paddingRight;
     }
 
     // 宽度监听
-    if (typeof map.width !== "undefined" && this.onWidthChange) {
+    if (typeof map.width !== 'undefined' && this.onWidthChange) {
       this.onWidthChange(map.width);
     }
 
     // 当左侧边距发生变化时重新计算左侧边距
-    if (typeof map.paddingLeft !== "undefined") {
+    if (typeof map.paddingLeft !== 'undefined') {
       this.left = this.options.paddingLeft;
     }
 
-    let refresh = typeof map.text !== "undefined";
+    let refresh = typeof map.text !== 'undefined';
     if (refresh) {
       this.wrapInfo = []; // 文本换行信息
       this.textInfo = []; // 计算后的文本位置信息
@@ -163,7 +159,7 @@ export class PSCalculator {
         rowIndex++;
         currentRowWidth = 0;
         if (temp[i - 1]) {
-          temp[i - 1]["lineEnd"] = true; // 是否为行尾
+          temp[i - 1]['lineEnd'] = true; // 是否为行尾
         }
       }
       // 若非换行符控制换行 则清除段前空白间距
@@ -178,10 +174,7 @@ export class PSCalculator {
         width, // 字符像素宽度
         height: textSize.height, // 字符像素宽度
         x: this.left + currentRowWidth + beforeParagraph, // 横坐标
-        y:
-          this.options.paddingTop +
-          (rowIndex - 1) * this.options.lineHeight +
-          segmentSpacingCount, // 纵坐标
+        y: this.options.paddingTop + (rowIndex - 1) * this.options.lineHeight + segmentSpacingCount, // 纵坐标
         lineBegin: currentRowWidth === 0, // 是否为行首
       });
 
@@ -351,9 +344,7 @@ export class PSCalculator {
    */
   __setWrapInfo(offsetInfo) {
     // 先检查当前的偏移信息中是否存在相同行号
-    const wrapIndex = this.wrapInfo.findIndex(
-      (el) => el.rowIndex === offsetInfo.rowIndex
-    );
+    const wrapIndex = this.wrapInfo.findIndex((el) => el.rowIndex === offsetInfo.rowIndex);
 
     // 若存在则更新已存在的偏移信息
     if (wrapIndex >= 0) {
@@ -365,7 +356,7 @@ export class PSCalculator {
       this.wrapInfo.push(offsetInfo);
     }
 
-    this.$bus.emit("rowOffsetY", null, {
+    this.$bus.emit('rowOffsetY', null, {
       rowIndex: offsetInfo.rowIndex,
       offsetHeight: offsetInfo.height,
     });
@@ -385,8 +376,8 @@ export class PSCalculator {
     const startText = this.textInfo[label.startIndex]; // 起始位置文本节点
     const startRowIndex = startText.rowIndex; // 起始位置的行号
     const labelContentSize = getCharPix(
-      label.textContent ? label.textContent : "Carver", // 当标签内容为空时以字符串“Carver”的像素大小为默认大小 用以占位
-      "12px"
+      label.textContent ? label.textContent : 'Carver', // 当标签内容为空时以字符串“Carver”的像素大小为默认大小 用以占位
+      '12px'
     ); // 获取文本内容大小
     labelContentSize.width += 4; // +4表示标签边距为2
     labelContentSize.height += 4;
@@ -534,13 +525,8 @@ export class PSCalculator {
    */
   __getTotalHeight() {
     const lastY = this.textInfo[this.textInfo.length - 1].y;
-    let wrapHeight = this.wrapInfo.reduce(
-      (total, item) => total + item.height,
-      0
-    );
-    return (
-      lastY + wrapHeight + this.options.lineHeight + this.options.paddingBottom
-    );
+    let wrapHeight = this.wrapInfo.reduce((total, item) => total + item.height, 0);
+    return lastY + wrapHeight + this.options.lineHeight + this.options.paddingBottom;
   }
 
   /**
@@ -592,10 +578,7 @@ export class PSCalculator {
       }
     }
     const needPathInfo = this.pathInfo.filter((item) => {
-      return (
-        item.startLabel.rowIndex !== item.endLabel.rowIndex &&
-        item.connect === false
-      );
+      return item.startLabel.rowIndex !== item.endLabel.rowIndex && item.connect === false;
     });
 
     let dataArr = []; // 一对一对存放
@@ -714,7 +697,7 @@ export class PSCalculator {
    * @returns {[pathInfo:Object]}
    */
   __getPathInfo(data) {
-    const pathTextSize = getCharPix(data.textContent, "12px");
+    const pathTextSize = getCharPix(data.textContent, '12px');
     pathTextSize.height += 4; // 路径的单行高度为 20
     // 路径标签在同一行
     if (data.startLabel.rowIndex === data.endLabel.rowIndex) {
@@ -792,8 +775,7 @@ export class PSCalculator {
       if (data.startLabel.x < data.endLabel.x) {
         pathPosition.x1 = data.startLabel.x + data.startLabel.width;
         pathPosition.y1 = data.startLabel.y;
-        pathPosition.x2 =
-          data.startLabel.x + data.startLabel.width + pathTextSize.height;
+        pathPosition.x2 = data.startLabel.x + data.startLabel.width + pathTextSize.height;
         pathPosition.y2 =
           data.startLabel.y < data.endLabel.y
             ? data.startLabel.y - pathTextSize.height
@@ -813,8 +795,7 @@ export class PSCalculator {
           data.startLabel.y < data.endLabel.y
             ? data.startLabel.y - pathTextSize.height
             : data.endLabel.y - pathTextSize.height;
-        pathPosition.x3 =
-          data.endLabel.x + data.endLabel.width + pathTextSize.height;
+        pathPosition.x3 = data.endLabel.x + data.endLabel.width + pathTextSize.height;
         pathPosition.y3 =
           data.startLabel.y < data.endLabel.y
             ? data.startLabel.y - pathTextSize.height
@@ -844,16 +825,14 @@ export class PSCalculator {
       if (labelsInterval < baseLength) {
         if (pathPosition.x1 > pathPosition.x4) {
           pathPosition.x1 = data.startLabel.x + data.startLabel.width;
-          pathPosition.x2 =
-            data.startLabel.x + data.startLabel.width + pathTextSize.height;
+          pathPosition.x2 = data.startLabel.x + data.startLabel.width + pathTextSize.height;
           pathPosition.x3 = data.endLabel.x - pathTextSize.height;
           pathPosition.x4 = data.endLabel.x;
         }
         if (pathPosition.x1 < pathPosition.x4) {
           pathPosition.x1 = data.startLabel.x;
           pathPosition.x2 = data.startLabel.x - pathTextSize.height;
-          pathPosition.x3 =
-            data.endLabel.x + data.endLabel.width + pathTextSize.height;
+          pathPosition.x3 = data.endLabel.x + data.endLabel.width + pathTextSize.height;
           pathPosition.x4 = data.endLabel.x + data.endLabel.width;
         }
       }
@@ -877,8 +856,7 @@ export class PSCalculator {
       const endLabelx0 = data.endLabel.x;
       const endLabelx1 = data.endLabel.x + data.endLabel.width;
       const leftDistance = startLabelx0 - this.left + (endLabelx0 - this.left);
-      const rightDistance =
-        this.right - startLabelx1 + (this.right - endLabelx1);
+      const rightDistance = this.right - startLabelx1 + (this.right - endLabelx1);
       if (leftDistance >= rightDistance) {
         formPathPosition.x1 = startLabelx1;
         formPathPosition.y1 = data.startLabel.y;
@@ -899,9 +877,7 @@ export class PSCalculator {
         toPathPosition.y4 = data.endLabel.y;
 
         // 当路径直线距离小于 文本宽度时
-        const formLineDistance = Math.abs(
-          formPathPosition.x2 - formPathPosition.x3
-        );
+        const formLineDistance = Math.abs(formPathPosition.x2 - formPathPosition.x3);
         const toLineDistance = Math.abs(toPathPosition.x2 - toPathPosition.x3);
         if (formLineDistance <= pathTextSize.width + 10) {
           formPathPosition.x1 = data.startLabel.x;
@@ -931,18 +907,14 @@ export class PSCalculator {
         toPathPosition.y4 = data.endLabel.y;
 
         // 当路径直线距离小于 文本宽度时
-        const formLineDistance = Math.abs(
-          formPathPosition.x2 - formPathPosition.x3
-        );
+        const formLineDistance = Math.abs(formPathPosition.x2 - formPathPosition.x3);
         const toLineDistance = Math.abs(toPathPosition.x2 - toPathPosition.x3);
         if (formLineDistance <= pathTextSize.width + 10) {
           formPathPosition.x1 = data.startLabel.x + data.startLabel.width;
-          formPathPosition.x2 =
-            data.startLabel.x + data.startLabel.width - pathTextSize.height;
+          formPathPosition.x2 = data.startLabel.x + data.startLabel.width - pathTextSize.height;
         }
         if (toLineDistance <= pathTextSize.width + 10) {
-          toPathPosition.x3 =
-            data.endLabel.x + data.endLabel.width - pathTextSize.height;
+          toPathPosition.x3 = data.endLabel.x + data.endLabel.width - pathTextSize.height;
           toPathPosition.x4 = data.endLabel.x + data.endLabel.width;
         }
       }
@@ -1008,15 +980,9 @@ export class PSCalculator {
         pathPosition.y3 -= pathTextSize.height;
         // 当前路径直线下的 矩形的 左上角坐标和右下角坐标
         const box = {
-          x0:
-            pathPosition.x2 > pathPosition.x3
-              ? pathPosition.x3
-              : pathPosition.x2,
+          x0: pathPosition.x2 > pathPosition.x3 ? pathPosition.x3 : pathPosition.x2,
           y0: pathPosition.y2,
-          x1:
-            pathPosition.x2 > pathPosition.x3
-              ? pathPosition.x2
-              : pathPosition.x3,
+          x1: pathPosition.x2 > pathPosition.x3 ? pathPosition.x2 : pathPosition.x3,
           y1: pathPosition.y3 + pathTextSize.height,
         };
         // 标签直线下的矩形包含的标签
@@ -1025,12 +991,7 @@ export class PSCalculator {
           const y0 = item.y; // label标签的左上角坐标值
           const x1 = item.x + item.width; // label标签的右下角坐标值
           const y1 = item.y + item.height; // label标签的右下角坐标值
-          return !(
-            box.y1 <= y0 ||
-            box.x0 >= x1 ||
-            box.y0 >= y1 ||
-            box.x1 <= x0
-          ); // 返回与当前路径下方矩形重叠的标签；
+          return !(box.y1 <= y0 || box.x0 >= x1 || box.y0 >= y1 || box.x1 <= x0); // 返回与当前路径下方矩形重叠的标签；
         });
       }
     }
@@ -1058,9 +1019,7 @@ export class PSCalculator {
     this.pathInfo.forEach((item) => {
       const box = {
         x:
-          item.pathPosition.x2 > item.pathPosition.x3
-            ? item.pathPosition.x3
-            : item.pathPosition.x2,
+          item.pathPosition.x2 > item.pathPosition.x3 ? item.pathPosition.x3 : item.pathPosition.x2,
         y: item.pathPosition.y2,
         width: Math.abs(item.pathPosition.x2 - item.pathPosition.x3),
         height: pathTextSize.height,
@@ -1169,9 +1128,7 @@ export class PSCalculator {
     if (index < 0) {
       return;
     }
-    this.pathData[index].textContent = textContent
-      ? textContent
-      : this.pathData[index].textContent;
+    this.pathData[index].textContent = textContent ? textContent : this.pathData[index].textContent;
     this.pathData[index].style = style;
     this.__refreshPath();
   }
