@@ -3,7 +3,6 @@ import { setting } from '@/config/setting';
 const { tokenTableName } = setting;
 import Cookies from 'js-cookie';
 
-
 function getAccessToken() {
   return Cookies.get(tokenTableName);
 }
@@ -16,4 +15,4 @@ function removeAccessToken() {
   return Cookies.remove(tokenTableName);
 }
 
-export {getAccessToken, setAccessToken, removeAccessToken};
+export { getAccessToken, setAccessToken, removeAccessToken };

@@ -4,9 +4,14 @@
       <!-- settings.mode是一个模式布局 -->
       <el-col :xs="4" :sm="12" :md="12" :lg="12" :xl="12">
         <div class="left-panel">
-          <svg-icon class="icon" :name="collapse ? 'sideShow' : 'sideHide'" size="16px" @click="handleCollapse"/>
+          <svg-icon
+            class="icon"
+            :name="collapse ? 'sideShow' : 'sideHide'"
+            size="16px"
+            @click="handleCollapse"
+          />
           <template v-if="isBreadcrumb">
-            <Breadcrumb/>
+            <Breadcrumb />
           </template>
         </div>
       </el-col>
@@ -28,6 +33,7 @@
   import { useSettingStore } from '@/store/modules/setting';
 
   import { useI18n } from 'vue-i18n';
+  // eslint-disable-next-line no-unused-vars
   const { t } = useI18n();
 
   const settingStore = useSettingStore();

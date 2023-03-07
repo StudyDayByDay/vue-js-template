@@ -2,7 +2,7 @@
   <div class="index-conntainer">
     <div class="head-card">
       <div class="avatar">
-        <el-avatar :size="50" :src="avatar"></el-avatar>
+        <el-avatar :size="50" :src="avatar" />
       </div>
       <div class="head-card-content">
         <h2 class="title">{{ sayHi }}! Vue3-Admin, {{ t('indexPage.descTitle') }}</h2>
@@ -62,7 +62,7 @@
                   :startVal="0"
                   :endVal="item.value"
                   :duration="3000"
-                ></CountTo>
+                />
               </div>
             </div>
           </el-card>
@@ -72,11 +72,7 @@
             </template>
             <div v-for="(item, index) in state.skillList" :key="index">
               <div class="skill-title">{{ item.title }}</div>
-              <el-progress
-                :stroke-width="8"
-                :percentage="item.percentage"
-                :color="item.color"
-              ></el-progress>
+              <el-progress :stroke-width="8" :percentage="item.percentage" :color="item.color" />
             </div>
           </el-card>
           <Echarts
@@ -106,14 +102,13 @@
 </script>
 
 <script setup>
-  import { ref, computed, reactive, onBeforeMount } from 'vue';
+  import { ref, computed, reactive } from 'vue';
 
   import { CountTo } from 'vue3-count-to';
   import Echarts from '@/components/Echarts/index.vue';
 
   import packpage from '../../../package.json';
   import { useI18n } from 'vue-i18n';
-  import apis from '@/api';
 
   import { useSettingStore } from '@/store/modules/setting';
   const settingStore = useSettingStore();

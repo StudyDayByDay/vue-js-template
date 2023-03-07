@@ -189,6 +189,6 @@ export default {
     cancel: 'Cancel',
   },
   carver: {
-    title: 'carver'
+    title: 'carver',
   },
 };

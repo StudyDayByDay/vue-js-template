@@ -100,9 +100,9 @@ export default defineConfig({
         // target: `http://192.168.0.221:8081`,
         target: `http://192.168.0.221:8087`,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/dev-api/, ""),
-      }
-    }
+        rewrite: (path) => path.replace(/^\/dev-api/, ''),
+      },
+    },
   },
 
   resolve: {

@@ -46,17 +46,17 @@
         <el-radio :label="9">备选项</el-radio>
       </el-radio-group>
       <el-radio-group class="group" v-model="radio2">
-        <el-radio-button label="上海"></el-radio-button>
-        <el-radio-button label="北京"></el-radio-button>
-        <el-radio-button label="广州"></el-radio-button>
-        <el-radio-button label="深圳"></el-radio-button>
+        <el-radio-button label="上海" />
+        <el-radio-button label="北京" />
+        <el-radio-button label="广州" />
+        <el-radio-button label="深圳" />
       </el-radio-group>
     </el-row>
     <Descrition :showDesc="false" :title="t('element.checkBox')" />
 
     <el-row class="row">
-      <el-checkbox v-model="checked1" label="备选项1" disabled></el-checkbox>
-      <el-checkbox v-model="checked2" label="备选项1"></el-checkbox>
+      <el-checkbox v-model="checked1" label="备选项1" disabled />
+      <el-checkbox v-model="checked2" label="备选项1" />
       <el-checkbox-group class="group" v-model="checkbox">
         <el-checkbox-button v-for="city in cities" :label="city" :key="city">{{
           city
@@ -71,8 +71,7 @@
       range-separator="至"
       start-placeholder="开始月份"
       end-placeholder="结束月份"
-    >
-    </el-date-picker>
+    />
     <Descrition :showDesc="false" :title="t('element.dateTimePicker')" />
 
     <el-date-picker
@@ -81,8 +80,7 @@
       range-separator="至"
       start-placeholder="开始日期"
       end-placeholder="结束日期"
-    >
-    </el-date-picker>
+    />
 
     <Descrition :showDesc="false" title="表单" />
     <div>
@@ -106,14 +104,10 @@
       :size="size"
     >
       <el-form-item label="Activity name">
-        <el-input v-model="sizeForm.name" disabled placeholder="123456789"/>
+        <el-input v-model="sizeForm.name" disabled placeholder="123456789" />
       </el-form-item>
       <el-form-item label="Activity zone">
-        <el-select
-          v-model="sizeForm.region"
-          placeholder="please select your zone"
-          filterable
-        >
+        <el-select v-model="sizeForm.region" placeholder="please select your zone" filterable>
           <el-option label="Zone one" value="shanghai" />
           <el-option label="Zone two" value="beijing" />
         </el-select>
@@ -179,26 +173,20 @@
       :total="400"
     />
     <Descrition :showDesc="false" title="弹框" />
-    <el-button text @click="dialogVisible = true">
-      click to open the Dialog
-    </el-button>
+    <el-button text @click="dialogVisible = true"> click to open the Dialog </el-button>
 
-    <el-dialog
-      v-model="dialogVisible"
-      :show-close="false"
-      width="30%"
-    >
-    <template #header="{ close, titleId, titleClass }">
-      <div class="my-header">
-        <div :id="titleId" :class="titleClass">This is a custom header!</div>
-        <svg-icon name="close" size="16px" class="close" @click="close"/>
-      </div>
-    </template>
+    <el-dialog v-model="dialogVisible" :show-close="false" width="30%">
+      <template #header="{ close, titleId, titleClass }">
+        <div class="my-header">
+          <div :id="titleId" :class="titleClass">This is a custom header!</div>
+          <svg-icon name="close" size="16px" class="close" @click="close" />
+        </div>
+      </template>
       <span>This is a message</span>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" style="margin-left: 24px;" @click="dialogVisible = false">
+          <el-button type="primary" style="margin-left: 24px" @click="dialogVisible = false">
             确定
           </el-button>
         </span>
@@ -225,8 +213,8 @@
       </el-timeline-item>
     </el-timeline>
     <Descrition :showDesc="false" title="jsx" />
-    <Bar/>
-    <Lk/>
+    <Bar />
+    <Lk />
   </div>
 </template>
 
@@ -247,17 +235,17 @@
   const dateTime = ref();
   const cities = reactive(cityOptions);
 
-  const size = ref('large')
-  const labelPosition = ref('right')
+  const size = ref('large');
+  const labelPosition = ref('right');
 
-  const currentPage4 = ref(4)
-  const pageSize4 = ref(100)
+  const currentPage4 = ref(4);
+  const pageSize4 = ref(100);
 
-  const dialogVisible = ref(false)
+  const dialogVisible = ref(false);
 
-  const activeName = ref('first')
+  const activeName = ref('first');
 
-  const switchValue = ref(true)
+  const switchValue = ref(true);
 
   const activities = [
     {
@@ -272,7 +260,7 @@
       content: 'Success',
       timestamp: '2018-04-11',
     },
-  ]
+  ];
 
   const sizeForm = reactive({
     name: '',
@@ -284,322 +272,321 @@
     resource: '',
     desc: '',
     calue: [],
-  })
+  });
 
   const tableData = [
-  {
-    id: 1,
-    date: '2016-05-02',
-    name: 'wangxiaohu',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    id: 2,
-    date: '2016-05-04',
-    name: 'wangxiaohu',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    id: 3,
-    date: '2016-05-01',
-    name: 'wangxiaohu',
-    address: 'No. 189, Grove St, Los Angeles',
-    children: [
-      {
-        id: 31,
-        date: '2016-05-01',
-        name: 'wangxiaohu',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        id: 32,
-        date: '2016-05-01',
-        name: 'wangxiaohu',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    ],
-  },
-  {
-    id: 4,
-    date: '2016-05-03',
-    name: 'wangxiaohu',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
+    {
+      id: 1,
+      date: '2016-05-02',
+      name: 'wangxiaohu',
+      address: 'No. 189, Grove St, Los Angeles',
+    },
+    {
+      id: 2,
+      date: '2016-05-04',
+      name: 'wangxiaohu',
+      address: 'No. 189, Grove St, Los Angeles',
+    },
+    {
+      id: 3,
+      date: '2016-05-01',
+      name: 'wangxiaohu',
+      address: 'No. 189, Grove St, Los Angeles',
+      children: [
+        {
+          id: 31,
+          date: '2016-05-01',
+          name: 'wangxiaohu',
+          address: 'No. 189, Grove St, Los Angeles',
+        },
+        {
+          id: 32,
+          date: '2016-05-01',
+          name: 'wangxiaohu',
+          address: 'No. 189, Grove St, Los Angeles',
+        },
+      ],
+    },
+    {
+      id: 4,
+      date: '2016-05-03',
+      name: 'wangxiaohu',
+      address: 'No. 189, Grove St, Los Angeles',
+    },
+  ];
 
   const options = [
-  {
-    value: 'guide',
-    label: 'Guide',
-    children: [
-      {
-        value: 'disciplines',
-        label: 'Disciplines',
-        children: [
-          {
-            value: 'consistency',
-            label: 'Consistency',
-          },
-          {
-            value: 'feedback',
-            label: 'Feedback',
-          },
-          {
-            value: 'efficiency',
-            label: 'Efficiency',
-          },
-          {
-            value: 'controllability',
-            label: 'Controllability',
-          },
-        ],
-      },
-      {
-        value: 'navigation',
-        label: 'Navigation',
-        children: [
-          {
-            value: 'side nav',
-            label: 'Side Navigation',
-          },
-          {
-            value: 'top nav',
-            label: 'Top Navigation',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'component',
-    label: 'Component',
-    children: [
-      {
-        value: 'basic',
-        label: 'Basic',
-        children: [
-          {
-            value: 'layout',
-            label: 'Layout',
-          },
-          {
-            value: 'color',
-            label: 'Color',
-          },
-          {
-            value: 'typography',
-            label: 'Typography',
-          },
-          {
-            value: 'icon',
-            label: 'Icon',
-          },
-          {
-            value: 'button',
-            label: 'Button',
-          },
-        ],
-      },
-      {
-        value: 'form',
-        label: 'Form',
-        children: [
-          {
-            value: 'radio',
-            label: 'Radio',
-          },
-          {
-            value: 'checkbox',
-            label: 'Checkbox',
-          },
-          {
-            value: 'input',
-            label: 'Input',
-          },
-          {
-            value: 'input-number',
-            label: 'InputNumber',
-          },
-          {
-            value: 'select',
-            label: 'Select',
-          },
-          {
-            value: 'cascader',
-            label: 'Cascader',
-          },
-          {
-            value: 'switch',
-            label: 'Switch',
-          },
-          {
-            value: 'slider',
-            label: 'Slider',
-          },
-          {
-            value: 'time-picker',
-            label: 'TimePicker',
-          },
-          {
-            value: 'date-picker',
-            label: 'DatePicker',
-          },
-          {
-            value: 'datetime-picker',
-            label: 'DateTimePicker',
-          },
-          {
-            value: 'upload',
-            label: 'Upload',
-          },
-          {
-            value: 'rate',
-            label: 'Rate',
-          },
-          {
-            value: 'form',
-            label: 'Form',
-          },
-        ],
-      },
-      {
-        value: 'data',
-        label: 'Data',
-        children: [
-          {
-            value: 'table',
-            label: 'Table',
-          },
-          {
-            value: 'tag',
-            label: 'Tag',
-          },
-          {
-            value: 'progress',
-            label: 'Progress',
-          },
-          {
-            value: 'tree',
-            label: 'Tree',
-          },
-          {
-            value: 'pagination',
-            label: 'Pagination',
-          },
-          {
-            value: 'badge',
-            label: 'Badge',
-          },
-        ],
-      },
-      {
-        value: 'notice',
-        label: 'Notice',
-        children: [
-          {
-            value: 'alert',
-            label: 'Alert',
-          },
-          {
-            value: 'loading',
-            label: 'Loading',
-          },
-          {
-            value: 'message',
-            label: 'Message',
-          },
-          {
-            value: 'message-box',
-            label: 'MessageBox',
-          },
-          {
-            value: 'notification',
-            label: 'Notification',
-          },
-        ],
-      },
-      {
-        value: 'navigation',
-        label: 'Navigation',
-        children: [
-          {
-            value: 'menu',
-            label: 'Menu',
-          },
-          {
-            value: 'tabs',
-            label: 'Tabs',
-          },
-          {
-            value: 'breadcrumb',
-            label: 'Breadcrumb',
-          },
-          {
-            value: 'dropdown',
-            label: 'Dropdown',
-          },
-          {
-            value: 'steps',
-            label: 'Steps',
-          },
-        ],
-      },
-      {
-        value: 'others',
-        label: 'Others',
-        children: [
-          {
-            value: 'dialog',
-            label: 'Dialog',
-          },
-          {
-            value: 'tooltip',
-            label: 'Tooltip',
-          },
-          {
-            value: 'popover',
-            label: 'Popover',
-          },
-          {
-            value: 'card',
-            label: 'Card',
-          },
-          {
-            value: 'carousel',
-            label: 'Carousel',
-          },
-          {
-            value: 'collapse',
-            label: 'Collapse',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'resource',
-    label: 'Resource',
-    children: [
-      {
-        value: 'axure',
-        label: 'Axure Components',
-      },
-      {
-        value: 'sketch',
-        label: 'Sketch Templates',
-      },
-      {
-        value: 'docs',
-        label: 'Design Documentation',
-      },
-    ],
-  },
-]
+    {
+      value: 'guide',
+      label: 'Guide',
+      children: [
+        {
+          value: 'disciplines',
+          label: 'Disciplines',
+          children: [
+            {
+              value: 'consistency',
+              label: 'Consistency',
+            },
+            {
+              value: 'feedback',
+              label: 'Feedback',
+            },
+            {
+              value: 'efficiency',
+              label: 'Efficiency',
+            },
+            {
+              value: 'controllability',
+              label: 'Controllability',
+            },
+          ],
+        },
+        {
+          value: 'navigation',
+          label: 'Navigation',
+          children: [
+            {
+              value: 'side nav',
+              label: 'Side Navigation',
+            },
+            {
+              value: 'top nav',
+              label: 'Top Navigation',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: 'component',
+      label: 'Component',
+      children: [
+        {
+          value: 'basic',
+          label: 'Basic',
+          children: [
+            {
+              value: 'layout',
+              label: 'Layout',
+            },
+            {
+              value: 'color',
+              label: 'Color',
+            },
+            {
+              value: 'typography',
+              label: 'Typography',
+            },
+            {
+              value: 'icon',
+              label: 'Icon',
+            },
+            {
+              value: 'button',
+              label: 'Button',
+            },
+          ],
+        },
+        {
+          value: 'form',
+          label: 'Form',
+          children: [
+            {
+              value: 'radio',
+              label: 'Radio',
+            },
+            {
+              value: 'checkbox',
+              label: 'Checkbox',
+            },
+            {
+              value: 'input',
+              label: 'Input',
+            },
+            {
+              value: 'input-number',
+              label: 'InputNumber',
+            },
+            {
+              value: 'select',
+              label: 'Select',
+            },
+            {
+              value: 'cascader',
+              label: 'Cascader',
+            },
+            {
+              value: 'switch',
+              label: 'Switch',
+            },
+            {
+              value: 'slider',
+              label: 'Slider',
+            },
+            {
+              value: 'time-picker',
+              label: 'TimePicker',
+            },
+            {
+              value: 'date-picker',
+              label: 'DatePicker',
+            },
+            {
+              value: 'datetime-picker',
+              label: 'DateTimePicker',
+            },
+            {
+              value: 'upload',
+              label: 'Upload',
+            },
+            {
+              value: 'rate',
+              label: 'Rate',
+            },
+            {
+              value: 'form',
+              label: 'Form',
+            },
+          ],
+        },
+        {
+          value: 'data',
+          label: 'Data',
+          children: [
+            {
+              value: 'table',
+              label: 'Table',
+            },
+            {
+              value: 'tag',
+              label: 'Tag',
+            },
+            {
+              value: 'progress',
+              label: 'Progress',
+            },
+            {
+              value: 'tree',
+              label: 'Tree',
+            },
+            {
+              value: 'pagination',
+              label: 'Pagination',
+            },
+            {
+              value: 'badge',
+              label: 'Badge',
+            },
+          ],
+        },
+        {
+          value: 'notice',
+          label: 'Notice',
+          children: [
+            {
+              value: 'alert',
+              label: 'Alert',
+            },
+            {
+              value: 'loading',
+              label: 'Loading',
+            },
+            {
+              value: 'message',
+              label: 'Message',
+            },
+            {
+              value: 'message-box',
+              label: 'MessageBox',
+            },
+            {
+              value: 'notification',
+              label: 'Notification',
+            },
+          ],
+        },
+        {
+          value: 'navigation',
+          label: 'Navigation',
+          children: [
+            {
+              value: 'menu',
+              label: 'Menu',
+            },
+            {
+              value: 'tabs',
+              label: 'Tabs',
+            },
+            {
+              value: 'breadcrumb',
+              label: 'Breadcrumb',
+            },
+            {
+              value: 'dropdown',
+              label: 'Dropdown',
+            },
+            {
+              value: 'steps',
+              label: 'Steps',
+            },
+          ],
+        },
+        {
+          value: 'others',
+          label: 'Others',
+          children: [
+            {
+              value: 'dialog',
+              label: 'Dialog',
+            },
+            {
+              value: 'tooltip',
+              label: 'Tooltip',
+            },
+            {
+              value: 'popover',
+              label: 'Popover',
+            },
+            {
+              value: 'card',
+              label: 'Card',
+            },
+            {
+              value: 'carousel',
+              label: 'Carousel',
+            },
+            {
+              value: 'collapse',
+              label: 'Collapse',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: 'resource',
+      label: 'Resource',
+      children: [
+        {
+          value: 'axure',
+          label: 'Axure Components',
+        },
+        {
+          value: 'sketch',
+          label: 'Sketch Templates',
+        },
+        {
+          value: 'docs',
+          label: 'Design Documentation',
+        },
+      ],
+    },
+  ];
 
   function onSubmit() {
-    console.log('submit!')
+    console.log('submit!');
   }
-
 </script>
 
 <style lang="scss" scoped>

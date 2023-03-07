@@ -1,9 +1,5 @@
 <template>
-  <div
-    @click="handleClick"
-    class="logo-wrapper"
-    :class="{ unfold: collapse }"
-  >
+  <div @click="handleClick" class="logo-wrapper" :class="{ unfold: collapse }">
     <svg-icon name="logo" size="35px" />
     <span class="logo-title" :style="{ color: textColor }" v-if="!collapse"> 专科数据平台 </span>
   </div>

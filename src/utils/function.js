@@ -8,4 +8,4 @@ const getPageTitle = (pageTitle) => {
   return `${title}`;
 };
 
-export {getPageTitle};
+export { getPageTitle };

@@ -7,7 +7,7 @@
         作为图标库
       </template>
     </Descrition>
-    <Descrition :title="t('iconPage.demo')" :showDesc="false"></Descrition>
+    <Descrition :title="t('iconPage.demo')" :showDesc="false" />
     <div class="search">
       <el-input
         v-model="state.skey"
@@ -37,25 +37,21 @@
         :page-size="49"
         layout="total, prev, pager, next"
         :total="state.searchFlag ? state.searchList.length : icons.length"
-      >
-      </el-pagination>
+      />
     </div>
-    <Descrition :title="t('iconPage.props')" :showDesc="false"></Descrition>
+    <Descrition :title="t('iconPage.props')" :showDesc="false" />
     <el-table :data="state.icon.props" border style="width: 100%">
-      <el-table-column prop="param" :label="t('iconPage.table.label1')" width="180">
-      </el-table-column>
-      <el-table-column prop="type" :label="t('iconPage.table.label2')" width="180">
-      </el-table-column>
-      <el-table-column prop="all" :label="t('iconPage.table.label3')"> </el-table-column>
-      <el-table-column prop="default" :label="t('iconPage.table.label4')"> </el-table-column>
-      <el-table-column prop="desc" :label="t('iconPage.table.label5')"> </el-table-column>
+      <el-table-column prop="param" :label="t('iconPage.table.label1')" width="180" />
+      <el-table-column prop="type" :label="t('iconPage.table.label2')" width="180" />
+      <el-table-column prop="all" :label="t('iconPage.table.label3')" />
+      <el-table-column prop="default" :label="t('iconPage.table.label4')" />
+      <el-table-column prop="desc" :label="t('iconPage.table.label5')" />
     </el-table>
   </div>
 </template>
 
 <script setup>
-  import apis from '@/api';
-  import { reactive, toRefs, onBeforeMount } from 'vue';
+  import { reactive, onBeforeMount } from 'vue';
   import Descrition from '@/components/Descrition/index.vue';
   import { useI18n } from 'vue-i18n';
   import icons from '@icon-park/vue-next/icons.json';
@@ -86,7 +82,7 @@
   // };
 
   const handleClickChip = (icon) => {
-    console.log(icon)
+    console.log(icon);
     toClipboard(icon);
     ElMessage({
       message: '复制成功:' + icon,

@@ -17,7 +17,7 @@
         :name="item.path"
         :closable="!isAffix(item)"
       >
-      <!-- 标签的显示内容 -->
+        <!-- 标签的显示内容 -->
         <template #label>
           <div class="item">
             <!-- 图表 -->
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import { reactive, watch, toRefs, computed, nextTick, onMounted } from 'vue';
+  import { reactive, watch, toRefs, computed, nextTick } from 'vue';
   import { useSettingStore } from '@/store/modules/setting';
   import { useRouteStore } from '@/store/modules/route';
   import { useTabsBarStore } from '@/store/modules/tabsBar';
@@ -126,7 +126,7 @@
       const mode = computed(() => {
         return settingStore.getMode;
       });
-      
+
       // 找出路由里面存在固钉的路由，并把它拍平放到一个数组
       const filterAffixtabs = (routes) => {
         let tabs = [];

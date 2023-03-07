@@ -1,11 +1,11 @@
 <template>
   <el-dropdown @command="handleCommand">
     <span class="avatar-dropdown">
-      <svg-icon name="user" size="22px"/>
+      <svg-icon name="user" size="22px" />
       <div class="user-name">
         {{ userName }}
       </div>
-      <svg-icon name="arrowDown" size="8px"/>
+      <svg-icon name="arrowDown" size="8px" />
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -29,7 +29,7 @@
   import { setting } from '@/config/setting';
   import { useI18n } from 'vue-i18n';
 
-  const { title, recordRoute } = setting;
+  const { title } = setting;
   const { t } = useI18n();
   const userName = ref('hu-snail');
   const userStore = useUserStore();
@@ -77,7 +77,7 @@
       margin-left: $base-margin-10;
       margin-right: $base-margin-10;
       cursor: pointer;
-      color: #6A7787;
+      color: #6a7787;
       font-weight: bold;
     }
   }

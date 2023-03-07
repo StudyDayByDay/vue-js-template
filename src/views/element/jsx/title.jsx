@@ -1,19 +1,15 @@
-import {  defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 
 const Bar = defineComponent({
-    render() {
-        return (<div>
-            Bar
-        </div>)
-    }
+  render() {
+    return <div>Bar</div>;
+  },
 });
 
 const Lk = defineComponent({
-    render() {
-        return (<div>
-            Lk
-        </div>)
-    }
+  render() {
+    return <div>Lk</div>;
+  },
 });
 
 export { Bar, Lk };

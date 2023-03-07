@@ -9,7 +9,7 @@
         作为图表库
       </template>
     </Descrition>
-    <Descrition :title="t('echarts.demo')" :showDesc="false"></Descrition>
+    <Descrition :title="t('echarts.demo')" :showDesc="false" />
     <el-row :gutter="20">
       <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
         <Echarts

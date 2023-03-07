@@ -65,7 +65,6 @@
   import { useSettingStore } from '@/store/modules/setting';
 
   import { themeConfig } from '@/config/theme';
-  import path from "path-browserify";
 
   const { t } = useI18n();
   const { themeOptions } = themeConfig;
@@ -97,8 +96,7 @@
 
   const realPath = (fPath, sPath) => {
     return path.resolve(fPath, sPath);
-  }
-
+  };
 </script>
 <style lang="scss" scoped>
   .menu-icon,

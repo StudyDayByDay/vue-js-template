@@ -19,4 +19,4 @@ function setSettings(theme) {
   return Cookies.set(themeKey, JSON.stringify(theme));
 }
 
-export {getLanguage, setLanguage, getSettings, setSettings};
+export { getLanguage, setLanguage, getSettings, setSettings };

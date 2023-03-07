@@ -23,7 +23,6 @@
 </script>
 
 <script setup>
-
   import FullScreen from '@/components/FullScreen/index.vue';
   import LangChange from '@/components/LangChange/index.vue';
   import SkinChange from '@/components/SkinChange/index.vue';
@@ -31,7 +30,7 @@
   import { useI18n } from 'vue-i18n';
   import { useSettingStore } from '@/store/modules/setting';
 
-  import { computed} from 'vue';
+  import { computed } from 'vue';
   defineProps({
     color: {
       type: String,
@@ -39,13 +38,14 @@
     },
   });
 
+  // eslint-disable-next-line no-unused-vars
   const { t } = useI18n();
   const settingStore = useSettingStore();
 
   const settings = computed(() => {
     return settingStore.getSettings;
   });
-
+  // eslint-disable-next-line no-unused-vars
   const handleChangeTheme = () => {
     settingStore.setSettingDrawer(true);
   };

@@ -73,16 +73,6 @@
     return whiteColors.indexOf(menuBgColor.value) === -1;
   });
 
-  const textColor = computed(() => {
-    return whiteColors.indexOf(menuBgColor.value) !== -1 ? '#6a7787' : '#fff';
-  });
-
-  const activeTextColor = computed(() => {
-    const mcolor = whiteColors.indexOf(menuBgColor.value) !== -1;
-    // 这里的theme是字符串，怎么当color呢
-    return mcolor ? theme : '#fff';
-  });
-
   const routes = computed(() => {
     return routeStore.getRoutes;
   });

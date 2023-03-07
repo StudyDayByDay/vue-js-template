@@ -1,0 +1,11 @@
+/dist/*
+.local
+.md
+.output.js
+/node_modules/**
+
+**/*.svg
+**/*.sh
+*.md
+
+/public/*

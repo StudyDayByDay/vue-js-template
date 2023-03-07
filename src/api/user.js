@@ -17,15 +17,15 @@ export default {
     method: 'post',
   },
   myAccount: {
-    url: "/0.0.1/myAccount",
-    method: "get"
+    url: '/0.0.1/myAccount',
+    method: 'get',
   },
   getMenuAndPermission: {
-    url: "/get_default_permission",
-    method: "get"
+    url: '/get_default_permission',
+    method: 'get',
   },
   loginOut: {
-    url: "/logout",
-    method: "post"
-  }
+    url: '/logout',
+    method: 'post',
+  },
 };

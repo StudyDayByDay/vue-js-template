@@ -1,8 +1,5 @@
 <template>
-  <span
-    class="icon-hover skin-wrapper"
-    :title="isDark ? t('navbar.noFull') : t('navbar.full')"
-  >
+  <span class="icon-hover skin-wrapper" :title="isDark ? t('navbar.noFull') : t('navbar.full')">
     <component
       theme="filled"
       size="16"

@@ -36,7 +36,7 @@ export const constantRoutes = [
           noKeepAlive: true,
         },
       },
-    ]
+    ],
   },
   // {
   //   path: '/:pathMatch(.*)*',
@@ -71,10 +71,10 @@ export const asyncRoutes = [
     path: '/manage',
     component: Layout,
     name: 'Comp',
-    meta: { 
+    meta: {
       // title: global.t('route.components'),
       title: 'route.components',
-      icon: 'icon-code'
+      icon: 'icon-code',
     },
     children: [
       {
@@ -185,11 +185,11 @@ const router = createRouter({
     ...constantRoutes,
     ...asyncRoutes,
     {
-    path: '/:pathMatch(.*)*',
-    name: '404',
-    component: () => import('@/views/errorPage/404.vue'),
-    hidden: true,
-    }
+      path: '/:pathMatch(.*)*',
+      name: '404',
+      component: () => import('@/views/errorPage/404.vue'),
+      hidden: true,
+    },
   ],
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });

@@ -6,27 +6,50 @@
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="请输入用户名" clearable size="large">
             <template #prefix>
-              <svg-icon name="user" size="20px" color="#000000"/>
+              <svg-icon name="user" size="20px" color="#000000" />
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="department">
-          <el-select style="width: 100%;" v-model="loginForm.department" placeholder="科室-病种" clearable size="large">
+          <el-select
+            style="width: 100%"
+            v-model="loginForm.department"
+            placeholder="科室-病种"
+            clearable
+            size="large"
+          >
             <template #prefix>
               <svg-icon name="params" size="20px" />
             </template>
-            <el-option v-for="item in departmentOptions" :key="item.value" :label="item.label" :value="item.value" />
+            <el-option
+              v-for="item in departmentOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
           </el-select>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" show-password placeholder="请输入密码" clearable size="large">
+          <el-input
+            v-model="loginForm.password"
+            show-password
+            placeholder="请输入密码"
+            clearable
+            size="large"
+          >
             <template #prefix>
               <svg-icon name="password" size="20px" />
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="code">
-          <el-input style="width: 63%" v-model="loginForm.code" placeholder="请输入验证码" clearable size="large">
+          <el-input
+            style="width: 63%"
+            v-model="loginForm.code"
+            placeholder="请输入验证码"
+            clearable
+            size="large"
+          >
             <template #prefix>
               <svg-icon name="code" size="20px" />
             </template>
@@ -38,12 +61,19 @@
         </el-form-item>
         <el-form-item prop="remember">
           <div class="password">
-            <el-checkbox v-model="loginForm.remember" label="记住密码"/>
+            <el-checkbox v-model="loginForm.remember" label="记住密码" />
             <span>忘记密码</span>
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button size="large" style="width: 100%;" color="#2879DA" type="primary" @click="submitForm(loginFormRef)">登录</el-button>
+          <el-button
+            size="large"
+            style="width: 100%"
+            color="#2879DA"
+            type="primary"
+            @click="submitForm(loginFormRef)"
+            >登录</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -51,77 +81,62 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue';
-import { useUserStore } from '@/store/modules/user';
-import { useRouter, useRoute } from 'vue-router';
+  import { reactive, ref, computed } from 'vue';
+  import { useUserStore } from '@/store/modules/user';
+  import { useRouter, useRoute } from 'vue-router';
 
-const userStore = useUserStore();
-const router = useRouter();
-const route = useRoute();
-const loginFormRef = ref();
-const loginForm = reactive({
-  username: 'fc_yaan_admin',
-  department: '',
-  password: '123456',
-  code: '',
-  remember: '',
-})
+  const userStore = useUserStore();
+  const router = useRouter();
+  const route = useRoute();
+  const loginFormRef = ref();
+  const loginForm = reactive({
+    username: 'fc_yaan_admin',
+    department: '',
+    password: '123456',
+    code: '',
+    remember: '',
+  });
 
-const departmentOptions = reactive([
-  { label: 'xxx', value: 'xxx' },
-  { label: 'yyy', value: 'yyy' },
-]);
+  const departmentOptions = reactive([
+    { label: 'xxx', value: 'xxx' },
+    { label: 'yyy', value: 'yyy' },
+  ]);
 
-const rules = reactive({
-  username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-  ],
-  department: [
-    { required: true, message: '请选择科室-病种', trigger: 'change' },
-  ],
-  password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-  ],
-  code: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-  ],
-})
+  const rules = reactive({
+    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+    department: [{ required: true, message: '请选择科室-病种', trigger: 'change' }],
+    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+    code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+  });
 
-const redirect = computed(() => {
-  return route.query?.redirect ?? ''
-});
+  const redirect = computed(() => {
+    return route.query?.redirect ?? '';
+  });
 
-const submitForm = async (formEl) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      console.log('submit!')
-      // 进行登录操作
-      userStore.login({username: loginForm.username, password: loginForm.password, UUID: 'ignore'}).then(() => {
-        // 1、调用方法请求login，保存token
-        // 2、根据之前的query判断是否进行跳转
-        // 3、路由守卫进行下一步操作，在
-        const routerPath = (redirect.value === '/404' || redirect.value === '/401' || !redirect.value) ? '/' : redirect.value;
-        router.push(routerPath).catch(() => {});
-      })
-      .catch(() => {
-      });
-    } else {
-      console.log('error submit!', fields)
-    }
-  })
-}
-
-const resetForm = (formEl) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
-
-const options = Array.from({ length: 10000 }).map((_, idx) => ({
-  value: `${idx + 1}`,
-  label: `${idx + 1}`,
-}))
-
+  const submitForm = async (formEl) => {
+    if (!formEl) return;
+    await formEl.validate((valid, fields) => {
+      if (valid) {
+        console.log('submit!');
+        // 进行登录操作
+        userStore
+          .login({ username: loginForm.username, password: loginForm.password, UUID: 'ignore' })
+          .then(() => {
+            // 1、调用方法请求login，保存token
+            // 2、根据之前的query判断是否进行跳转
+            // 3、路由守卫进行下一步操作，在
+            const routerPath =
+              redirect.value === '/404' || redirect.value === '/401' || !redirect.value
+                ? '/'
+                : redirect.value;
+            router.push(routerPath).catch(() => {});
+          })
+          .catch(() => {});
+      } else {
+        console.log('error submit!', fields);
+      }
+    });
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -140,13 +155,13 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
       height: 470px;
       padding: 45px 28px;
       border-radius: 8px;
-      background: #FFFFFF;
+      background: #ffffff;
       .title {
         height: 20px;
         margin-bottom: 30px;
         font-size: 20px;
         font-weight: bold;
-        color: #373E46;
+        color: #373e46;
         text-align: center;
       }
       .password {
@@ -157,7 +172,7 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
         span {
           font-size: 14px;
           font-weight: 400;
-          color: #2879DA;
+          color: #2879da;
           cursor: pointer;
         }
       }
@@ -183,19 +198,19 @@ const options = Array.from({ length: 10000 }).map((_, idx) => ({
   }
 
   :deep(.el-checkbox__label) {
-    color: #6A7787;
+    color: #6a7787;
   }
 
   :deep(input::-webkit-input-placeholder) {
-    color:#C7CEDD;
+    color: #c7cedd;
   }
   :deep(input::-moz-input-placeholder) {
-    color:#C7CEDD;
+    color: #c7cedd;
   }
   :deep(input::-ms-input-placeholder) {
-    color:#C7CEDD;
+    color: #c7cedd;
   }
   :deep(input) {
-    color: #6A7787;
+    color: #6a7787;
   }
 </style>

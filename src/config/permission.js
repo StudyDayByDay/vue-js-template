@@ -8,14 +8,13 @@ import { setting } from '@/config/setting';
 import i18n from '@/locales';
 import { checkPathIsInPermissions } from '@/utils';
 
-const { authentication, progressBar, routesWhiteList, recordRoute } = setting;
+const { progressBar, routesWhiteList, recordRoute } = setting;
 const { t } = i18n.global;
-
 
 NProgress.configure({
   showSpinner: false,
 });
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   const userStore = useUserStoreWithOut();
   const routeStore = useRouteStore();
   if (progressBar) NProgress.start();
@@ -23,7 +22,7 @@ router.beforeEach(async (to, from) => {
     // 跳过登录页面，直接去首页
     if (to.path === '/login') {
       if (progressBar) NProgress.done();
-      return {path: '/'};
+      return { path: '/' };
       // next({ path: '/' });
     } else {
       if (userStore.currentRole) {
@@ -41,10 +40,10 @@ router.beforeEach(async (to, from) => {
           const result = checkPathIsInPermissions(routes, to.path);
           if (result) {
             // next({ ...to, replace: true });
-            return {...to, replace: true};
+            return { ...to, replace: true };
           } else {
             // next({ path, replace: true });
-            return {path: routeStore.homePath, replace: true}
+            return { path: routeStore.homePath, replace: true };
           }
         } catch {
           // 登出操作
@@ -64,10 +63,10 @@ router.beforeEach(async (to, from) => {
     } else {
       if (recordRoute) {
         // next(`/login?redirect=${to.path}`);
-        return {path: `/login?redirect=${to.path}`}
+        return { path: `/login?redirect=${to.path}` };
       } else {
         // next('/login');
-        return {path: '/login'}
+        return { path: '/login' };
       }
     }
     // 调试的时候不走登录
@@ -83,7 +82,7 @@ router.beforeEach(async (to, from) => {
     // });
   }
 });
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   if (progressBar) NProgress.done();
   document.title = getPageTitle(t(to.meta.title));
 });
