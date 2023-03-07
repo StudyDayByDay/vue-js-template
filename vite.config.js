@@ -116,8 +116,8 @@ export default defineConfig({
 
   css: {
     preprocessorOptions: {
-      // 引入公用的样式
       scss: {
+        // 引入全局scss变量
         additionalData: `@use "@/styles/index.scss" as *;`,
         charset: false,
       },

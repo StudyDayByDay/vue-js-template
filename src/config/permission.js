@@ -36,24 +36,23 @@ router.beforeEach(async (to, from) => {
       } else {
         // 未获取权限，需要先请求权限
         try {
-          userStore.getUserInfo().then(() => {
-            routeStore.handleRoutes().then((routes) => {
-              const result = checkPathIsInPermissions(routes, to.path);
-              if (result) {
-                // next({ ...to, replace: true });
-                return {...to, replace: true};
-              } else {
-                // next({ path, replace: true });
-                return {path: routeStore.homePath, replace: true}
-              }
-            });
-          });
+          await userStore.getUserInfo();
+          const routes = await routeStore.handleRoutes();
+          const result = checkPathIsInPermissions(routes, to.path);
+          if (result) {
+            // next({ ...to, replace: true });
+            return {...to, replace: true};
+          } else {
+            // next({ path, replace: true });
+            return {path: routeStore.homePath, replace: true}
+          }
         } catch {
           // 登出操作
           await userStore.resetAccessToken();
           if (progressBar) NProgress.done();
           // next('/login');
-          return {path: '/login'}
+          // return {path: '/login'}
+          return false;
         }
       }
     }
