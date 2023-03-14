@@ -25,7 +25,7 @@ import {
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
-  ElSubmenu,
+  ElSubMenu,
   ElRadio,
   ElRadioButton,
   ElRadioGroup,
@@ -64,7 +64,7 @@ export const components = [
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
-  ElSubmenu,
+  ElSubMenu,
   ElRadio,
   ElRadioButton,
   ElRadioGroup,
@@ -77,7 +77,6 @@ export const components = [
 // 注册
 export default (app) => {
   components.forEach((component) => {
-    console.log(component);
     app.component(component.name, component);
   });
 };

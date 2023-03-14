@@ -4,7 +4,7 @@ import './styles/element/index.scss';
 // permission 权限文件
 import './config/permission';
 
-// 公共样式在vite.config.js中引入的
+// 主题样式在vite.config.js中引入的
 // element
 import App from './App.vue';
 const app = createApp(App);
@@ -12,6 +12,11 @@ const app = createApp(App);
 import ElementPlus from 'element-plus';
 // import 'element-plus/dist/index.css';
 app.use(ElementPlus);
+
+// // TODO：按需注册方式, 后续业务开发完之后再来优化此处
+// import elementPlus from './plugin/el-comp';
+// // 注册 elementPlus组件/插件
+// elementPlus(app);
 
 import { VueClipboard } from '@soerenmartius/vue3-clipboard';
 app.use(VueClipboard);
@@ -28,13 +33,7 @@ app.use(router);
 import store from './store';
 app.use(store);
 
-// 按需注册方式
-// import elementPlus from './plugin/el-comp';
-// 注册 elementPlus组件/插件
-// elementPlus(app);
-// // 完整引入
-
-// 注册字节跳动图标
+// 注册字节跳动图标，在菜单和路由使用到了
 import iconPark from './plugin/icon-park';
 iconPark(app);
 

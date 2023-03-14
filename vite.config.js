@@ -14,9 +14,9 @@ import { svgBuilder } from './src/plugin/svgBuilder';
 import OptimizationPersist from 'vite-plugin-optimize-persist';
 // 从你的package.json vite领域扩展Vite配置
 import PkgConfig from 'vite-plugin-package-config';
-// vue国际化插件
+// vue国际化插件，提供预编译功能
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
-// Vue的按需组件自动导入，默认以src/component
+// Vue的按需组件自动导入，默认以src/component，即自动注册componensts下的组件为全局组件
 import Components from 'unplugin-vue-components/vite';
 // 普遍地按需访问数以千计的图标作为组件
 import Icons from 'unplugin-icons/vite';

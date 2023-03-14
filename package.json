@@ -16,8 +16,7 @@
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:style": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
-    "lint:pretty": "pretty-quick --staged",
-    "deploy-gh": "GH=1 bash deploy-gh.sh"
+    "lint:pretty": "pretty-quick --staged"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
@@ -77,13 +76,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hu-snail/vue3-admin-element-template.git"
+    "url": "git+https://github.com/StudyDayByDay/vue-js-template.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hu-snail/vue3-admin-element-template/issues"
+    "url": "https://github.com/StudyDayByDay/vue-js-template/issues"
   },
-  "homepage": "https://github.com/hu-snail/vue3-admin-element-template",
+  "homepage": "https://github.com/StudyDayByDay/vue-js-template",
   "engines": {
     "node": "^12 || >=14"
   },

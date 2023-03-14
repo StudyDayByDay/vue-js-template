@@ -117,9 +117,7 @@ export const components = [
   Translate,
 ];
 
-import SvgIcon from '@/components/SvgIcon/index.vue';
 // 注册
 export default (app) => {
-  app.component('SvgIcon', SvgIcon);
   install(app);
 };
